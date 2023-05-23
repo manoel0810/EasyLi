@@ -62,15 +62,13 @@ namespace biblioteca
 
         private void btn_naoDevolvido_Click(object sender, EventArgs e)
         {
-            Globais.id = int.Parse(tb_id.Text);
-            F_Motivo f_Motivo = new F_Motivo();
-            f_Motivo.ShowDialog();
+            F_Motivo Motivo = new F_Motivo(int.Parse(tb_id.Text));
+            Motivo.ShowDialog();
 
-            if (Globais.controleSaida == 1)
-            {
+            if (Motivo.ExitFlag == 1)          
                 dgv_buscaLivros.Rows.Remove(dgv_buscaLivros.CurrentRow);
-                Globais.controleSaida = 0;
-            }
+
+            Motivo?.Dispose();
         }
 
         private void tb_nomeLivro_TextChanged(object sender, EventArgs e)

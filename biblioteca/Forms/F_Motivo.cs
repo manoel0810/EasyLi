@@ -7,9 +7,14 @@ namespace biblioteca
 {
     public partial class F_Motivo : Form
     {
-        public F_Motivo()
+        private int ID = -1;
+        public int ExitFlag { get; private set; }
+
+        public F_Motivo(int ID)
         {
             InitializeComponent();
+            this.ID = ID;
+            ExitFlag = 0;
         }
 
         string matricula = string.Empty;
@@ -17,16 +22,15 @@ namespace biblioteca
         string modo = string.Empty;
 
         int TamanhoChar = 0;
-        int controle = 0;
         int idU = 0;
 
         private void F_Motivo_Load(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            string vquery = "SELECT * FROM tb_dadosaluno WHERE N_IDLIVROALUNO=" + Globais.id;
+            string vquery = "SELECT * FROM tb_dadosaluno WHERE N_IDLIVROALUNO=" + ID;
             dt = Banco.DQL(vquery);
 
-            idU = Globais.id;
+            idU = ID;
 
             matricula = dt.Rows[0].Field<string>("T_MATRICULA");
             if (matricula != "")
@@ -38,7 +42,7 @@ namespace biblioteca
             {
                 lb_matricula.Text = "S/ Matrícula";
                 lb_matricula.ForeColor = Color.DarkRed;
-                controle = 1;
+                ExitFlag =  1;
             }
 
             lb_aluno.Text = dt.Rows[0].Field<string>("T_ALUNO");
@@ -183,9 +187,8 @@ namespace biblioteca
 
 
             MessageBox.Show("Alterado Com êxito", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            controle = 1;
-            Globais.controleSaida = controle;
-            this.Close();
+            ExitFlag =  1;
+            Close();
         }
 
         private void F_Motivo_KeyDown(object sender, KeyEventArgs e)

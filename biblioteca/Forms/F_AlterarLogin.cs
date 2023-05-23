@@ -31,7 +31,7 @@ namespace biblioteca
                         Properties.Settings.Default.Nome = tb_nome.Text;
                         Properties.Settings.Default.Username = tb_username.Text;
                         Properties.Settings.Default.Save();
-                        MessageBox.Show("Suas Credenciais Foram Atualizadas!");
+                        MessageBox.Show("Suas CheckSMTPConfiguration Foram Atualizadas!");
                         this.Close();
                     }
                     else
@@ -43,7 +43,7 @@ namespace biblioteca
                             Properties.Settings.Default.Nome = tb_nome.Text;
                             Properties.Settings.Default.Username = tb_username.Text;
                             Properties.Settings.Default.Save();
-                            MessageBox.Show("Suas Credenciais Foram Atualizadas!");
+                            MessageBox.Show("Suas CheckSMTPConfiguration Foram Atualizadas!");
                             this.Close();
                         }
                         else

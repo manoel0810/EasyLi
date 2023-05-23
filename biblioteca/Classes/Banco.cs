@@ -5,6 +5,35 @@ using System.Windows.Forms;
 
 namespace biblioteca
 {
+    class DatabaseController
+    {
+        private static SQLiteConnection EasyLiConnection;
+
+        private static SQLiteConnection OpenConnection()
+        {
+            EasyLiConnection = new SQLiteConnection($"Data Source={Application.StartupPath}\\{Global.DATABASE_NAME}");
+            EasyLiConnection.Open();
+            return EasyLiConnection;
+        }
+
+        public static DataTable DQL(string CommandLine)
+        {
+            using (SQLiteConnection connection = OpenConnection())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(CommandLine, connection))
+                {
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        DataTable dataTable = new DataTable();
+                        adapter.Fill(dataTable);
+                        return dataTable;
+                    }
+                }
+            }
+        }
+    }
+
+
     [Obsolete]
     class Banco
     {

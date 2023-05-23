@@ -20,7 +20,7 @@ namespace biblioteca
             tb_RNovaSenha.Enabled = false;
             tb_novaSenha.Enabled = false;
             DataTable infUser = new DataTable();
-            infUser = Banco.DQL("SELECT * FROM tb_login WHERE T_USER = '" + Globais.userLog + "'");
+            infUser = Banco.DQL("SELECT * FROM tb_login WHERE T_USER = '" + Global.CurrentUsername + "'");
             InfoGlobal = infUser;
 
             lb_nomeCompleto.Text = infUser.Rows[0].Field<string>("T_NOMECOMPLETO");
@@ -108,7 +108,7 @@ namespace biblioteca
                         {
                             query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_SENHA = '{1}', T_NOMECOMPLETO = '{2}' WHERE T_USER = '{3}'", tb_user.Text, tb_RNovaSenha.Text, tb_nome.Text, InfoGlobal.Rows[0].Field<string>("T_USER"));
                             Banco.DML(query);
-                            Globais.userLog = tb_user.Text;
+                            Global.CurrentUsername = tb_user.Text;
                             Globais.user = tb_nome.Text;
 
                             MessageBox.Show("Informações atualizadas.", "Salvo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -127,7 +127,7 @@ namespace biblioteca
                         {
                             query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_NOMECOMPLETO = '{1}' WHERE T_USER = '{2}'", tb_user.Text, tb_nome.Text, InfoGlobal.Rows[0].Field<string>("T_USER"));
                             Banco.DML(query);
-                            Globais.userLog = tb_user.Text;
+                            Global.CurrentUsername = tb_user.Text;
                             Globais.user = tb_nome.Text;
 
                             MessageBox.Show("Informações atualizadas.", "Salvo", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -123,11 +123,11 @@
       <DependentUpon>Detalhes.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Email.cs" />
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\F_Agendar.cs">
       <SubType>Form</SubType>
@@ -378,8 +378,8 @@
     <EmbeddedResource Include="Forms\Detalhes.resx">
       <DependentUpon>Detalhes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_Agendar.resx">
       <DependentUpon>F_Agendar.cs</DependentUpon>

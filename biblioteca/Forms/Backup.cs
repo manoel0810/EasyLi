@@ -55,11 +55,6 @@ namespace biblioteca
 
         private void btn_alterarAuto_Click(object sender, EventArgs e)
         {
-            if (Globais.priv != 0)
-            {
-                MessageBox.Show("Você não tem o privilégio necessário para alterar esta configuração", "Sistema de Segurança Integrado - SSI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
             if (lb_estado.Text == "Ativado")
             {
                 Banco.DML("update tb_controle set auto_backup = false");

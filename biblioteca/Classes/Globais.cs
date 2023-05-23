@@ -3,6 +3,7 @@
 
 namespace biblioteca
 {
+    [Obsolete]
     class Globais
     {
         public static string Serial = "AF2TR47B1A";
@@ -20,13 +21,12 @@ namespace biblioteca
         public static string bloqueado = "BLOQUEADO";
         public static string fileNameCreted = string.Empty;
         public static string user = string.Empty;
-        public static string userLog = string.Empty;
+        //public static string userLog = string.Empty;
         public static int uploading = 0;
-        public static int id = 0;
-        public static int priv = 0;
-        public static int notificacao = 0;
-        public static int controleSaida = 0;
-        public static int tentativasFalhadas = 0;
+        //public static int id = 0;
+        //public static int priv = 0;
+        //public static int notificacao = 0;
+        //public static int controleSaida = 0;
 
         //Variáveis para os relatórios anuais
         public static int controle = 0;
@@ -34,5 +34,38 @@ namespace biblioteca
         public static int avanProgress = 0;
         public static string dataRelatorio = string.Empty;
 
+    }
+
+    class Global
+    {
+        //Constantes do sistema
+        public const string ATIVED_STATE = "Ativo";
+        public const string DATABASE_NAME = "Base.db";
+
+        //Variáveis de acesso global
+        public static string CurrentUsername = string.Empty;
+        public static string CurrentUserFullname = string.Empty;
+        public static UserPrivilege CurrentUserPrivilege = UserPrivilege.Normal;
+
+
+        [Flags]
+        public enum UserPrivilege : int
+        {
+            Normal = 0,
+            Superuser = 1
+        }
+
+        public enum BookStatus : int
+        {
+            Emprestado = 1,
+            Devolvido = 0,
+            Perdido = 2
+        }
+
+        public enum EventStatus : int
+        {
+            Ativo = 0,
+            Finalizado = 1
+        }
     }
 }

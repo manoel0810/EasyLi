@@ -64,57 +64,12 @@ namespace biblioteca
             }
         }
 
-        public static int ValidarDataDeLogin() //Legenda - {-1} = Não é possível verificar; {1} = A data está correta?? S/N; {0} = A data está errada <break>;
+        public static bool CheckSMTPConfiguration()
         {
-            int resultado = 0;
-            string vquery = string.Empty;
-            string LLVeri = string.Empty;
-            DateTime TL = DateTime.Today;
-            DataTable dt = new DataTable();
-
-            vquery = "select * from tb_controle";
-            dt = Banco.DQL(vquery);
-
-            LLVeri = dt.Rows[0].Field<DateTime>("dt_LL").ToString();
-
-            if (LLVeri == "")
-            {
-                LLVeri = FormatarDataSQL(TL.ToShortDateString());
-
-                vquery = "update tb_controle set dt_LL = '" + LLVeri + "', dt_TL = '" + FormatarDataSQL(TL.ToShortDateString()) + "' where id = 1";
-                Banco.DML(vquery);
-                resultado = -1;
-                return resultado;
-            }
-
-            if (LLVeri != "")
-            {
-                if (DateTime.Parse(LLVeri).Date == TL.Date || DateTime.Parse(LLVeri).Date <= TL.Date)
-                {
-                    resultado = 1;
-                    return resultado;
-                }
-                if (DateTime.Parse(LLVeri).Date > TL.Date)
-                {
-                    resultado = 0;
-                    return resultado;
-                }
-            }
-            return resultado;
-        }
-
-        public static bool Credenciais()
-        {
-            bool retorno;
             if (Properties.Settings.Default.Email == "" || Properties.Settings.Default.Host == "" || Properties.Settings.Default.Porta == 0 || Properties.Settings.Default.UserEmail == "" || Properties.Settings.Default.SenhaEmail == "")
-            {
-                retorno = false;
-            }
+                return false;
             else
-            {
-                retorno = true;
-            }
-            return retorno;
+                return true;
         }
 
         public static bool Internet()
@@ -204,29 +159,18 @@ namespace biblioteca
             return valor;
         }
 
-        public static bool Login(string user, string senha)
+        public static bool Login(string Username, string Password)
         {
-            bool resultado;
-            int rows = 0;
-            string vquery = string.Empty;
-            DataTable dt = new DataTable();
-
-            vquery = "SELECT * FROM tb_login WHERE T_USER = '" + user + "' AND T_SENHA = '" + senha + "'";
-            dt = Banco.DQL(vquery);
-            rows = dt.Rows.Count;
-
-            if (rows > 0)
+            var Data = DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_USER = '{Username}' AND T_SENHA = '{Password}'");
+            if (Data.Rows.Count == 1)
             {
-                Globais.user = dt.Rows[0].Field<string>("T_NOMECOMPLETO");
-                Globais.userLog = dt.Rows[0].Field<string>("T_USER");
-                resultado = true;
+                Global.CurrentUserFullname = Data.Rows[0].Field<string>("T_NOMECOMPLETO");
+                Global.CurrentUsername = Data.Rows[0].Field<string>("T_USER");
+                return true;
             }
             else
-            {
-                resultado = false;
-            }
+                return false;
 
-            return resultado;
         }
 
         public static int TipoSerial(string serial)
@@ -270,18 +214,6 @@ namespace biblioteca
                 validacao = true;
             }
             return validacao;
-        }
-
-        public static void TentativasUsuario(string user)
-        {
-            DataTable dt = new DataTable();
-            string vquery = "SELECT * FROM tb_login WHERE T_USER = '" + user + "'";
-            dt = Banco.DQL(vquery);
-            int nun = dt.Rows.Count;
-            if (nun > 0)
-            {
-                Globais.tentativasFalhadas += 1;
-            }
         }
 
         public static string FormatarData(string data)
