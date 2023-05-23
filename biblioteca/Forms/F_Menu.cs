@@ -8,11 +8,7 @@ namespace biblioteca
 {
     public partial class Menu : Form
     {
-        Thread GerarPdfExp;
-        Thread Suporte;
         Thread Sair;
-        Thread Notificar;
-        Thread RA;
         private int ExitFlag = 0;
 
         public Menu()
