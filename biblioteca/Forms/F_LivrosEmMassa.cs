@@ -60,7 +60,7 @@ namespace biblioteca
             else
             {
                 string vazil = "";
-                string status = Globais.filtroe;
+                var status = Global.BookStatus.Emprestado;
                 string vquery = @"INSERT INTO tb_dadosaluno (T_ALUNO, T_LIVRO, T_STATUS, T_DATA, T_DATAP,  T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL, T_NOTAS) VALUES ('" + aluno + "', '" + livro + "', '" + status + "', '" + MGlobais.FormatarDataSQL(mask_data.Text) + "', '" + MGlobais.FormatarDataSQL(mask_data.Text) + "', '" + cb_turma.Text + "', '" + tb_matricula.Text + "', '" + tb_tombo.Text + "', '" + tb_email.Text + "', '" + vazil + "')";
                 Banco.DML(vquery);
                 MessageBox.Show("Salvo.", "Registros", MessageBoxButtons.OK, MessageBoxIcon.Information);

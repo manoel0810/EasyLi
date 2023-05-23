@@ -18,8 +18,8 @@ namespace biblioteca
 
         private void F_GestaoBloqueados_Load(object sender, EventArgs e)
         {
-            string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_DATA AS 'Data' FROM tb_dadosaluno WHERE T_STATUS='" + Globais.bloqueado + "'";
-            dgv_bloqueados.DataSource = Banco.DQL(vquery);
+            string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_DATA AS 'Data' FROM tb_dadosaluno WHERE T_STATUS='" + Global.BookStatus.Bloqueado + "'";
+            dgv_bloqueados.DataSource = DatabaseController.DQL(vquery);
             dgv_bloqueados.Columns[0].Width = 50;
             dgv_bloqueados.Columns[1].Width = 220;
             dgv_bloqueados.Columns[2].Width = 100;
@@ -98,7 +98,7 @@ namespace biblioteca
             DialogResult res = MessageBox.Show("Ao desbloquear o registro, ele passará a ser 'Devolvido'.\nDeseja continuar?", "Registros", MessageBoxButtons.YesNo);
             if (DialogResult.Yes == res)
             {
-                string vquery = "UPDATE tb_dadosaluno SET T_STATUS='" + Globais.devol + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' WHERE N_IDLIVROALUNO='" + tb_id.Text + "'";
+                string vquery = "UPDATE tb_dadosaluno SET T_STATUS='" + Global.BookStatus.Devolvido + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' WHERE N_IDLIVROALUNO='" + tb_id.Text + "'";
                 Banco.DML(vquery);
 
                 string query = "UPDATE tb_matriculas SET T_ESTADO = 'ATIVO' WHERE T_MATRICULA = '" + matri + "'";
@@ -111,7 +111,7 @@ namespace biblioteca
         {
             if (e.KeyCode == Keys.Escape)
             {
-                this.Close();
+                Close();
             }
         }
     }

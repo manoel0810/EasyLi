@@ -12,8 +12,8 @@ namespace biblioteca
 
         private void F_Tabela_Load(object sender, EventArgs e)
         {
-            string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_MATRICULA AS 'Matrícula', T_TURMA AS 'Turma', T_LIVRO AS 'livro', T_TOMBO AS 'Tombo', T_DATA AS 'Data', T_STATUS AS 'Status' FROM tb_dadosaluno WHERE T_STATUS='" + Globais.filtroe + "' ORDER BY T_TURMA, T_ALUNO";
-            dgv_livrosEmprestados.DataSource = Banco.DQL(vquery);
+            string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_MATRICULA AS 'Matrícula', T_TURMA AS 'Turma', T_LIVRO AS 'livro', T_TOMBO AS 'Tombo', T_DATA AS 'Data', T_STATUS AS 'Status' FROM tb_dadosaluno WHERE T_STATUS='" + Global.BookStatus.Emprestado + "' ORDER BY T_TURMA, T_ALUNO";
+            dgv_livrosEmprestados.DataSource = DatabaseController.DQL(vquery);
             dgv_livrosEmprestados.Columns[0].Width = 50; //ID
             dgv_livrosEmprestados.Columns[1].Width = 280; //ALUNO
             dgv_livrosEmprestados.Columns[2].Width = 60; //MATRICULA

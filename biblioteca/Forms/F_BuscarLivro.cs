@@ -24,7 +24,7 @@ namespace biblioteca
 
         private void F_BuscarLivro_Load(object sender, EventArgs e)
         {
-            string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno',T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Globais.filtroe + "' ORDER BY T_TURMA, T_ALUNO";
+            string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno',T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Global.BookStatus.Emprestado + "' ORDER BY T_TURMA, T_ALUNO";
             dgv_buscaLivros.DataSource = Banco.DQL(vquery);
             FormatarDGV();
 
@@ -83,7 +83,7 @@ namespace biblioteca
             {
                 if (tb_nomeLivro.Text == "" && tb_tombo.Text == "")
                 {
-                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Globais.filtroe + "' ORDER BY T_TURMA, T_ALUNO";
+                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Global.BookStatus.Emprestado + "' ORDER BY T_TURMA, T_ALUNO";
                     dgv_buscaLivros.DataSource = Banco.DQL(vquery);
                     FormatarDGV();
                 }
@@ -98,13 +98,13 @@ namespace biblioteca
             {
                 if (tb_nomeLivro.Text == "" && tb_tombo.Text == "")
                 {
-                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Globais.filtroe + "' ORDER BY T_TURMA, T_ALUNO";
+                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Global.BookStatus.Emprestado + "' ORDER BY T_TURMA, T_ALUNO";
                     dgv_buscaLivros.DataSource = Banco.DQL(vquery);
                     FormatarDGV();
                 }
                 else
                 {
-                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_LIVRO LIKE '" + tb_nomeLivro.Text + "%' AND T_STATUS='" + Globais.filtroe + "' ORDER BY T_TURMA, T_ALUNO";
+                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_LIVRO LIKE '" + tb_nomeLivro.Text + "%' AND T_STATUS='" + Global.BookStatus.Emprestado + "' ORDER BY T_TURMA, T_ALUNO";
                     dgv_buscaLivros.DataSource = Banco.DQL(vquery);
                     FormatarDGV();
                 }
@@ -117,7 +117,7 @@ namespace biblioteca
             {
                 if (tb_nomeLivro.Text == "" && tb_tombo.Text == "")
                 {
-                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Globais.filtroe + "' ORDER BY T_TURMA, T_ALUNO";
+                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Global.BookStatus.Emprestado + "' ORDER BY T_TURMA, T_ALUNO";
                     dgv_buscaLivros.DataSource = Banco.DQL(vquery);
                     FormatarDGV();
                 }
@@ -132,13 +132,13 @@ namespace biblioteca
             {
                 if (tb_nomeLivro.Text == "" && tb_tombo.Text == "")
                 {
-                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Globais.filtroe + "' ORDER BY T_TURMA, T_ALUNO";
+                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_STATUS='" + Global.BookStatus.Emprestado + "' ORDER BY T_TURMA, T_ALUNO";
                     dgv_buscaLivros.DataSource = Banco.DQL(vquery);
                     FormatarDGV();
                 }
                 else
                 {
-                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_TOMBO LIKE '" + tb_tombo.Text + "%' AND T_STATUS='" + Globais.filtroe + "' ORDER BY T_TURMA, T_ALUNO";
+                    string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_TOMBO AS 'Tombo' FROM tb_dadosaluno WHERE T_TOMBO LIKE '" + tb_tombo.Text + "%' AND T_STATUS='" + Global.BookStatus.Emprestado + "' ORDER BY T_TURMA, T_ALUNO";
                     dgv_buscaLivros.DataSource = Banco.DQL(vquery);
                     FormatarDGV();
                 }
@@ -159,7 +159,7 @@ namespace biblioteca
                 dt = Banco.DQL("SELECT * FROM tb_matriculas WHERE T_MATRICULA = '" + matricula + "'");
                 if (dt.Rows.Count > 0)
                 {
-                    if (tb_estado.Text == Globais.bloqueado)
+                    if (tb_estado.Text.ToUpper().Equals(MGlobais.GetDescription(Global.BookStatus.Bloqueado)))
                     {
                         MessageBox.Show("Atenção. Esse registro está bloqueada no sistema. Não é possivel alterar este registro por esta tela.\nAção cancelada automaticamente.", "Sistema de Segurança Integrado - SSI", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
@@ -177,7 +177,7 @@ namespace biblioteca
                     this.Cursor = Cursors.Default;
                 }
 
-                vquery = "UPDATE tb_dadosaluno SET T_STATUS='" + Globais.filtrod + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' WHERE N_IDLIVROALUNO='" + tb_id.Text + "'";
+                vquery = "UPDATE tb_dadosaluno SET T_STATUS='" + Global.BookStatus.Devolvido + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' WHERE N_IDLIVROALUNO='" + tb_id.Text + "'";
                 Banco.DML(vquery);
                 if (cb_neae.Checked)
                 {
@@ -194,7 +194,7 @@ namespace biblioteca
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (cb_neae.Checked || tb_estado.Text != Globais.filtroe)
+            if (cb_neae.Checked)
             {
                 MessageBox.Show("Para utilizar esta opção, você deve desabilitar a função 'Não exibir apenas Emprestaos'.");
                 return;

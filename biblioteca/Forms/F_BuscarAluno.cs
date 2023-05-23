@@ -62,8 +62,8 @@ namespace biblioteca
                 string valor = dgv_buscaAlunos.SelectedRows[0].Cells[0].Value.ToString();
                 dt = Banco.ObterDadosUsuario(valor);
 
-                string estado = dt.Rows[0].Field<string>("T_STATUS");
-                if (estado == Globais.devol)
+                int Status = (int)dt.Rows[0].Field<Int64>("T_STATUS");
+                if (Status.Equals((int)Global.BookStatus.Devolvido))
                 {
                     MessageBox.Show("Este registro já está marcado como 'Devolvido'", "Redundância", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
@@ -77,13 +77,13 @@ namespace biblioteca
                     this.Cursor = Cursors.Default;
                 }
 
-                string vquery = "UPDATE tb_dadosaluno SET T_STATUS='" + Globais.filtrod + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' WHERE N_IDLIVROALUNO='" + tb_id.Text + "'";
+                string vquery = "UPDATE tb_dadosaluno SET T_STATUS='" + Global.BookStatus.Devolvido + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' WHERE N_IDLIVROALUNO='" + tb_id.Text + "'";
                 Banco.DML(vquery);
                 string matricula = dt.Rows[0].Field<string>("T_MATRICULA");
                 dt = Banco.DQL("SELECT * FROM tb_matriculas WHERE T_MATRICULA = '" + matricula + "'");
                 if (dt.Rows.Count > 0)
                 {
-                    if (estado == Globais.bloqueado)
+                    if (Status.Equals((int)Global.BookStatus.Bloqueado))
                     {
                         vquery = "UPDATE tb_matriculas SET T_ESTADO = 'ATIVO' WHERE T_MATRICULA = '" + matricula + "'";
                         Banco.DML(vquery);

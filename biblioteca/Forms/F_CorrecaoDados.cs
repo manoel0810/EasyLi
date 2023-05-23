@@ -115,7 +115,7 @@ namespace biblioteca
             string livro = MGlobais.ValidarString(tb_livro.Text);
 
             string tipo = tb_estado.Text;
-            if (tipo == Globais.bloqueado)
+            if (tipo.ToUpper().Equals(MGlobais.GetDescription(Global.BookStatus.Bloqueado)))
             {
                 if (tb_estado.Text != cb_altearEstado.Text)
                 {
@@ -124,7 +124,7 @@ namespace biblioteca
                     {
                         string query = "update tb_matriculas set T_ESTADO = 'ATIVO' where T_MATRICULA = '" + MatriculaAluno + "'";
                         Banco.DML(query);
-                        query = "update tb_dadosaluno set T_STATUS = '" + Globais.devol + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' where ID_LIVROALUNO = '" + tb_id.Text + "'";
+                        query = "update tb_dadosaluno set T_STATUS = '" + Global.BookStatus.Devolvido + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' where ID_LIVROALUNO = '" + tb_id.Text + "'";
                         Banco.DML(query);
                     }
                     else
@@ -134,7 +134,7 @@ namespace biblioteca
                 }
             }
 
-            if (tb_estado.Text != Globais.bloqueado && cb_altearEstado.Text == Globais.bloqueado)
+            if (!tb_estado.Text.ToUpper().Equals(MGlobais.GetDescription(Global.BookStatus.Bloqueado)) && cb_altearEstado.Text.ToUpper().Equals(MGlobais.GetDescription(Global.BookStatus.Bloqueado)))
             {
                 DialogResult res = MessageBox.Show("Você deseja realmente bloquear essa matrícula?", "Bloqueio", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (DialogResult.Yes == res)
@@ -144,12 +144,12 @@ namespace biblioteca
                     dt = Banco.DQL("select * from tb_matriculas where T_MATRICULA = '" + MatriculaAluno + "'");
                     if (dt.Rows.Count == 0)
                     {
-                        comando = "insert into tb_matriculas (T_MATRICULA, T_ESTADO, T_ALUNO) values ('" + MatriculaAluno + "', '" + Globais.bloqueado + "', '" + tb_aluno.Text + "')";
+                        comando = "insert into tb_matriculas (T_MATRICULA, T_ESTADO, T_ALUNO) values ('" + MatriculaAluno + "', '" + Global.BookStatus.Bloqueado + "', '" + tb_aluno.Text + "')";
                         Banco.DML(comando);
                     }
                     else
                     {
-                        comando = "update tb_matriculas set T_ESTADO = '" + Globais.bloqueado + "' where T_MATRICULA = '" + MatriculaAluno + "'";
+                        comando = "update tb_matriculas set T_ESTADO = '" + Global.BookStatus.Bloqueado + "' where T_MATRICULA = '" + MatriculaAluno + "'";
                         Banco.DML(comando);
                     }
 
@@ -162,10 +162,9 @@ namespace biblioteca
                     return;
                 }
             }
-            else if (tb_estado.Text == Globais.devol && cb_altearEstado.Text == Globais.filtroe)
-            {
+            else if (tb_estado.Text.ToUpper().Equals(MGlobais.GetDescription(Global.BookStatus.Devolvido)) && cb_altearEstado.Text.ToUpper().Equals(MGlobais.GetDescription(Global.BookStatus.Emprestado)))
                 mask_dataDev.Text = msk_data.Text;
-            }
+            
 
             string vquery = "UPDATE tb_dadosaluno SET T_ALUNO='" + aluno + "', T_LIVRO='" + livro + "', T_STATUS='" + cb_altearEstado.Text + "', T_DATA='" + MGlobais.FormatarDataSQL(msk_data.Text) + "', T_DATAP = '" + MGlobais.FormatarDataSQL(mask_dataDev.Text) + "', T_TURMA='" + cb_turma.Text + "', T_MATRICULA='" + tb_matricula.Text + "', T_TOMBO='" + tb_tombo.Text + "', T_EMAIL='" + tb_email.Text + "', T_NOTAS='" + tb_notas.Text + "' WHERE N_IDLIVROALUNO=" + tb_id.Text;
             Banco.DML(vquery);

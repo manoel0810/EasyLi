@@ -129,24 +129,6 @@
     <Compile Include="Forms\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\F_Agendar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_Agendar.Designer.cs">
-      <DependentUpon>F_Agendar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_AlterarDadosAgenda.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_AlterarDadosAgenda.Designer.cs">
-      <DependentUpon>F_AlterarDadosAgenda.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_AlterarDadosEventos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_AlterarDadosEventos.Designer.cs">
-      <DependentUpon>F_AlterarDadosEventos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\F_AlterarDadosTurma.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,12 +159,6 @@
     <Compile Include="Forms\F_BuscarLivro.Designer.cs">
       <DependentUpon>F_BuscarLivro.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\F_ConcluirAgendamento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_ConcluirAgendamento.Designer.cs">
-      <DependentUpon>F_ConcluirAgendamento.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\F_ControleUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,18 +188,6 @@
     </Compile>
     <Compile Include="Forms\F_EsqueciSenha.Designer.cs">
       <DependentUpon>F_EsqueciSenha.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_ExcluirResistro.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_ExcluirResistro.Designer.cs">
-      <DependentUpon>F_ExcluirResistro.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_FinalizarEvento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_FinalizarEvento.Designer.cs">
-      <DependentUpon>F_FinalizarEvento.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\F_GestaoBloqueados.cs">
       <SubType>Form</SubType>
@@ -267,12 +231,6 @@
     <Compile Include="Forms\F_NovaTurma.Designer.cs">
       <DependentUpon>F_NovaTurma.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\F_NovoEvento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_NovoEvento.Designer.cs">
-      <DependentUpon>F_NovoEvento.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\F_NovoUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -308,42 +266,6 @@
     </Compile>
     <Compile Include="Forms\F_Tabela.Designer.cs">
       <DependentUpon>F_Tabela.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_TabelaAgendamentoFinalizado.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_TabelaAgendamentoFinalizado.Designer.cs">
-      <DependentUpon>F_TabelaAgendamentoFinalizado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_TabelaAgendamentosAtivos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_TabelaAgendamentosAtivos.Designer.cs">
-      <DependentUpon>F_TabelaAgendamentosAtivos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_TabelaDevolvidos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_TabelaDevolvidos.Designer.cs">
-      <DependentUpon>F_TabelaDevolvidos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_TabelaEventosAtivos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_TabelaEventosAtivos.Designer.cs">
-      <DependentUpon>F_TabelaEventosAtivos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_TabelaPerdidos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_TabelaPerdidos.Designer.cs">
-      <DependentUpon>F_TabelaPerdidos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_TabelaTodos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_TabelaTodos.Designer.cs">
-      <DependentUpon>F_TabelaTodos.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\GerarPDF.cs" />
     <Compile Include="Classes\Globais.cs" />
@@ -381,15 +303,6 @@
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_Agendar.resx">
-      <DependentUpon>F_Agendar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_AlterarDadosAgenda.resx">
-      <DependentUpon>F_AlterarDadosAgenda.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_AlterarDadosEventos.resx">
-      <DependentUpon>F_AlterarDadosEventos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_AlterarDadosTurma.resx">
       <DependentUpon>F_AlterarDadosTurma.cs</DependentUpon>
     </EmbeddedResource>
@@ -405,9 +318,6 @@
     <EmbeddedResource Include="Forms\F_BuscarLivro.resx">
       <DependentUpon>F_BuscarLivro.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_ConcluirAgendamento.resx">
-      <DependentUpon>F_ConcluirAgendamento.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_ControleUsuarios.resx">
       <DependentUpon>F_ControleUsuarios.cs</DependentUpon>
     </EmbeddedResource>
@@ -422,12 +332,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_EsqueciSenha.resx">
       <DependentUpon>F_EsqueciSenha.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_ExcluirResistro.resx">
-      <DependentUpon>F_ExcluirResistro.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_FinalizarEvento.resx">
-      <DependentUpon>F_FinalizarEvento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_GestaoBloqueados.resx">
       <DependentUpon>F_GestaoBloqueados.cs</DependentUpon>
@@ -450,9 +354,6 @@
     <EmbeddedResource Include="Forms\F_NovaTurma.resx">
       <DependentUpon>F_NovaTurma.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_NovoEvento.resx">
-      <DependentUpon>F_NovoEvento.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_NovoUsuario.resx">
       <DependentUpon>F_NovoUsuario.cs</DependentUpon>
     </EmbeddedResource>
@@ -470,24 +371,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_Tabela.resx">
       <DependentUpon>F_Tabela.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_TabelaAgendamentoFinalizado.resx">
-      <DependentUpon>F_TabelaAgendamentoFinalizado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_TabelaAgendamentosAtivos.resx">
-      <DependentUpon>F_TabelaAgendamentosAtivos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_TabelaDevolvidos.resx">
-      <DependentUpon>F_TabelaDevolvidos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_TabelaEventosAtivos.resx">
-      <DependentUpon>F_TabelaEventosAtivos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_TabelaPerdidos.resx">
-      <DependentUpon>F_TabelaPerdidos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_TabelaTodos.resx">
-      <DependentUpon>F_TabelaTodos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Launcher.resx">
       <DependentUpon>Launcher.cs</DependentUpon>

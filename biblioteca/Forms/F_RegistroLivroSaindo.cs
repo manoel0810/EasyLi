@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Data;
-using System.IO;
 using System.Windows.Forms;
 
 namespace biblioteca
 {
     public partial class F_RegistroLivroSaindo : Form
     {
-        private string status = Globais.filtroe;
+        private Global.BookStatus status = Global.BookStatus.Emprestado;
 
         public F_RegistroLivroSaindo()
         {
@@ -58,9 +57,9 @@ namespace biblioteca
 
             if (tb_matricula.Text != "")
             {
-                string vquery = "SELECT * FROM tb_matriculas WHERE T_MATRICULA = '" + tb_matricula.Text + "' AND T_ESTADO = '" + Globais.bloqueado + "'";
+                string vquery = "SELECT * FROM tb_matriculas WHERE T_MATRICULA = '" + tb_matricula.Text + "' AND T_ESTADO = '" + (int)Global.BookStatus.Bloqueado + "'";
                 DataTable RES = new DataTable();
-                RES = Banco.DQL(vquery);
+                RES = DatabaseController.DQL(vquery);
                 int rest = RES.Rows.Count;
                 if (rest > 0)
                 {
@@ -100,7 +99,7 @@ namespace biblioteca
                         }
                     }
 
-                    string vquery = @"INSERT INTO tb_dadosaluno (T_ALUNO, T_LIVRO, T_STATUS, T_DATA, T_DATAP, T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL) VALUES ('" + tA + "', '" + tL + "', '" + status + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + cb_turma.Text + "', '" + tb_matricula.Text + "', '" + tb_tombo.Text + "', '" + tb_email.Text + "')";
+                    string vquery = @"INSERT INTO tb_dadosaluno (T_ALUNO, T_LIVRO, T_STATUS, T_DATA, T_DATAP, T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL) VALUES ('" + tA + "', '" + tL + "', '" + (int)status + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + cb_turma.Text + "', '" + tb_matricula.Text + "', '" + tb_tombo.Text + "', '" + tb_email.Text + "')";
                     Banco.DML(vquery);
                     DialogResult res = MessageBox.Show("Salvo com êxito! Novo cadastro?", "Banco de Dados", MessageBoxButtons.YesNo);
                     if (DialogResult.Yes == res)
@@ -117,7 +116,7 @@ namespace biblioteca
                     btn_confirmar.Enabled = false;
                     btn_confirmar.Cursor = Cursors.No;
                     DataTable dt = new DataTable();
-                    string verificar = "SELECT T_LIVRO FROM tb_dadosaluno WHERE T_STATUS='" + Globais.filtroe + "' AND T_MATRICULA='" + tb_matricula.Text + "'";
+                    string verificar = "SELECT T_LIVRO FROM tb_dadosaluno WHERE T_STATUS='" + (int)Global.BookStatus.Emprestado + "' AND T_MATRICULA='" + tb_matricula.Text + "'";
                     dt = Banco.DQL(verificar);
                     if (dt.Rows.Count > 0)
                     {
@@ -141,7 +140,7 @@ namespace biblioteca
                                 }
                             }
 
-                            string vquery = @"INSERT INTO tb_dadosaluno (T_ALUNO, T_LIVRO, T_STATUS, T_DATA, T_DATAP, T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL) VALUES ('" + tA + "', '" + tL + "', '" + status + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + cb_turma.Text + "', '" + tb_matricula.Text + "', '" + tb_tombo.Text + "', '" + tb_email.Text + "')";
+                            string vquery = @"INSERT INTO tb_dadosaluno (T_ALUNO, T_LIVRO, T_STATUS, T_DATA, T_DATAP, T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL) VALUES ('" + tA + "', '" + tL + "', '" + (int)status + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + cb_turma.Text + "', '" + tb_matricula.Text + "', '" + tb_tombo.Text + "', '" + tb_email.Text + "')";
                             Banco.DML(vquery);
                             DialogResult res = MessageBox.Show("Salvo com Êxito! Novo Cadastro?", "Banco de Dados", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (DialogResult.Yes == res)
@@ -180,7 +179,7 @@ namespace biblioteca
                             }
                         }
 
-                        string vquery = @"INSERT INTO tb_dadosaluno (T_ALUNO, T_LIVRO, T_STATUS, T_DATA, T_DATAP, T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL) VALUES ('" + tA + "', '" + tL + "', '" + status + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + cb_turma.Text + "', '" + tb_matricula.Text + "', '" + tb_tombo.Text + "', '" + tb_email.Text + "')";
+                        string vquery = @"INSERT INTO tb_dadosaluno (T_ALUNO, T_LIVRO, T_STATUS, T_DATA, T_DATAP, T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL) VALUES ('" + tA + "', '" + tL + "', '" + (int)status + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + MGlobais.FormatarDataSQL(msk_data.Text) + "', '" + cb_turma.Text + "', '" + tb_matricula.Text + "', '" + tb_tombo.Text + "', '" + tb_email.Text + "')";
                         Banco.DML(vquery);
                         DialogResult res = MessageBox.Show("Salvo com êxito! Novo Cadastro?", "Banco de Dados", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (DialogResult.Yes == res)
@@ -217,6 +216,7 @@ namespace biblioteca
 
         private void tb_matricula_Leave(object sender, EventArgs e)
         {
+            /*
             if (File.Exists(@"C:\Biblioteca Fácil\Didáticos\Didaticos.db"))
             {
                 DataTable dt = new DataTable();
@@ -237,6 +237,7 @@ namespace biblioteca
                     return;
                 }
             }
+            */
         }
 
         private void tb_tombo_Leave(object sender, EventArgs e)

@@ -20,7 +20,7 @@ namespace biblioteca
             DateTime dataS15 = hoje.AddDays(-15);
 
             string filtro = "";
-            string vquery = "SELECT T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro', T_DATA AS 'Data', T_EMAIL AS 'Email' FROM tb_dadosaluno WHERE T_STATUS='" + Globais.filtroe + "' AND T_EMAIL !='" + filtro + "' AND T_DATA < '" + MGlobais.FormatarDataSQL(dataS15.ToShortDateString()) + "'";
+            string vquery = "SELECT T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro', T_DATA AS 'Data', T_EMAIL AS 'Email' FROM tb_dadosaluno WHERE T_STATUS='" + Global.BookStatus.Emprestado + "' AND T_EMAIL !='" + filtro + "' AND T_DATA < '" + MGlobais.FormatarDataSQL(dataS15.ToShortDateString()) + "'";
             DataTable dt = new DataTable();
             dt = Banco.DQL(vquery);
             if (dt.Rows.Count == 0)

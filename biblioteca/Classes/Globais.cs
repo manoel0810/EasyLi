@@ -10,15 +10,15 @@ namespace biblioteca
         public static string caminho = System.AppDomain.CurrentDomain.BaseDirectory.ToString();
         public static string nomebanco = @"\Biblioteca DB.db";
         public static string caminhobanco = caminho + @"\BD\";
-        public static string filtroe = "Emprestado";
-        public static string filtrod = "Devolvido";
-        public static string devol = "Devolvido";
-        public static string perdido = "PERDIDO";
-        public static string estado = "Ativo";
-        public static string estadof = "Finalizado";
+        //public static string filtroe = "Emprestado";
+        //public static string filtrod = "Devolvido";
+        //public static string devol = "Devolvido";
+        //public static string perdido = "PERDIDO";
+        //public static string estado = "Ativo";
+        //public static string estadof = "Finalizado";
         public static string data = DateTime.Today.Year.ToString();
         public static string versao = "1.0 - CM DISTRIBUTION 2021.1";
-        public static string bloqueado = "BLOQUEADO";
+        //public static string bloqueado = "BLOQUEADO";
         public static string fileNameCreted = string.Empty;
         public static string user = string.Empty;
         //public static string userLog = string.Empty;
@@ -36,7 +36,7 @@ namespace biblioteca
 
     }
 
-    class Global
+    public class Global
     {
         //Constantes do sistema
         public const string ATIVED_STATE = "Ativo";
@@ -59,13 +59,8 @@ namespace biblioteca
         {
             Emprestado = 1,
             Devolvido = 0,
-            Perdido = 2
-        }
-
-        public enum EventStatus : int
-        {
-            Ativo = 0,
-            Finalizado = 1
+            Perdido = 2,
+            Bloqueado = 3
         }
     }
 }

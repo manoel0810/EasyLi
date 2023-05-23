@@ -19,7 +19,7 @@ namespace biblioteca
 
         string matricula = string.Empty;
         string email = string.Empty;
-        string modo = string.Empty;
+        int modo = -1;
 
         int TamanhoChar = 0;
         int idU = 0;
@@ -117,15 +117,11 @@ namespace biblioteca
 
             if (matricula != "")
             {
-                DialogResult res = MessageBox.Show("Este aluno possue uma matrícula vinculada ao cadastro.\nDeseja bloquear esta matrícula?", "Motivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (DialogResult.Yes == res)
-                {
-                    modo = Globais.bloqueado;
-                }
+                if (DialogResult.Yes == MessageBox.Show("Este aluno possue uma matrícula vinculada ao cadastro.\nDeseja bloquear esta matrícula?", "Motivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    modo = (int)Global.BookStatus.Bloqueado;
                 else
-                {
-                    modo = Globais.perdido;
-                }
+                    modo = (int)Global.BookStatus.Perdido;
+                
             }
 
             int RespostaEmail = 0;
@@ -143,14 +139,11 @@ namespace biblioteca
             if (RespostaEmail == 1)
             {
                 string estadoM = "";
-                if (modo == Globais.bloqueado)
-                {
-                    estadoM = "Suspenço";
-                }
+                if (modo == (int)Global.BookStatus.Bloqueado)
+                    estadoM = "Suspenço";           
                 else
-                {
                     estadoM = "Ativo";
-                }
+                
                 string subject = "Notificação - BF Fácil";
                 string body = String.Format("Olá {0}, estamos notificando você a respeito do livro {1} que foi pego em {2}.\n\nO livro não foi registrado como devolvido e com isto, este registro ficou como pendência ativa.\n\nO motivo relatado foi: ({3}). Seu cadastro está {4}.\n\nEmitido por: {5}\n\nEquipe EREMOL", lb_aluno.Text, lb_livro.Text, lb_data.Text, motivoEscolhido, estadoM, Globais.user);
                 Email.EnviarEmail(body, subject, email);
@@ -158,22 +151,13 @@ namespace biblioteca
 
             if (matricula != "")
             {
-                string estadoM = string.Empty;
-
-                if (modo == Globais.bloqueado)
-                {
-                    estadoM = Globais.bloqueado;
-                }
+                int estadoM;
+                if (modo == (int)Global.BookStatus.Bloqueado)
+                    estadoM = (int)Global.BookStatus.Bloqueado;
                 else
-                {
-                    estadoM = Globais.perdido;
-                }
+                    estadoM = (int)Global.BookStatus.Perdido;
 
-                DataTable RB = new DataTable();
-                int rest = 0;
-                RB = Banco.DQL("SELECT * FROM tb_matriculas WHERE T_MATRICULA = '" + lb_matricula.Text + "'");
-                rest = RB.Rows.Count;
-                if (rest == 0)
+                if (DatabaseController.DQL("SELECT * FROM tb_matriculas WHERE T_MATRICULA = '" + lb_matricula.Text + "'").Rows.Count == 0)
                 {
                     string query = "INSERT INTO tb_matriculas (T_MATRICULA, T_ALUNO, T_ESTADO) VALUES ('" + matricula + "', '" + MGlobais.ValidarString(lb_aluno.Text) + "', '" + estadoM + "')";
                     Banco.DML(query);

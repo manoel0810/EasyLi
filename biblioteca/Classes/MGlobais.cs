@@ -16,6 +16,22 @@ namespace biblioteca
             return conteudo;
         }
 
+        public static string GetDescription(Global.BookStatus StatusCode)
+        {
+            switch (StatusCode)
+            {
+                case Global.BookStatus.Devolvido:
+                    return "DEVOLVIDO";
+                case Global.BookStatus.Emprestado:
+                    return "EMPRESTADO";
+                case Global.BookStatus.Perdido:
+                    return "PERDIDO";
+                case Global.BookStatus.Bloqueado:
+                    return "BLOQUEADO";
+                default:
+                    return "NONE";
+            }
+        }
         public static bool AntiSQLInjection(string variavel)
         {
             bool resposta = false;

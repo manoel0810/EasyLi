@@ -19,12 +19,11 @@ namespace biblioteca
 
         private void F_DevolucaoLivro_Load(object sender, EventArgs e)
         {
-            string vquery = @"SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_STATUS = '" + Globais.filtroe + "' ORDER BY T_ALUNO";
-
-            dgv_livrosPdevol.DataSource = Banco.DQL(vquery);
+            string vquery = @"SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_STATUS = '" + MGlobais.GetDescription(Global.BookStatus.Emprestado) + "' ORDER BY T_ALUNO";
+            dgv_livrosPdevol.DataSource = DatabaseController.DQL(vquery);
             FormatarDGV();
 
-            this.KeyPreview = true;
+            KeyPreview = true;
         }
 
         private void btn_sair_Click(object sender, EventArgs e)
@@ -71,7 +70,7 @@ namespace biblioteca
                         Email.EnviarEmail(String.Format("Olá {0}.\n\nVocê fez a devolução do livro {1} que foi pego em {2}.\n\nA sua devolução já foi registrada e sua pêndencia com o mesmo retirada. Agradecemos sua responsabilidade.\n\nEquipe EREMOL", dt.Rows[0].Field<string>("T_ALUNO"), dt.Rows[0].Field<string>("T_LIVRO"), dt.Rows[0].Field<DateTime>("T_DATA").ToShortDateString()), "BF Fácil - Devolução de Livro", email);
                         this.Cursor = Cursors.Default;
                     }
-                    string vquery = "UPDATE	tb_dadosaluno SET T_STATUS='" + Globais.devol + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' WHERE N_IDLIVROALUNO=" + tb_id.Text;
+                    string vquery = "UPDATE	tb_dadosaluno SET T_STATUS='" + Global.BookStatus.Devolvido + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' WHERE N_IDLIVROALUNO=" + tb_id.Text;
                     Banco.DML(vquery);
                     dgv_livrosPdevol.Rows.Remove(dgv_livrosPdevol.CurrentRow);
                     MessageBox.Show("Alterado com êxito.", "Salvo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -87,7 +86,7 @@ namespace biblioteca
         {
             if (tb_Fnome.Text == "" && tb_Fmatricula.Text == "")
             {
-                string vquery = @"SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_STATUS = '" + Globais.filtroe + "' ORDER BY T_ALUNO";
+                string vquery = @"SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_STATUS = '" + Global.BookStatus.Emprestado + "' ORDER BY T_ALUNO";
 
                 dgv_livrosPdevol.DataSource = Banco.DQL(vquery);
                 FormatarDGV();
@@ -102,8 +101,8 @@ namespace biblioteca
             }
             else
             {
-                string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_ALUNO LIKE '" + tb_Fnome.Text + "%' AND T_STATUS = '" + Globais.filtroe + "'";
-                dgv_livrosPdevol.DataSource = Banco.DQL(vquery);
+                string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_ALUNO LIKE '" + tb_Fnome.Text + "%' AND T_STATUS = '" + Global.BookStatus.Emprestado + "'";
+                dgv_livrosPdevol.DataSource = DatabaseController.DQL(vquery);
                 FormatarDGV();
             }
         }
@@ -112,9 +111,9 @@ namespace biblioteca
         {
             if (tb_Fnome.Text == "" && tb_Fmatricula.Text == "")
             {
-                string vquery = @"SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_STATUS = '" + Globais.filtroe + "' ORDER BY T_ALUNO";
+                string vquery = @"SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_STATUS = '" + Global.BookStatus.Emprestado + "' ORDER BY T_ALUNO";
 
-                dgv_livrosPdevol.DataSource = Banco.DQL(vquery);
+                dgv_livrosPdevol.DataSource = DatabaseController.DQL(vquery);
                 FormatarDGV();
             }
 
@@ -126,8 +125,8 @@ namespace biblioteca
             }
             else
             {
-                string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_MATRICULA LIKE '" + tb_Fmatricula.Text + "%' AND T_STATUS = '" + Globais.filtroe + "'";
-                dgv_livrosPdevol.DataSource = Banco.DQL(vquery);
+                string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_MATRICULA LIKE '" + tb_Fmatricula.Text + "%' AND T_STATUS = '" + Global.BookStatus.Emprestado + "'";
+                dgv_livrosPdevol.DataSource = DatabaseController.DQL(vquery);
                 FormatarDGV();
             }
         }

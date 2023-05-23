@@ -8,7 +8,6 @@ namespace biblioteca
 {
     public partial class Menu : Form
     {
-        Thread Sair;
         private int ExitFlag = 0;
 
         public Menu()
@@ -192,7 +191,7 @@ namespace biblioteca
                 if (DialogResult.Yes == MessageBox.Show("Deseja sair do aplicativo? Dados não salvos serão perdidos!", "Sair", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                 {
                     ExitFlag = 1;
-                    Sair = new Thread(ExitThread);
+                    Thread Sair = new Thread(ExitThread);
 
                     Sair.SetApartmentState(ApartmentState.STA);
                     Sair.Start();
