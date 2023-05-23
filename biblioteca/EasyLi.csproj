@@ -1,0 +1,535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CFAF5FC3-4C25-44A1-87E9-8393E4E92472}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>biblioteca</RootNamespace>
+    <AssemblyName>biblioteca</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.50.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.50.0\lib\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.50.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.50.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.50.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.50.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.50.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.50.0\lib\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Drive.v3, Version=1.50.0.2250, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Drive.v3.1.50.0.2250\lib\net45\Google.Apis.Drive.v3.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.50.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.50.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeTypeMap, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediaTypeMap.2.1.0.0\lib\net40\MimeTypeMap.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.113.1\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.113.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Forms\Backup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Backup.Designer.cs">
+      <DependentUpon>Backup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Banco.cs" />
+    <Compile Include="Forms\CorrecaoLivros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CorrecaoLivros.Designer.cs">
+      <DependentUpon>CorrecaoLivros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Detalhes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Detalhes.Designer.cs">
+      <DependentUpon>Detalhes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Email.cs" />
+    <Compile Include="Forms\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_Agendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_Agendar.Designer.cs">
+      <DependentUpon>F_Agendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_AlterarDadosAgenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_AlterarDadosAgenda.Designer.cs">
+      <DependentUpon>F_AlterarDadosAgenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_AlterarDadosEventos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_AlterarDadosEventos.Designer.cs">
+      <DependentUpon>F_AlterarDadosEventos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_AlterarDadosTurma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_AlterarDadosTurma.Designer.cs">
+      <DependentUpon>F_AlterarDadosTurma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_AlterarLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_AlterarLogin.Designer.cs">
+      <DependentUpon>F_AlterarLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_Atrasados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_Atrasados.Designer.cs">
+      <DependentUpon>F_Atrasados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_BuscarAluno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_BuscarAluno.Designer.cs">
+      <DependentUpon>F_BuscarAluno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_BuscarLivro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_BuscarLivro.Designer.cs">
+      <DependentUpon>F_BuscarLivro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_ConcluirAgendamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_ConcluirAgendamento.Designer.cs">
+      <DependentUpon>F_ConcluirAgendamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_ControleUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_ControleUsuarios.Designer.cs">
+      <DependentUpon>F_ControleUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_CorrecaoDados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_CorrecaoDados.Designer.cs">
+      <DependentUpon>F_CorrecaoDados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_CriarPDF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_CriarPDF.Designer.cs">
+      <DependentUpon>F_CriarPDF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_DevolucaoLivro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_DevolucaoLivro.Designer.cs">
+      <DependentUpon>F_DevolucaoLivro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_EsqueciSenha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_EsqueciSenha.Designer.cs">
+      <DependentUpon>F_EsqueciSenha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_ExcluirResistro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_ExcluirResistro.Designer.cs">
+      <DependentUpon>F_ExcluirResistro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_FinalizarEvento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_FinalizarEvento.Designer.cs">
+      <DependentUpon>F_FinalizarEvento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_GestaoBloqueados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_GestaoBloqueados.Designer.cs">
+      <DependentUpon>F_GestaoBloqueados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_InformacoesDoProduto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_InformacoesDoProduto.Designer.cs">
+      <DependentUpon>F_InformacoesDoProduto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_LivrosEmMassa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_LivrosEmMassa.Designer.cs">
+      <DependentUpon>F_LivrosEmMassa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_Menu.Designer.cs">
+      <DependentUpon>F_Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_Motivo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_Motivo.Designer.cs">
+      <DependentUpon>F_Motivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_Notificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_Notificar.Designer.cs">
+      <DependentUpon>F_Notificar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_NovaTurma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_NovaTurma.Designer.cs">
+      <DependentUpon>F_NovaTurma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_NovoEvento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_NovoEvento.Designer.cs">
+      <DependentUpon>F_NovoEvento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_NovoUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_NovoUsuario.Designer.cs">
+      <DependentUpon>F_NovoUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_RegistroLivroSaindo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_RegistroLivroSaindo.Designer.cs">
+      <DependentUpon>F_RegistroLivroSaindo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_RelatorioA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_RelatorioA.Designer.cs">
+      <DependentUpon>F_RelatorioA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_ServidorEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_ServidorEmail.Designer.cs">
+      <DependentUpon>F_ServidorEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_Suporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_Suporte.Designer.cs">
+      <DependentUpon>F_Suporte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_Tabela.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_Tabela.Designer.cs">
+      <DependentUpon>F_Tabela.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_TabelaAgendamentoFinalizado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_TabelaAgendamentoFinalizado.Designer.cs">
+      <DependentUpon>F_TabelaAgendamentoFinalizado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_TabelaAgendamentosAtivos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_TabelaAgendamentosAtivos.Designer.cs">
+      <DependentUpon>F_TabelaAgendamentosAtivos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_TabelaDevolvidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_TabelaDevolvidos.Designer.cs">
+      <DependentUpon>F_TabelaDevolvidos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_TabelaEventosAtivos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_TabelaEventosAtivos.Designer.cs">
+      <DependentUpon>F_TabelaEventosAtivos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_TabelaPerdidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_TabelaPerdidos.Designer.cs">
+      <DependentUpon>F_TabelaPerdidos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\F_TabelaTodos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\F_TabelaTodos.Designer.cs">
+      <DependentUpon>F_TabelaTodos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\GerarPDF.cs" />
+    <Compile Include="Classes\Globais.cs" />
+    <Compile Include="Classes\Google_Drive.cs" />
+    <Compile Include="Forms\Launcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Launcher.Designer.cs">
+      <DependentUpon>Launcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\MGlobais.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Scripts\Binary_Hex.cs" />
+    <Compile Include="Scripts\Bin_Char.cs" />
+    <Compile Include="Scripts\Cryptography.cs" />
+    <Compile Include="Scripts\Decrypt.cs" />
+    <Compile Include="Scripts\Encrypt.cs" />
+    <Compile Include="Scripts\HexToBin.cs" />
+    <Compile Include="Classes\ServicosWin.cs" />
+    <EmbeddedResource Include="Forms\Backup.resx">
+      <DependentUpon>Backup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CorrecaoLivros.resx">
+      <DependentUpon>CorrecaoLivros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Detalhes.resx">
+      <DependentUpon>Detalhes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_Agendar.resx">
+      <DependentUpon>F_Agendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_AlterarDadosAgenda.resx">
+      <DependentUpon>F_AlterarDadosAgenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_AlterarDadosEventos.resx">
+      <DependentUpon>F_AlterarDadosEventos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_AlterarDadosTurma.resx">
+      <DependentUpon>F_AlterarDadosTurma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_AlterarLogin.resx">
+      <DependentUpon>F_AlterarLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_Atrasados.resx">
+      <DependentUpon>F_Atrasados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_BuscarAluno.resx">
+      <DependentUpon>F_BuscarAluno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_BuscarLivro.resx">
+      <DependentUpon>F_BuscarLivro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_ConcluirAgendamento.resx">
+      <DependentUpon>F_ConcluirAgendamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_ControleUsuarios.resx">
+      <DependentUpon>F_ControleUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_CorrecaoDados.resx">
+      <DependentUpon>F_CorrecaoDados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_CriarPDF.resx">
+      <DependentUpon>F_CriarPDF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_DevolucaoLivro.resx">
+      <DependentUpon>F_DevolucaoLivro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_EsqueciSenha.resx">
+      <DependentUpon>F_EsqueciSenha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_ExcluirResistro.resx">
+      <DependentUpon>F_ExcluirResistro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_FinalizarEvento.resx">
+      <DependentUpon>F_FinalizarEvento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_GestaoBloqueados.resx">
+      <DependentUpon>F_GestaoBloqueados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_InformacoesDoProduto.resx">
+      <DependentUpon>F_InformacoesDoProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_LivrosEmMassa.resx">
+      <DependentUpon>F_LivrosEmMassa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_Menu.resx">
+      <DependentUpon>F_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_Motivo.resx">
+      <DependentUpon>F_Motivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_Notificar.resx">
+      <DependentUpon>F_Notificar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_NovaTurma.resx">
+      <DependentUpon>F_NovaTurma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_NovoEvento.resx">
+      <DependentUpon>F_NovoEvento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_NovoUsuario.resx">
+      <DependentUpon>F_NovoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_RegistroLivroSaindo.resx">
+      <DependentUpon>F_RegistroLivroSaindo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_RelatorioA.resx">
+      <DependentUpon>F_RelatorioA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_ServidorEmail.resx">
+      <DependentUpon>F_ServidorEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_Suporte.resx">
+      <DependentUpon>F_Suporte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_Tabela.resx">
+      <DependentUpon>F_Tabela.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_TabelaAgendamentoFinalizado.resx">
+      <DependentUpon>F_TabelaAgendamentoFinalizado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_TabelaAgendamentosAtivos.resx">
+      <DependentUpon>F_TabelaAgendamentosAtivos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_TabelaDevolvidos.resx">
+      <DependentUpon>F_TabelaDevolvidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_TabelaEventosAtivos.resx">
+      <DependentUpon>F_TabelaEventosAtivos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_TabelaPerdidos.resx">
+      <DependentUpon>F_TabelaPerdidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\F_TabelaTodos.resx">
+      <DependentUpon>F_TabelaTodos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Launcher.resx">
+      <DependentUpon>Launcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="Database [testes]\Base.db" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
+    <None Include="Resources\db.png" />
+    <None Include="Resources\backup.jpg" />
+    <None Include="Resources\gif_donwloading.gif" />
+    <None Include="Resources\gif_carregando.gif" />
+    <None Include="Resources\gif_upload.gif" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets')" />
+</Project>
