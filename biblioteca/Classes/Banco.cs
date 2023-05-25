@@ -31,6 +31,25 @@ namespace biblioteca
                 }
             }
         }
+
+        public static void DML(string CommandLine)
+        {
+            try
+            {
+                var vcon = OpenConnection();
+                var cmd = vcon.CreateCommand();
+
+                cmd.CommandText = CommandLine;
+                _ = new SQLiteDataAdapter(cmd.CommandText, vcon);
+                cmd.ExecuteNonQuery();
+                vcon.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 
 
@@ -46,7 +65,7 @@ namespace biblioteca
             return conexao;
         }
 
-       
+
         public static void KillConections()
         {
             if (conexao.State == ConnectionState.Open)
@@ -54,7 +73,7 @@ namespace biblioteca
                 conexao.Close();
             }
         }
- 
+
         private static SQLiteConnection ConexaoBancoDidaticos() //FUNÇÃO DESABILITADA PARA O BIBLIOTECA FÁCIL CM DISTRIBUTION!!!!! --- CÓDIGO FONTO NÃO ALTERADO!!!!!!
         {
             conexaoDidaticos = new SQLiteConnection(@"Data Source=C:\Biblioteca Fácil\Didáticos\Didaticos.db");
@@ -82,7 +101,7 @@ namespace biblioteca
             }
         }
 
-       
+
         public static DataTable dqlDidaticos(string sql) //Data Query Languege
         {
             SQLiteDataAdapter da = null;
@@ -103,7 +122,7 @@ namespace biblioteca
             }
         }
 
-       
+
         public static DataTable ObterTurmas(string vquery)
         {
             SQLiteDataAdapter da = null;
@@ -146,7 +165,7 @@ namespace biblioteca
             }
         }
 
-       
+
         public static DataTable ObterDadosUsuario(string id)
         {
             SQLiteDataAdapter da = null;
@@ -168,7 +187,7 @@ namespace biblioteca
             }
         }
 
-       
+
         public static DataTable ObterDadosEventos(string id)
         {
             SQLiteDataAdapter da = null;
@@ -190,7 +209,7 @@ namespace biblioteca
             }
         }
 
-       
+
         public static DataTable ObterDadosAgenda(string id)
         {
             SQLiteDataAdapter da = null;
@@ -212,7 +231,7 @@ namespace biblioteca
             }
         }
 
-       
+
         public static DataTable ObterDadosTurma(string id)
         {
             SQLiteDataAdapter da = null;
@@ -234,7 +253,7 @@ namespace biblioteca
             }
         }
 
-       
+
         public static SQLiteConnection TryConnect(int db)
         {
             SQLiteConnection con = new SQLiteConnection();

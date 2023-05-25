@@ -54,7 +54,7 @@ namespace biblioteca
 
         private void TakeoutBook(object sender, EventArgs e)
         {
-            DisplayForm(new F_RegistroLivroSaindo());
+            DisplayForm(new BookCheckout());
         }
 
         private void F_Menu_Load(object sender, EventArgs e)
@@ -252,10 +252,10 @@ namespace biblioteca
         private void ServiceCheck(object sender, EventArgs e)
         {
             /*
-            bool status = MGlobais.VerificarServico("eremol.smtp");
+            bool InitialBookState = MGlobais.VerificarServico("eremol.smtp");
             MGlobais.SincronizarRegistros();
             DialogResult res = DialogResult.None;
-            if (status == false)
+            if (InitialBookState == false)
             {
                 try
                 {
