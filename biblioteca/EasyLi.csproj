@@ -237,11 +237,11 @@
     <Compile Include="Forms\F_NovoUsuario.Designer.cs">
       <DependentUpon>F_NovoUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\F_RegistroLivroSaindo.cs">
+    <Compile Include="Forms\BookCheckout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\F_RegistroLivroSaindo.Designer.cs">
-      <DependentUpon>F_RegistroLivroSaindo.cs</DependentUpon>
+    <Compile Include="Forms\BookCheckout.Designer.cs">
+      <DependentUpon>BookCheckout.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\F_RelatorioA.cs">
       <SubType>Form</SubType>
@@ -357,8 +357,8 @@
     <EmbeddedResource Include="Forms\F_NovoUsuario.resx">
       <DependentUpon>F_NovoUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_RegistroLivroSaindo.resx">
-      <DependentUpon>F_RegistroLivroSaindo.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BookCheckout.resx">
+      <DependentUpon>BookCheckout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_RelatorioA.resx">
       <DependentUpon>F_RelatorioA.cs</DependentUpon>

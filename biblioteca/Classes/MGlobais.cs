@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using System.ServiceProcess;
+using System.Text.RegularExpressions;
 
 namespace biblioteca
 {
@@ -14,6 +15,26 @@ namespace biblioteca
                 conteudo = conteudo.Replace("\'", "''");
             }
             return conteudo;
+        }
+
+        public static bool ValidateEmail(string Email)
+        {
+            string EmailPattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+            Match match = Regex.Match(Email, EmailPattern);
+            return match.Success;
+        }
+
+        public static string GenerateStudentCode()
+        {
+        StartFunctionCall:;
+            Random R = new Random();
+            string CODE = R.Next(10000000, 99999999).ToString();
+
+            int Count = DatabaseController.DQL($"select * from students where code = '{CODE}' limit 1").Rows.Count;
+            if (Count > 0)
+                goto StartFunctionCall;
+            else
+                return CODE;
         }
 
         public static string GetDescription(Global.BookStatus StatusCode)
