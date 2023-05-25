@@ -141,11 +141,6 @@ namespace biblioteca
             DisplayForm(new F_AlterarDadosTurma());
         }
 
-        private void TakeoutBooks(object sender, EventArgs e)
-        {
-            DisplayForm(new F_LivrosEmMassa());
-        }
-
         private void GenerateSpecialReport(object sender, EventArgs e)
         {
             DisplayForm(new F_CriarPDF());

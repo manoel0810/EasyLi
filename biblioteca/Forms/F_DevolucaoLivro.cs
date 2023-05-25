@@ -5,6 +5,8 @@ namespace biblioteca
 {
     public partial class F_DevolucaoLivro : Form
     {
+        private string UserEmail = string.Empty;
+
         public F_DevolucaoLivro()
         {
             InitializeComponent();
@@ -13,130 +15,107 @@ namespace biblioteca
         private void FormatarDGV()
         {
             dgv_livrosPdevol.Columns[0].Width = 40;
-            dgv_livrosPdevol.Columns[1].Width = 265;
-            dgv_livrosPdevol.Columns[2].Width = 265;
+            dgv_livrosPdevol.Columns[1].Width = 200;
+            dgv_livrosPdevol.Columns[2].Width = 200;
         }
 
         private void F_DevolucaoLivro_Load(object sender, EventArgs e)
         {
-            string vquery = @"SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_STATUS = '" + MGlobais.GetDescription(Global.BookStatus.Emprestado) + "' ORDER BY T_ALUNO";
-            dgv_livrosPdevol.DataSource = DatabaseController.DQL(vquery);
+            dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER");
             FormatarDGV();
 
             KeyPreview = true;
+            FiltroMatricula.KeyPress += (_, Args) =>
+            {
+                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
+                    if (Args.KeyChar != '\b')
+                        Args.KeyChar = '\0';
+
+                Args.Handled = false;
+            };
         }
 
-        private void btn_sair_Click(object sender, EventArgs e)
+        private void ExitClick(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        private void dgv_livrosPdevol_SelectionChanged(object sender, EventArgs e)
+        private void DGVSelectionChenged(object sender, EventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            int contLinhas = dgv.SelectedRows.Count;
-            if (contLinhas > 0)
+            if (dgv.SelectedRows.Count > 0)
             {
-                DataTable dt = new DataTable();
-                string valor = dgv_livrosPdevol.SelectedRows[0].Cells[0].Value.ToString();
-                dt = Banco.ObterDadosUsuario(valor);
-                tb_id.Text = dt.Rows[0].Field<Int64>("N_IDLIVROALUNO").ToString();
-                tb_nomeAluno.Text = dt.Rows[0].Field<string>("T_ALUNO").ToString();
-                tb_nomeLivro.Text = dt.Rows[0].Field<string>("T_LIVRO").ToString();
-                tb_data.Text = dt.Rows[0].Field<DateTime>("T_DATA").ToShortDateString();
-                tb_status.Text = dt.Rows[0].Field<string>("T_STATUS").ToString();
-                tb_turma.Text = dt.Rows[0].Field<string>("T_TURMA").ToString();
-                tb_matricula.Text = dt.Rows[0].Field<string>("T_MATRICULA").ToString();
+                DataTable UserInfo;
+                UserInfo = DatabaseController.DQL($"select * from registry where N_REGISTRYCODE = '{dgv_livrosPdevol.SelectedRows[0].Cells[0].Value}'");
+
+                ID.Text = UserInfo.Rows[0].Field<Int64>("N_REGISTRYCODE").ToString();
+                NomeUsuario.Text = UserInfo.Rows[0].Field<string>("T_USER");
+                Livro.Text = UserInfo.Rows[0].Field<string>("T_LIVRO");
+                Data.Text = UserInfo.Rows[0].Field<DateTime>("T_DATA").ToShortDateString();
+                Turma.Text = UserInfo.Rows[0].Field<string>("T_TURMA");
+                tb_matricula.Text = UserInfo.Rows[0].Field<string>("T_MATRICULA");
+                UserEmail = UserInfo.Rows[0].Field<string>("T_EMAIL");
             }
         }
 
-        private void btn_confirmar_Click(object sender, EventArgs e)
+        private void ConfirmClick(object sender, EventArgs e)
         {
             if (dgv_livrosPdevol.SelectedRows.Count == 0)
-            {
                 return;
-            }
             else
             {
-                if (cb_devolvido.Checked)
+                if (Devolvido.Checked)
                 {
-                    DataTable dt = new DataTable();
-                    string valor = dgv_livrosPdevol.SelectedRows[0].Cells[0].Value.ToString();
-                    dt = Banco.ObterDadosUsuario(valor);
-                    string email = dt.Rows[0].Field<string>("T_EMAIL").ToString();
-                    if (email != "")
-                    {
-                        this.Cursor = Cursors.WaitCursor;
-                        Email.EnviarEmail(String.Format("Olá {0}.\n\nVocê fez a devolução do livro {1} que foi pego em {2}.\n\nA sua devolução já foi registrada e sua pêndencia com o mesmo retirada. Agradecemos sua responsabilidade.\n\nEquipe EREMOL", dt.Rows[0].Field<string>("T_ALUNO"), dt.Rows[0].Field<string>("T_LIVRO"), dt.Rows[0].Field<DateTime>("T_DATA").ToShortDateString()), "BF Fácil - Devolução de Livro", email);
-                        this.Cursor = Cursors.Default;
-                    }
-                    string vquery = "UPDATE	tb_dadosaluno SET T_STATUS='" + Global.BookStatus.Devolvido + "', T_DATAP = '" + MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString()) + "' WHERE N_IDLIVROALUNO=" + tb_id.Text;
-                    Banco.DML(vquery);
+                    if (string.IsNullOrWhiteSpace(UserEmail) && MGlobais.CheckSMTPConfiguration())
+                        Email.EnviarEmail(String.Format("Olá {0}. Você fez a devolução do livro {1} que foi pego em {2}. A sua devolução já foi registrada e sua pêndencia com o mesmo retirada. Agradecemos sua responsabilidade.", NomeUsuario.Text, Livro.Text, Data.Text), "EasyLi - Devolução de Livro", UserEmail);
+
+                    DatabaseController.DML($"UPDATE registry SET T_STATUS='{(int)Global.BookStatus.Devolvido}', T_DATAP = '{MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString())}' WHERE N_REGISTRYCODE = '{ID.Text}'");
                     dgv_livrosPdevol.Rows.Remove(dgv_livrosPdevol.CurrentRow);
-                    MessageBox.Show("Alterado com êxito.", "Salvo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("VOCÊ NÃO CONFIRMOU A CHECKBOX(Devolvido).", "Confirmações", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Confirme a caixa de diálogo para continuar com a operação.", "Confirmações", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
                 }
             }
         }
 
-        private void tb_Fnome_TextChanged(object sender, EventArgs e)
+        private void FilterNameChenged(object sender, EventArgs e)
         {
-            if (tb_Fnome.Text == "" && tb_Fmatricula.Text == "")
+            if (string.IsNullOrWhiteSpace(FiltroNome.Text))
             {
-                string vquery = @"SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_STATUS = '" + Global.BookStatus.Emprestado + "' ORDER BY T_ALUNO";
-
-                dgv_livrosPdevol.DataSource = Banco.DQL(vquery);
+                dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER");
                 FormatarDGV();
-            }
-
-            //Validação
-            if (tb_Fnome.Text.Contains("\'"))
-            {
-                MessageBox.Show("A pesquisa não admite ( ' )", "Invalidação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                tb_Fnome.Clear();
                 return;
             }
-            else
+            else if (FiltroNome.Text.Trim().Length >= 0x2)
             {
-                string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_ALUNO LIKE '" + tb_Fnome.Text + "%' AND T_STATUS = '" + Global.BookStatus.Emprestado + "'";
-                dgv_livrosPdevol.DataSource = DatabaseController.DQL(vquery);
+                dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_USER LIKE '%{FiltroNome.Text.Replace("'", "''")}%' or T_LIVRO LIKE '%{FiltroNome.Text.Replace("'", "''")}%' AND T_STATUS = '{(int)Global.BookStatus.Emprestado}'");
                 FormatarDGV();
+                return;
             }
         }
 
-        private void tb_Fmatricula_TextChanged(object sender, EventArgs e)
+        private void FilterMatriculaChenged(object sender, EventArgs e)
         {
-            if (tb_Fnome.Text == "" && tb_Fmatricula.Text == "")
+            if (string.IsNullOrWhiteSpace(FiltroMatricula.Text))
             {
-                string vquery = @"SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_STATUS = '" + Global.BookStatus.Emprestado + "' ORDER BY T_ALUNO";
-
-                dgv_livrosPdevol.DataSource = DatabaseController.DQL(vquery);
+                dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER");
                 FormatarDGV();
-            }
-
-            //Validação
-            if (tb_Fmatricula.Text.Contains("\'"))
-            {
-                tb_Fmatricula.Clear();
                 return;
             }
-            else
+            else if (FiltroMatricula.Text.Trim().Length >= 0x2)
             {
-                string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro' FROM tb_dadosaluno WHERE T_MATRICULA LIKE '" + tb_Fmatricula.Text + "%' AND T_STATUS = '" + Global.BookStatus.Emprestado + "'";
-                dgv_livrosPdevol.DataSource = DatabaseController.DQL(vquery);
+                dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_MATRICULA LIKE '%{FiltroMatricula.Text}%' or T_TOMBO LIKE '%{FiltroMatricula.Text}%' AND T_STATUS = '{(int)Global.BookStatus.Emprestado}'");
                 FormatarDGV();
+                return;
             }
         }
 
-        private void F_DevolucaoLivro_KeyDown(object sender, KeyEventArgs e)
+        private void FormKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-            {
-                this.Close();
-            }
+                Close();
         }
     }
 }

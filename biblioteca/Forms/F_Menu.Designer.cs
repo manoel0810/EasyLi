@@ -37,7 +37,6 @@
             this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarAlunoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarLivroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registroEmMassaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.livrosAtrasadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ferramentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bancoDeDadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,7 +91,6 @@
             this.registrarRetiradaToolStripMenuItem,
             this.registrarDevoluçãoToolStripMenuItem,
             this.consultasToolStripMenuItem,
-            this.registroEmMassaToolStripMenuItem,
             this.livrosAtrasadosToolStripMenuItem});
             this.registrosToolStripMenuItem.Name = "registrosToolStripMenuItem";
             this.registrosToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
@@ -134,13 +132,6 @@
             this.buscarLivroToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.buscarLivroToolStripMenuItem.Text = "Buscar Aluno (Ctrl + A)";
             this.buscarLivroToolStripMenuItem.Click += new System.EventHandler(this.SearchStudent);
-            // 
-            // registroEmMassaToolStripMenuItem
-            // 
-            this.registroEmMassaToolStripMenuItem.Name = "registroEmMassaToolStripMenuItem";
-            this.registroEmMassaToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.registroEmMassaToolStripMenuItem.Text = "Registro em Massa";
-            this.registroEmMassaToolStripMenuItem.Click += new System.EventHandler(this.TakeoutBooks);
             // 
             // livrosAtrasadosToolStripMenuItem
             // 
@@ -392,7 +383,6 @@
         private System.Windows.Forms.ToolStripMenuItem novaTurmaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gerenciarTurmasToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem registroEmMassaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gerarPDFEspecíficoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem suporteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem servidorToolStripMenuItem;
