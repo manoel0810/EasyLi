@@ -107,9 +107,9 @@ namespace biblioteca
                         if (ValidarSaida(tb_user.Text))
                         {
                             query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_SENHA = '{1}', T_NOMECOMPLETO = '{2}' WHERE T_USER = '{3}'", tb_user.Text, tb_RNovaSenha.Text, tb_nome.Text, InfoGlobal.Rows[0].Field<string>("T_USER"));
-                            Banco.DML(query);
+                            DatabaseController.DML(query);
                             Global.CurrentUsername = tb_user.Text;
-                            Globais.user = tb_nome.Text;
+                            Global.CurrentUserFullname = tb_nome.Text;
 
                             MessageBox.Show("Informações atualizadas.", "Salvo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.Close();
@@ -126,9 +126,9 @@ namespace biblioteca
                         if (ValidarSaida(tb_user.Text))
                         {
                             query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_NOMECOMPLETO = '{1}' WHERE T_USER = '{2}'", tb_user.Text, tb_nome.Text, InfoGlobal.Rows[0].Field<string>("T_USER"));
-                            Banco.DML(query);
+                            DatabaseController.DML(query);
                             Global.CurrentUsername = tb_user.Text;
-                            Globais.user = tb_nome.Text;
+                            Global.CurrentUserFullname = tb_nome.Text;
 
                             MessageBox.Show("Informações atualizadas.", "Salvo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.Close();

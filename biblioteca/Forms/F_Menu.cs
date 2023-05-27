@@ -39,11 +39,11 @@ namespace biblioteca
             MeForm?.Dispose();
         }
 
-        private void ReportPDF(Global.BookStatus Status, string Title, string Mode)
+        private void ReportPDF(Global.BookStatus Status, string Mode)
         {
             try
             {
-                GerarPDF.CriarPDF(DatabaseController.DQL($"SELECT T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro', T_DATA AS 'Data', T_TURMA AS 'Turma' FROM tb_dadosaluno WHERE T_STATUS='{Status}' ORDER BY T_TURMA, T_ALUNO"), Title, Mode);
+                GerarPDF.CriarPDF(DatabaseController.DQL($"SELECT T_USER AS 'Usuário', T_LIVRO AS 'Livro', T_DATA AS 'Data', T_TURMA AS 'Turma' FROM registry WHERE T_STATUS='{(int)Status}' ORDER BY T_TURMA, T_USER"), Mode);
             }
             catch (Exception e)
             {
@@ -60,14 +60,6 @@ namespace biblioteca
         private void F_Menu_Load(object sender, EventArgs e)
         {
             KeyPreview = true;
-
-            //O serviço estará temporariamente indisponível nessa versão. (23/05/2023)
-            /*
-            if (MGlobais.VerificarServico("eremol.smtp") == false)
-            {
-                ServicosWin.ServicosWin.StartService("cliente.smtp.EREMOL");
-            }
-            */
 
             if (File.Exists($"{Application.StartupPath}\\img\\{Properties.Settings.Default.ImageName}"))
                 pictureBox1.ImageLocation = $"{Application.StartupPath}\\img\\{Properties.Settings.Default.ImageName}";
@@ -91,24 +83,11 @@ namespace biblioteca
                 servidorToolStripMenuItem.Visible = false;
 
             Backup.Visible = false; //Sistema de backups não está funcionando na versão atual (23/05/2023)
-
-            /*
-                t_verificarServico.Start();
-                if (MGlobais.Internet() == false)
-                {
-                    Google_Drive.IniciarProtocolos();
-                }
-            */
         }
 
         private void BookIn(object sender, EventArgs e)
         {
             DisplayForm(new F_DevolucaoLivro());
-        }
-
-        private void SearchStudent(object sender, EventArgs e)
-        {
-            DisplayForm(new F_BuscarAluno());
         }
 
         private void FixRecords(object sender, EventArgs e)
@@ -123,12 +102,12 @@ namespace biblioteca
 
         private void PendingReturnsReport(object sender, EventArgs e)
         {
-            ReportPDF(Global.BookStatus.Emprestado, "Livros pendentes para devolução", "Emprestados");
+            ReportPDF(Global.BookStatus.Emprestado, "Emprestados");
         }
 
         private void Losteport(object sender, EventArgs e)
         {
-            ReportPDF(Global.BookStatus.Perdido, "Livros marcados como 'perdidos'", "Perdidos");
+            ReportPDF(Global.BookStatus.Perdido, "Perdidos");
         }
 
         private void ClassCreate(object sender, EventArgs e)
@@ -155,14 +134,6 @@ namespace biblioteca
             else if (e.Control == true && e.KeyCode == Keys.D)
             {
                 registrarDevoluçãoToolStripMenuItem.PerformClick();
-            }
-            else if (e.Control == true && e.KeyCode == Keys.A)
-            {
-                buscarLivroToolStripMenuItem.PerformClick();
-            }
-            else if (e.Control == true && e.KeyCode == Keys.L)
-            {
-                buscarAlunoToolStripMenuItem.PerformClick();
             }
             else if (e.Control == true && e.KeyCode == Keys.E)
             {
@@ -229,11 +200,6 @@ namespace biblioteca
             }
         }
 
-        private void YearReport(object sender, EventArgs e)
-        {
-            DisplayForm(new F_RelatorioA());
-        }
-
         private void BlockedUsers(object sender, EventArgs e)
         {
             DisplayForm(new F_GestaoBloqueados());
@@ -244,70 +210,8 @@ namespace biblioteca
             DisplayForm(new F_ControleUsuarios());
         }
 
-        private void ServiceCheck(object sender, EventArgs e)
-        {
-            /*
-            bool InitialBookState = MGlobais.VerificarServico("eremol.smtp");
-            MGlobais.SincronizarRegistros();
-            DialogResult res = DialogResult.None;
-            if (InitialBookState == false)
-            {
-                try
-                {
-                    ServicosWin.ServicosWin.StartService("cliente.smtp.EREMOL");
-                    return;
-
-                }
-                catch (Exception Er)
-                {
-                    if (Globais.notificacao == 1)
-                    {
-                        return;
-                    }
-                    t_verificarServico.Stop();
-                    res = MessageBox.Show("Foi detectado um erro com o serviço SMTP.\nTentamos reiniciar o serviço, mas a tentativa falhou. Deseja tentar iniciar o serviço novamente?\nErro: " + Er.Message, "Erro No Serviço SMTP", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                }
-
-                if (DialogResult.Retry == res)
-                {
-                    try
-                    {
-                        ServicosWin.ServicosWin.StartService("cliente.smtp.EREMOL");
-                        MessageBox.Show("Serviço iniciado com êxito.", "Serviço SMTP", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                    catch (Exception Er)
-                    {
-                        res = MessageBox.Show("Falha ao tentar iniciar novamente o serviço. ERRO: " + Er.Message + "\nTentaremos iniciar o serviço novamente após 3 minutos.\nDeseja ser notificado novamente?", "Erro no SMTP", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        if (DialogResult.No == res)
-                        {
-                            Globais.notificacao = 1;
-                            t_verificarServico.Start();
-                            return;
-                        }
-                    }
-                }
-                else if (DialogResult.Cancel == res)
-                {
-                    res = MessageBox.Show("Tentaremos iniciar o serviço após 3 minutos. Durante este intervalo, as operações de E-Mail não funcionarão.\nDeseja ser notificado novamente?", "Falha no SMTP", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (DialogResult.No == res)
-                    {
-                        Globais.notificacao = 1;
-                    }
-                    t_verificarServico.Start();
-                }
-            }
-            */
-        }
-
         private void F_Menu_FormClosed(object sender, FormClosedEventArgs e)
         {
-            /*
-            Globais.tentativasFalhadas = 0;
-            Globais.controleSaida = 0;
-            Globais.notificacao = 0;
-            Globais.id = 0;
-            */
 
             Global.CurrentUserPrivilege = Global.UserPrivilege.Normal;
 

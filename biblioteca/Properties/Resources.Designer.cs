@@ -120,6 +120,16 @@ namespace biblioteca.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap pdfIcon {
+            get {
+                object obj = ResourceManager.GetObject("pdfIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a 1234.
         /// </summary>
         public static string Senha {

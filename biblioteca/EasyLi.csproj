@@ -147,18 +147,6 @@
     <Compile Include="Forms\F_Atrasados.Designer.cs">
       <DependentUpon>F_Atrasados.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\F_BuscarAluno.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_BuscarAluno.Designer.cs">
-      <DependentUpon>F_BuscarAluno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_BuscarLivro.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_BuscarLivro.Designer.cs">
-      <DependentUpon>F_BuscarLivro.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\F_ControleUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,12 +189,6 @@
     <Compile Include="Forms\F_InformacoesDoProduto.Designer.cs">
       <DependentUpon>F_InformacoesDoProduto.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\F_LivrosEmMassa.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_LivrosEmMassa.Designer.cs">
-      <DependentUpon>F_LivrosEmMassa.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\F_Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,12 +200,6 @@
     </Compile>
     <Compile Include="Forms\F_Motivo.Designer.cs">
       <DependentUpon>F_Motivo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_Notificar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_Notificar.Designer.cs">
-      <DependentUpon>F_Notificar.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\F_NovaTurma.cs">
       <SubType>Form</SubType>
@@ -242,12 +218,6 @@
     </Compile>
     <Compile Include="Forms\BookCheckout.Designer.cs">
       <DependentUpon>BookCheckout.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_RelatorioA.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_RelatorioA.Designer.cs">
-      <DependentUpon>F_RelatorioA.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\F_ServidorEmail.cs">
       <SubType>Form</SubType>
@@ -312,12 +282,6 @@
     <EmbeddedResource Include="Forms\F_Atrasados.resx">
       <DependentUpon>F_Atrasados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_BuscarAluno.resx">
-      <DependentUpon>F_BuscarAluno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_BuscarLivro.resx">
-      <DependentUpon>F_BuscarLivro.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_ControleUsuarios.resx">
       <DependentUpon>F_ControleUsuarios.cs</DependentUpon>
     </EmbeddedResource>
@@ -339,17 +303,11 @@
     <EmbeddedResource Include="Forms\F_InformacoesDoProduto.resx">
       <DependentUpon>F_InformacoesDoProduto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_LivrosEmMassa.resx">
-      <DependentUpon>F_LivrosEmMassa.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_Menu.resx">
       <DependentUpon>F_Menu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_Motivo.resx">
       <DependentUpon>F_Motivo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_Notificar.resx">
-      <DependentUpon>F_Notificar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_NovaTurma.resx">
       <DependentUpon>F_NovaTurma.cs</DependentUpon>
@@ -359,9 +317,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BookCheckout.resx">
       <DependentUpon>BookCheckout.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_RelatorioA.resx">
-      <DependentUpon>F_RelatorioA.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_ServidorEmail.resx">
       <DependentUpon>F_ServidorEmail.cs</DependentUpon>
@@ -398,6 +353,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\Web Interface_Color-03.png" />
     <None Include="Resources\db.png" />
     <None Include="Resources\backup.jpg" />
     <None Include="Resources\gif_donwloading.gif" />

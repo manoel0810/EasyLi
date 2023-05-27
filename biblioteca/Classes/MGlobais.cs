@@ -53,6 +53,37 @@ namespace biblioteca
                     return "NONE";
             }
         }
+
+        public static Global.BookStatus GetDescription(string Name)
+        {
+            switch (Name.ToUpper())
+            {
+                case "DEVOLVIDO":
+                    return Global.BookStatus.Devolvido;
+                case "EMPRESTADO":
+                    return Global.BookStatus.Emprestado;
+                case "PERDIDO":
+                    return Global.BookStatus.Perdido;
+                case "BLOQUEADO":
+                    return Global.BookStatus.Bloqueado;
+                default:
+                    return Global.BookStatus.ErrorStateReturn;
+            }
+        }
+
+        public static string GetDescription(Global.UserState State)
+        {
+            switch (State)
+            {
+                case Global.UserState.Free:
+                    return "Livre";
+                case Global.UserState.Blocked:
+                    return "Bloqueado";
+                default:
+                    return "null";
+            }
+        }
+
         public static bool AntiSQLInjection(string variavel)
         {
             bool resposta = false;

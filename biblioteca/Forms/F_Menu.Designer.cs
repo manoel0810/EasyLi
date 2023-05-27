@@ -34,9 +34,6 @@
             this.registrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarRetiradaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarDevoluçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buscarAlunoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buscarLivroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.livrosAtrasadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ferramentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bancoDeDadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +44,6 @@
             this.livrosPerdidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.livrosRegistradosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gerarPDFEspecíficoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.relatórioAnualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.turmasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.novaTurmaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gerenciarTurmasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +58,6 @@
             this.Backup = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.t_verificarServico = new System.Windows.Forms.Timer(this.components);
             this.nota = new System.Windows.Forms.NotifyIcon(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -90,7 +85,6 @@
             this.registrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.registrarRetiradaToolStripMenuItem,
             this.registrarDevoluçãoToolStripMenuItem,
-            this.consultasToolStripMenuItem,
             this.livrosAtrasadosToolStripMenuItem});
             this.registrosToolStripMenuItem.Name = "registrosToolStripMenuItem";
             this.registrosToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
@@ -109,29 +103,6 @@
             this.registrarDevoluçãoToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.registrarDevoluçãoToolStripMenuItem.Text = "Registrar devolução (Ctrl + D)";
             this.registrarDevoluçãoToolStripMenuItem.Click += new System.EventHandler(this.BookIn);
-            // 
-            // consultasToolStripMenuItem
-            // 
-            this.consultasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buscarAlunoToolStripMenuItem,
-            this.buscarLivroToolStripMenuItem});
-            this.consultasToolStripMenuItem.Name = "consultasToolStripMenuItem";
-            this.consultasToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.consultasToolStripMenuItem.Text = "Consultas";
-            // 
-            // buscarAlunoToolStripMenuItem
-            // 
-            this.buscarAlunoToolStripMenuItem.Name = "buscarAlunoToolStripMenuItem";
-            this.buscarAlunoToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.buscarAlunoToolStripMenuItem.Text = "Buscar Livro (Ctrl + L)";
-            this.buscarAlunoToolStripMenuItem.Click += new System.EventHandler(this.SearchStudent);
-            // 
-            // buscarLivroToolStripMenuItem
-            // 
-            this.buscarLivroToolStripMenuItem.Name = "buscarLivroToolStripMenuItem";
-            this.buscarLivroToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.buscarLivroToolStripMenuItem.Text = "Buscar Aluno (Ctrl + A)";
-            this.buscarLivroToolStripMenuItem.Click += new System.EventHandler(this.SearchStudent);
             // 
             // livrosAtrasadosToolStripMenuItem
             // 
@@ -184,8 +155,7 @@
             this.alterarSenhaToolStripMenuItem,
             this.livrosPerdidosToolStripMenuItem,
             this.livrosRegistradosToolStripMenuItem,
-            this.gerarPDFEspecíficoToolStripMenuItem,
-            this.relatórioAnualToolStripMenuItem});
+            this.gerarPDFEspecíficoToolStripMenuItem});
             this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
             this.loginToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
             this.loginToolStripMenuItem.Text = "Relatórios";
@@ -218,13 +188,6 @@
             this.gerarPDFEspecíficoToolStripMenuItem.Text = "Gerar PDF Específico";
             this.gerarPDFEspecíficoToolStripMenuItem.Click += new System.EventHandler(this.GenerateSpecialReport);
             // 
-            // relatórioAnualToolStripMenuItem
-            // 
-            this.relatórioAnualToolStripMenuItem.Name = "relatórioAnualToolStripMenuItem";
-            this.relatórioAnualToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.relatórioAnualToolStripMenuItem.Text = "Relatório Anual";
-            this.relatórioAnualToolStripMenuItem.Click += new System.EventHandler(this.YearReport);
-            // 
             // turmasToolStripMenuItem
             // 
             this.turmasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -237,14 +200,14 @@
             // novaTurmaToolStripMenuItem
             // 
             this.novaTurmaToolStripMenuItem.Name = "novaTurmaToolStripMenuItem";
-            this.novaTurmaToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.novaTurmaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.novaTurmaToolStripMenuItem.Text = "Nova Turma";
             this.novaTurmaToolStripMenuItem.Click += new System.EventHandler(this.ClassCreate);
             // 
             // gerenciarTurmasToolStripMenuItem
             // 
             this.gerenciarTurmasToolStripMenuItem.Name = "gerenciarTurmasToolStripMenuItem";
-            this.gerenciarTurmasToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.gerenciarTurmasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gerenciarTurmasToolStripMenuItem.Text = "Excluir e Editar";
             this.gerenciarTurmasToolStripMenuItem.Click += new System.EventHandler(this.ClassEdit);
             // 
@@ -326,11 +289,6 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // t_verificarServico
-            // 
-            this.t_verificarServico.Interval = 180000;
-            this.t_verificarServico.Tick += new System.EventHandler(this.ServiceCheck);
-            // 
             // nota
             // 
             this.nota.Icon = ((System.Drawing.Icon)(resources.GetObject("nota.Icon")));
@@ -367,14 +325,11 @@
         private System.Windows.Forms.ToolStripMenuItem registrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarRetiradaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarDevoluçãoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem consultasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ferramentasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bancoDeDadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem alterarSenhaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem buscarAlunoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem buscarLivroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem corrigirRegistrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem informaçõesDoProdutoToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -388,10 +343,8 @@
         private System.Windows.Forms.ToolStripMenuItem servidorToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem alterarPladoDeFundoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem relatórioAnualToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestãoBloqueadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem controleDeUsuáriosToolStripMenuItem;
-        private System.Windows.Forms.Timer t_verificarServico;
         private System.Windows.Forms.ToolStripMenuItem livrosAtrasadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Backup;
         private System.Windows.Forms.NotifyIcon nota;

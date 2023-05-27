@@ -13,6 +13,7 @@ namespace biblioteca
 
         private void Detalhes_Load(object sender, EventArgs e)
         {
+            /*
             cb_versoes.Focus();
             StreamReader leitor = new StreamReader(@"C:\Biblioteca Fácil\att.properties");
             string clinha = leitor.ReadLine();
@@ -44,10 +45,12 @@ namespace biblioteca
             }
 
             leitor.Close();
+            */
         }
 
         private void cb_versoes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            /*
             StreamReader leitor = new StreamReader(@"C:\Biblioteca Fácil\att.properties");
             string clinha = string.Empty;
             string formação = string.Empty;
@@ -88,6 +91,7 @@ namespace biblioteca
                     stop = true;
                 }
             }
+            */
         }
 
         private void button1_Click(object sender, EventArgs e)

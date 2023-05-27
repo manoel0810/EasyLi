@@ -145,7 +145,7 @@ namespace biblioteca
                     estadoM = "Ativo";
                 
                 string subject = "Notificação - BF Fácil";
-                string body = String.Format("Olá {0}, estamos notificando você a respeito do livro {1} que foi pego em {2}.\n\nO livro não foi registrado como devolvido e com isto, este registro ficou como pendência ativa.\n\nO motivo relatado foi: ({3}). Seu cadastro está {4}.\n\nEmitido por: {5}\n\nEquipe EREMOL", lb_aluno.Text, lb_livro.Text, lb_data.Text, motivoEscolhido, estadoM, Globais.user);
+                string body = String.Format("Olá {0}, estamos notificando você a respeito do livro {1} que foi pego em {2}.\n\nO livro não foi registrado como devolvido e com isto, este registro ficou como pendência ativa.\n\nO motivo relatado foi: ({3}). Seu cadastro está {4}.\n\nEmitido por: {5}\n\nEquipe EREMOL", lb_aluno.Text, lb_livro.Text, lb_data.Text, motivoEscolhido, estadoM, Global.CurrentUserFullname);
                 Email.EnviarEmail(body, subject, email);
             }
 

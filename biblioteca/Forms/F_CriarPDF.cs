@@ -14,100 +14,86 @@ namespace biblioteca
             InitializeComponent();
         }
 
-        private void btn_voltar_Click(object sender, EventArgs e)
+        private void ExitClick(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        private void F_CriarPDF_Load(object sender, EventArgs e)
+        private void FormLoad(object sender, EventArgs e)
         {
-            string vqueryTurmas = @" SELECT * FROM tb_turmas ORDER BY N_TURMA";
-            cb_turma.Items.Clear();
-            cb_turma.DataSource = Banco.ObterTurmas(vqueryTurmas);
-            cb_turma.DisplayMember = "N_TURMA";
-            cb_turma.ValueMember = "N_IDTURMA";
+            Turmas.DataSource = DatabaseController.DQL("SELECT * FROM tb_turmas ORDER BY N_TURMA");
+            Turmas.DisplayMember = "N_TURMA";
+            Turmas.ValueMember = "N_IDTURMA";
         }
 
-        private void btn_gerar_Click(object sender, EventArgs e)
+        private void GenerateClick(object sender, EventArgs e)
         {
-            if (mask_data1.MaskCompleted == false || mask_data2.MaskCompleted == false)
+            if (Start.MaskCompleted == false || End.MaskCompleted == false)
             {
                 MessageBox.Show("Essa ferramenta exige que um intervalo de tempo seja fornecido", "Informações Requisitadas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if (cb_estado.SelectedIndex == -1)
+            else if (Estados.SelectedIndex == -1)
             {
                 MessageBox.Show("Essa ferramenta exige que um estado seja fornecido", "Informações Requisitadas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            SaveFileDialog localFile = new SaveFileDialog();
-            localFile.Title = "Escolha o local para salvar: ";
-            localFile.Filter = "(*.pdf)|*.pdf";
-            localFile.ShowDialog();
-            string local = localFile.FileName;
-            string vquery = "";
 
-            //Início do processo de criação da String de comando
-            if (cb_todasTurmas.Checked == true)
+            SaveFileDialog Save = new SaveFileDialog
             {
-                vquery = "SELECT T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro', T_TURMA AS 'Turma', T_DATA AS 'Data' FROM tb_dadosaluno WHERE T_DATA BETWEEN '" + MGlobais.FormatarDataSQL(mask_data1.Text) + "' AND '" + MGlobais.FormatarDataSQL(mask_data2.Text) + "' AND T_STATUS = '" + cb_estado.Text + "'ORDER BY T_TURMA, T_ALUNO";
-            }
+                Title = "Escolha o local para salvar: ",
+                Filter = "Arquivo pdf|*.pdf"
+            };
 
-            if (cb_todasTurmas.Checked == false)
-            {
-                vquery = "SELECT T_ALUNO AS 'Aluno', T_LIVRO AS 'Livro', T_TURMA AS 'Turma', T_DATA AS 'Data' FROM tb_dadosaluno WHERE T_DATA BETWEEN '" + MGlobais.FormatarDataSQL(mask_data1.Text) + "' AND '" + MGlobais.FormatarDataSQL(mask_data2.Text) + "' AND T_TURMA = '" + cb_turma.Text + "' AND T_STATUS = '" + cb_estado.Text + "' ORDER BY T_TURMA, T_ALUNO";
-            }
-            //Fim do processo de ciração da String de comando
+            bool FileOkay = false;
+            Save.FileOk += (_, args) => {
+                FileOkay = true;
+            };
 
-            if (local == "")
-            {
+            Save.ShowDialog();
+            if (!FileOkay)
                 return;
-            }
             else
             {
 
-                btn_gerar.Enabled = false;
-                btn_gerar.Cursor = Cursors.No;
-                string nomeArquivo = local;
-                FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
-                Document doc = new Document(PageSize.A4, 20, 20, 10, 10);
-                PdfWriter escritorPDF = PdfWriter.GetInstance(doc, arquivoPDF);
+                string Query = $"SELECT T_USER AS 'Usuário', T_LIVRO AS 'Livro', T_TURMA AS 'Turma', T_DATA AS 'Data' FROM registry WHERE T_DATA BETWEEN '{MGlobais.FormatarDataSQL(Start.Text)}' AND '{MGlobais.FormatarDataSQL(End.Text)}' {(TodasAsTurmas.Checked ? "" : $"AND T_TURMA = '{Turmas.Text}'")} AND T_STATUS = '{(int)MGlobais.GetDescription(Estados.Text)}' ORDER BY T_TURMA, T_USER";
 
-                iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(Globais.caminho + @"\logo.jpg");
+                Generate.Enabled = false;
+                Generate.Cursor = Cursors.No;
+                FileStream arquivoPDF = new FileStream(Save.FileName, FileMode.Create);
+                Document doc = new Document(PageSize.A4, 20, 20, 10, 10);
+                _ = PdfWriter.GetInstance(doc, arquivoPDF);
+
+                Image logo = Image.GetInstance(Properties.Resources.pdfIcon, BaseColor.WHITE);
+                if (File.Exists($"{Application.StartupPath}\\logo.jpg"))
+                    Image.GetInstance($"{Application.StartupPath}\\logo.jpg");
+
                 logo.ScaleToFit(50f, 50f);
                 logo.Alignment = Element.ALIGN_CENTER;
 
-                DateTime da = DateTime.Today;
-                string data = da.ToShortDateString();
+                Paragraph paragrafo1 = new Paragraph("", new Font(iTextSharp.text.Font.NORMAL, 8, (int)System.Drawing.FontStyle.Regular))
+                {
+                    Alignment = Element.ALIGN_LEFT
+                };
 
-                string dados = "";
+                paragrafo1.Add("    " + DateTime.Today.ToShortDateString());
+                Paragraph paragrafo = new Paragraph("", new Font(iTextSharp.text.Font.NORMAL, 12, (int)System.Drawing.FontStyle.Bold))
+                {
+                    Alignment = Element.ALIGN_CENTER
+                };
 
-                Paragraph paragrafo1 = new Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 8, (int)System.Drawing.FontStyle.Regular));
-                paragrafo1.Alignment = Element.ALIGN_LEFT;
-                paragrafo1.Add("    " + data);
-
-                Paragraph paragrafo = new Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 12, (int)System.Drawing.FontStyle.Bold));
+                paragrafo.Add("\nListas - EasyLi Reports\n");
+                paragrafo.Font = new Font(new Font(iTextSharp.text.Font.NORMAL, 10, (int)System.Drawing.FontStyle.Italic));
                 paragrafo.Alignment = Element.ALIGN_CENTER;
-                paragrafo.Add("\nListas - Biblioteca Fácil\n");
+                paragrafo.Add($"EasyLi Report - ESPECÍFICO ({Estados.Text})" + "\n");
 
-                paragrafo.Font = new iTextSharp.text.Font(new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10, (int)System.Drawing.FontStyle.Italic));
+                paragrafo.Font = new Font(new Font(iTextSharp.text.Font.NORMAL, 10, (int)System.Drawing.FontStyle.Italic));
                 paragrafo.Alignment = Element.ALIGN_CENTER;
-                paragrafo.Add("ESCOLA DE REFERÊNCIA EREM OLIVEIRA LIMA\n");
+                paragrafo.Add($"SOLICITANTE: {Global.CurrentUserFullname}" + "\n");
 
-                string textp = "BIBLIOTECA FÁCIL EREMOL - ESPECÍFICO (" + cb_estado.Text + ")";
-                string pessoal = "SOLICITANTE: " + Globais.user;
-
-                paragrafo.Font = new iTextSharp.text.Font(new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10, (int)System.Drawing.FontStyle.Italic));
+                paragrafo.Font = new Font(new Font(iTextSharp.text.Font.NORMAL, 10, (int)System.Drawing.FontStyle.Italic));
                 paragrafo.Alignment = Element.ALIGN_CENTER;
-                paragrafo.Add(textp + "\n");
-
-                paragrafo.Font = new iTextSharp.text.Font(new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10, (int)System.Drawing.FontStyle.Italic));
-                paragrafo.Alignment = Element.ALIGN_CENTER;
-                paragrafo.Add(pessoal + "\n");
-
-                paragrafo.Font = new iTextSharp.text.Font(new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10, (int)System.Drawing.FontStyle.Italic));
-                paragrafo.Alignment = Element.ALIGN_CENTER;
-                paragrafo.Add("(" + mask_data1.Text + " || " + mask_data2.Text + ")" + "\n\n");
+                paragrafo.Add($"({Start.Text} || {End.Text})\n\n");
 
                 doc.Open();
                 doc.Add(logo);
@@ -123,41 +109,37 @@ namespace biblioteca
                 tabela.WidthPercentage = 92;
                 tabela.SetWidths(medidas);
 
-                PdfPCell cell = new PdfPCell(new Phrase("LISTA", new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 12f, iTextSharp.text.Font.NORMAL, preto)));
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.BackgroundColor = corCabeçalho;
-                cell.Colspan = 4;
+                PdfPCell cell = new PdfPCell(new Phrase("LISTA", new Font(iTextSharp.text.Font.NORMAL, 12f, iTextSharp.text.Font.NORMAL, preto)))
+                {
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    BackgroundColor = corCabeçalho,
+                    Colspan = 4
+                };
+
                 tabela.AddCell(cell);
+                foreach (string s in new string[] { "Usuário", "Livro", "Data", "Turma" })
+                {
+                    PdfPCell C0 = new PdfPCell(new Phrase(s, new Font(iTextSharp.text.Font.NORMAL, 10f, iTextSharp.text.Font.NORMAL, preto)))
+                    {
+                        BackgroundColor = corCabeçalho
+                    };
 
-                PdfPCell C0 = new PdfPCell(new Phrase("ALUNO", new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10f, iTextSharp.text.Font.NORMAL, preto)));
-                C0.BackgroundColor = corCabeçalho;
-                PdfPCell C1 = new PdfPCell(new Phrase("LIVRO", new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10f, iTextSharp.text.Font.NORMAL, preto)));
-                C1.BackgroundColor = corCabeçalho;
-                PdfPCell C2 = new PdfPCell(new Phrase("DATA", new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10f, iTextSharp.text.Font.NORMAL, preto)));
-                C2.BackgroundColor = corCabeçalho;
-                PdfPCell C3 = new PdfPCell(new Phrase("TURMA", new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10f, iTextSharp.text.Font.NORMAL, preto)));
-                C3.BackgroundColor = corCabeçalho;
+                    tabela.AddCell(C0);
+                }
 
-                tabela.AddCell(C0);
-                tabela.AddCell(C1);
-                tabela.AddCell(C2);
-                tabela.AddCell(C3);
+                DataTable dt = DatabaseController.DQL(Query);
+                Progress.Maximum = dt.Rows.Count;
 
-                DataTable dt = new DataTable();
-                dt = Banco.DQL(vquery);
-                pgb_pdf.Maximum = dt.Rows.Count;
                 int controleLinha = 1;
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    PdfPCell cell2 = new PdfPCell(new Phrase(dt.Rows[i].Field<string>("Aluno").ToString(), new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 8f, iTextSharp.text.Font.NORMAL, preto)));
-                    PdfPCell cell3 = new PdfPCell(new Phrase(dt.Rows[i].Field<string>("Livro").ToString(), new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 8f, iTextSharp.text.Font.NORMAL, preto)));
-                    PdfPCell cell4 = new PdfPCell(new Phrase(dt.Rows[i].Field<DateTime>("Data").ToShortDateString(), new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 8f, iTextSharp.text.Font.NORMAL, preto)));
-                    PdfPCell cell5 = new PdfPCell(new Phrase(dt.Rows[i].Field<string>("Turma").ToString(), new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 8f, iTextSharp.text.Font.NORMAL, preto)));
+                    PdfPCell cell2 = new PdfPCell(new Phrase(dt.Rows[i].Field<string>("Usuário").ToString(), new Font(iTextSharp.text.Font.NORMAL, 8f, iTextSharp.text.Font.NORMAL, preto)));
+                    PdfPCell cell3 = new PdfPCell(new Phrase(dt.Rows[i].Field<string>("Livro").ToString(), new Font(iTextSharp.text.Font.NORMAL, 8f, iTextSharp.text.Font.NORMAL, preto)));
+                    PdfPCell cell4 = new PdfPCell(new Phrase(dt.Rows[i].Field<DateTime>("Data").ToShortDateString(), new Font(iTextSharp.text.Font.NORMAL, 8f, iTextSharp.text.Font.NORMAL, preto)));
+                    PdfPCell cell5 = new PdfPCell(new Phrase(dt.Rows[i].Field<string>("Turma").ToString(), new Font(iTextSharp.text.Font.NORMAL, 8f, iTextSharp.text.Font.NORMAL, preto)));
 
                     if (controleLinha == 1)
-                    {
                         controleLinha = 0;
-                    }
                     else
                     {
                         controleLinha = 1;
@@ -171,9 +153,10 @@ namespace biblioteca
                     tabela.AddCell(cell3);
                     tabela.AddCell(cell4);
                     tabela.AddCell(cell5);
-                    pgb_pdf.Value = i;
+                    Progress.Value = i;
                 }
-                pgb_pdf.Value = dt.Rows.Count;
+
+                Progress.Value = dt.Rows.Count;
 
                 doc.Add(tabela);
                 doc.Add(paragrafo1);
@@ -182,27 +165,30 @@ namespace biblioteca
                 DialogResult res = MessageBox.Show("Sua lista foi criada, deseja abrir?", "PDF", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (DialogResult.Yes == res)
                 {
-                    System.Diagnostics.Process.Start(local);
-                    this.Close();
+                    System.Diagnostics.Process.Start(Save.FileName);
+                    Save.Dispose();
+                    Close();
                 }
                 else
                 {
-                    this.Close();
+                    Save.Dispose();
+                    Close();
                 }
+
             }
         }
 
-        private void cb_todasTurmas_CheckedChanged(object sender, EventArgs e)
+        private void AllClassesCheckCheged(object sender, EventArgs e)
         {
-            if (cb_todasTurmas.Checked)
+            if (TodasAsTurmas.Checked)
             {
-                cb_turma.Enabled = false;
-                cb_turma.Cursor = Cursors.No;
+                Turmas.Enabled = false;
+                Turmas.Cursor = Cursors.No;
             }
             else
             {
-                cb_turma.Enabled = true;
-                cb_turma.Cursor = Cursors.Default;
+                Turmas.Enabled = true;
+                Turmas.Cursor = Cursors.Default;
             }
         }
     }

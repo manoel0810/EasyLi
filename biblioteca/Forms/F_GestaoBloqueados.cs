@@ -42,7 +42,7 @@ namespace biblioteca
             }
             btn_notificar.Cursor = Cursors.WaitCursor;
             string email = emaill;
-            string body = String.Format("Olá {0}, estamos notificando você via e-mail devido uma pendência ativa do livro {1} que foi pego em {2}, Você se encontra bloqueado no sistema BF Fácil pelo mesmo.\n\nPedimos que faça a devolução do mesmo.\n\nNotificado por: {3}\n\nEquipe EREMOL", ddt.Rows[0].Field<string>("T_ALUNO"), ddt.Rows[0].Field<string>("T_LIVRO"), ddt.Rows[0].Field<DateTime>("T_DATA").ToShortDateString(), Globais.user);
+            string body = String.Format("Olá {0}, estamos notificando você via e-mail devido uma pendência ativa do livro {1} que foi pego em {2}, Você se encontra bloqueado no sistema BF Fácil pelo mesmo.\n\nPedimos que faça a devolução do mesmo.\n\nNotificado por: {3}\n\nEquipe EREMOL", ddt.Rows[0].Field<string>("T_ALUNO"), ddt.Rows[0].Field<string>("T_LIVRO"), ddt.Rows[0].Field<DateTime>("T_DATA").ToShortDateString(), Global.CurrentUserFullname);
             string subject = "Notificação de Livro";
             if (MGlobais.CheckSMTPConfiguration() && MGlobais.Internet() == false)
             {

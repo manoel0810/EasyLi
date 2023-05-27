@@ -20,10 +20,11 @@ namespace biblioteca
         {
             DateTime dt = DateTime.Today;
             string data = dt.ToShortDateString();
-            lb_solicitante.Text = Globais.user;
+
+            lb_solicitante.Text = Global.CurrentUserFullname;
             lb_sistema.Text = String.Format(Environment.MachineName + "; " + Environment.OSVersion + "; " + Environment.Version);
             lb_data.Text = data;
-            lb_versao.Text = Globais.versao;
+            lb_versao.Text = Global.VERSION;
         }
 
         private void button1_Click(object sender, EventArgs e)
