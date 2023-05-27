@@ -27,7 +27,7 @@ namespace biblioteca
             }
             else
             {
-                MGlobais.GerarCCS(tb_email.Text, tb_password.Text, int.Parse(tb_porta.Text), tb_host.Text, tb_username.Text);
+                //MGlobais.GerarCCS(tb_email.Text, tb_password.Text, int.Parse(tb_porta.Text), tb_host.Text, tb_username.Text);
                 return;
             }
         }

@@ -27,7 +27,7 @@ namespace biblioteca
         {
             if (tombo != tomboOriginal)
                 if (DatabaseController.DQL(String.Format("select * from tb_livros where id = '{0}'", tomboOriginal)).Rows.Count > 0)
-                    DatabaseController.DQL(String.Format("updata tb_livros set id = '{0}', t_titulo = '{1}' where id = '{2}'", tombo, MGlobais.ValidarString(Livro.Text), tomboOriginal));
+                    DatabaseController.DQL(String.Format("updata tb_livros set id = '{0}', t_titulo = '{1}' where id = '{2}'", tombo, MGlobais.SanitizeString(Livro.Text), tomboOriginal));
         }
 
         private void FormLoad(object sender, EventArgs e)

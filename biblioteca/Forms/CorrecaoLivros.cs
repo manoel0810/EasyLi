@@ -75,7 +75,7 @@ namespace biblioteca
             {
                 return;
             }
-            Banco.DML(String.Format("update tb_livros set id = '{0}', t_titulo = '{1}', dt_datain = '{2}' where id = '{3}'", tb_codigo.Text, MGlobais.ValidarString(tb_nome.Text), MGlobais.FormatarDataSQL(mask_data.Text), dgv_livros.SelectedRows[0].Cells[0].Value.ToString()));
+            Banco.DML(String.Format("update tb_livros set id = '{0}', t_titulo = '{1}', dt_datain = '{2}' where id = '{3}'", tb_codigo.Text, MGlobais.SanitizeString(tb_nome.Text), MGlobais.FormatarDataSQL(mask_data.Text), dgv_livros.SelectedRows[0].Cells[0].Value.ToString()));
             dgv_livros.SelectedRows[0].Cells[0].Value = tb_codigo.Text;
             dgv_livros.SelectedRows[0].Cells[1].Value = tb_nome.Text;
             dgv_livros.SelectedRows[0].Cells[2].Value = mask_data.Text;

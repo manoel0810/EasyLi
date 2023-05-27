@@ -193,6 +193,7 @@ namespace biblioteca
             lb_op_et1.Refresh();
             lb_vd_3.ForeColor = Color.White;
             lb_vd_3.Refresh();
+            /*
             if (MGlobais.TryConnection(1) && MGlobais.TryConnection(2))
             {
                 lb_op_et1.Text = "Bancos Responsívos";
@@ -209,7 +210,7 @@ namespace biblioteca
                 Thread.Sleep(1500);
                 lb_op_et1.ForeColor = Color.White;
                 lb_op_et1.Refresh();
-            }
+            }*/
 
             this.Refresh();
             Thread.Sleep(1000);
@@ -233,6 +234,7 @@ namespace biblioteca
                     lb_op_et1.Refresh();
                     Thread.Sleep(500);
                     string codec = Atualizacoes(i);
+                    /*
                     if (codec.Contains("f"))
                     {
                         codec = codec.Replace("f", "x");
@@ -251,7 +253,7 @@ namespace biblioteca
                         lb_op_et1.Text = String.Format("Atualização {0} instalada!", Atualizacoes(i));
                         lb_op_et1.Refresh();
                         Thread.Sleep(500);
-                    }
+                    }*/
                 }
             }
             lb_op_et1.Text = "Concluído!";
@@ -465,10 +467,12 @@ namespace biblioteca
                 tb_porta_et3.Text = Cryptography.Decrypt.DecryptData(biblioteca.Scripts.Bin_Char.BinToChar(Scripts.HexToBin.ConverToBin(cred.ReadLine())));
                 tb_host_et3.Text = Cryptography.Decrypt.DecryptData(biblioteca.Scripts.Bin_Char.BinToChar(Scripts.HexToBin.ConverToBin(cred.ReadLine())));
                 tb_username_et3.Text = Cryptography.Decrypt.DecryptData(biblioteca.Scripts.Bin_Char.BinToChar(Scripts.HexToBin.ConverToBin(cred.ReadLine())));
+               /*
                 if (MGlobais.VerificarServico("eremol.smtp") == false)
                 {
                     ServicosWin.ServicosWin.StartService("cliente.smtp.EREMOL");
                 }
+               */
                 btn_avncar_et3.Enabled = true;
                 cred.Close();
             }
@@ -505,7 +509,7 @@ namespace biblioteca
             etapa4.Show();
             Thread.Sleep(500);
 
-            if (MGlobais.Internet() == false)
+            if (MGlobais.Internet())
             {
                 lb_ga_1.ForeColor = Color.White;
                 lb_ga_1.Refresh();
@@ -587,15 +591,15 @@ namespace biblioteca
         private void btn_avncar_et3_Click(object sender, EventArgs e)
         {
             btn_avncar_et3.Cursor = Cursors.WaitCursor;
-            MGlobais.GerarCCS(tb_email_et3.Text, tb_password_et3.Text, int.Parse(tb_porta_et3.Text), tb_host_et3.Text, tb_username_et3.Text);
+            //MGlobais.GerarCCS(tb_email_et3.Text, tb_password_et3.Text, int.Parse(tb_porta_et3.Text), tb_host_et3.Text, tb_username_et3.Text);
             lb_ss_2.ForeColor = Color.Chartreuse;
             lb_ss_2.Refresh();
-            if (MGlobais.Internet() == false)
+            if (MGlobais.Internet())
             {
                 lb_ss_3.ForeColor = Color.White;
                 lb_ss_3.Refresh();
                 Thread.Sleep(200);
-                MGlobais.GerarACC("Teste de Startup", "Teste do SMTP no startp do Biblioteca Fácil.\n\nTech Team™", "suporte.bfacil@gmail.com");
+                //MGlobais.GerarACC("Teste de Startup", "Teste do SMTP no startp do Biblioteca Fácil.\n\nTech Team™", "suporte.bfacil@gmail.com");
                 Thread.Sleep(2500);
                 if (File.Exists(String.Format("C:\\Biblioteca Fácil\\Filas\\{0}", Globais.fileNameCreted)) == false)
                 {
