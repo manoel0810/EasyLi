@@ -67,9 +67,12 @@
             this.FiltroNome = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.UserState = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label19 = new System.Windows.Forms.Label();
+            this.Delete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dadosCorrecao)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -125,7 +128,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(181, 60);
+            this.label6.Location = new System.Drawing.Point(130, 60);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(64, 13);
             this.label6.TabIndex = 9;
@@ -152,7 +155,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(241, 11);
+            this.label9.Location = new System.Drawing.Point(273, 11);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(40, 13);
             this.label9.TabIndex = 12;
@@ -190,6 +193,7 @@
             this.Matricula.Location = new System.Drawing.Point(222, 30);
             this.Matricula.MaxLength = 8;
             this.Matricula.Name = "Matricula";
+            this.Matricula.ReadOnly = true;
             this.Matricula.Size = new System.Drawing.Size(91, 20);
             this.Matricula.TabIndex = 3;
             // 
@@ -200,7 +204,7 @@
             "Alterar Turma"});
             this.Turmas.Location = new System.Drawing.Point(17, 76);
             this.Turmas.Name = "Turmas";
-            this.Turmas.Size = new System.Drawing.Size(149, 21);
+            this.Turmas.Size = new System.Drawing.Size(110, 21);
             this.Turmas.TabIndex = 4;
             this.Turmas.Text = "Alterar Turma";
             // 
@@ -219,15 +223,15 @@
             this.Livro.Location = new System.Drawing.Point(10, 27);
             this.Livro.MaxLength = 64;
             this.Livro.Name = "Livro";
-            this.Livro.Size = new System.Drawing.Size(225, 20);
+            this.Livro.Size = new System.Drawing.Size(257, 20);
             this.Livro.TabIndex = 7;
             // 
             // Tombo
             // 
-            this.Tombo.Location = new System.Drawing.Point(241, 27);
+            this.Tombo.Location = new System.Drawing.Point(270, 27);
             this.Tombo.MaxLength = 8;
             this.Tombo.Name = "Tombo";
-            this.Tombo.Size = new System.Drawing.Size(77, 20);
+            this.Tombo.Size = new System.Drawing.Size(48, 20);
             this.Tombo.TabIndex = 8;
             // 
             // EstadosDoLivro
@@ -321,10 +325,10 @@
             // TurmaAtual
             // 
             this.TurmaAtual.Cursor = System.Windows.Forms.Cursors.No;
-            this.TurmaAtual.Location = new System.Drawing.Point(180, 76);
+            this.TurmaAtual.Location = new System.Drawing.Point(133, 76);
             this.TurmaAtual.Name = "TurmaAtual";
             this.TurmaAtual.ReadOnly = true;
-            this.TurmaAtual.Size = new System.Drawing.Size(131, 20);
+            this.TurmaAtual.Size = new System.Drawing.Size(110, 20);
             this.TurmaAtual.TabIndex = 5;
             this.TurmaAtual.TabStop = false;
             // 
@@ -415,6 +419,7 @@
             // 
             // FiltroNome
             // 
+            this.FiltroNome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.FiltroNome.Location = new System.Drawing.Point(13, 25);
             this.FiltroNome.MaxLength = 16;
             this.FiltroNome.Name = "FiltroNome";
@@ -434,6 +439,8 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.UserState);
             this.panel2.Controls.Add(this.NomeUsuario);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.Matricula);
@@ -448,6 +455,26 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(326, 154);
             this.panel2.TabIndex = 33;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(249, 60);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(49, 13);
+            this.label14.TabIndex = 31;
+            this.label14.Text = "Situação";
+            // 
+            // UserState
+            // 
+            this.UserState.Location = new System.Drawing.Point(249, 76);
+            this.UserState.MaxLength = 12;
+            this.UserState.Name = "UserState";
+            this.UserState.ReadOnly = true;
+            this.UserState.Size = new System.Drawing.Size(64, 20);
+            this.UserState.TabIndex = 30;
+            this.UserState.TabStop = false;
+            this.UserState.MouseHover += new System.EventHandler(this.UserState_MouseHover);
             // 
             // label18
             // 
@@ -494,12 +521,24 @@
             this.label19.TabIndex = 1;
             this.label19.Text = "Dados associados ao livro";
             // 
+            // Delete
+            // 
+            this.Delete.ForeColor = System.Drawing.Color.Maroon;
+            this.Delete.Location = new System.Drawing.Point(12, 513);
+            this.Delete.Name = "Delete";
+            this.Delete.Size = new System.Drawing.Size(75, 23);
+            this.Delete.TabIndex = 17;
+            this.Delete.Text = "Excluir";
+            this.Delete.UseVisualStyleBackColor = true;
+            this.Delete.Click += new System.EventHandler(this.Delete_Click);
+            // 
             // F_CorrecaoDados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(937, 545);
+            this.Controls.Add(this.Delete);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label18);
@@ -571,5 +610,8 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox UserState;
+        private System.Windows.Forms.Button Delete;
     }
 }

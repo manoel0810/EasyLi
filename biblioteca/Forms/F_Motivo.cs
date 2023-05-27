@@ -118,7 +118,7 @@ namespace biblioteca
             if (matricula != "")
             {
                 if (DialogResult.Yes == MessageBox.Show("Este aluno possue uma matrícula vinculada ao cadastro.\nDeseja bloquear esta matrícula?", "Motivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-                    modo = (int)Global.BookStatus.Bloqueado;
+                    modo = (int)Global.UserState.Blocked;
                 else
                     modo = (int)Global.BookStatus.Perdido;
                 
@@ -139,7 +139,7 @@ namespace biblioteca
             if (RespostaEmail == 1)
             {
                 string estadoM = "";
-                if (modo == (int)Global.BookStatus.Bloqueado)
+                if (modo == (int)Global.UserState.Blocked)
                     estadoM = "Suspenço";           
                 else
                     estadoM = "Ativo";
@@ -152,8 +152,8 @@ namespace biblioteca
             if (matricula != "")
             {
                 int estadoM;
-                if (modo == (int)Global.BookStatus.Bloqueado)
-                    estadoM = (int)Global.BookStatus.Bloqueado;
+                if (modo == (int)Global.UserState.Blocked)
+                    estadoM = (int)Global.UserState.Blocked;
                 else
                     estadoM = (int)Global.BookStatus.Perdido;
 

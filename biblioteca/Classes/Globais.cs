@@ -61,7 +61,7 @@ namespace biblioteca
             Emprestado = 1,
             Devolvido = 0,
             Perdido = 2,
-            Bloqueado = 3,
+            //Bloqueado = 3,
             ErrorStateReturn = -1
         }
 

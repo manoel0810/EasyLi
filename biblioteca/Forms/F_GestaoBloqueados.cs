@@ -18,7 +18,7 @@ namespace biblioteca
 
         private void F_GestaoBloqueados_Load(object sender, EventArgs e)
         {
-            string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_DATA AS 'Data' FROM tb_dadosaluno WHERE T_STATUS='" + Global.BookStatus.Bloqueado + "'";
+            string vquery = "SELECT N_IDLIVROALUNO AS 'ID', T_ALUNO AS 'Aluno', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_DATA AS 'Data' FROM tb_dadosaluno WHERE T_STATUS='" + (int)Global.UserState.Blocked + "'";
             dgv_bloqueados.DataSource = DatabaseController.DQL(vquery);
             dgv_bloqueados.Columns[0].Width = 50;
             dgv_bloqueados.Columns[1].Width = 220;

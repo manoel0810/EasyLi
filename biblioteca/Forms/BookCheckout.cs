@@ -94,7 +94,7 @@ namespace biblioteca
                 return;
             }
 
-            if (UserState == (int)Global.BookStatus.Bloqueado)
+            if (UserState == (int)Global.UserState.Blocked)
             {
                 MessageBox.Show("Esta matrícula está bloqueada no sistema por alguma pendência. Para novos cadastros, retire o bloqueio do usuário.", "Bloqueado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 ClearForm();

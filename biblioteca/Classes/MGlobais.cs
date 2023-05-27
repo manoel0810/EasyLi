@@ -47,8 +47,8 @@ namespace biblioteca
                     return "EMPRESTADO";
                 case Global.BookStatus.Perdido:
                     return "PERDIDO";
-                case Global.BookStatus.Bloqueado:
-                    return "BLOQUEADO";
+                //case Global.BookStatus.Bloqueado:
+                    //return "BLOQUEADO";
                 default:
                     return "NONE";
             }
@@ -64,8 +64,8 @@ namespace biblioteca
                     return Global.BookStatus.Emprestado;
                 case "PERDIDO":
                     return Global.BookStatus.Perdido;
-                case "BLOQUEADO":
-                    return Global.BookStatus.Bloqueado;
+                //case "BLOQUEADO":
+                    //return Global.BookStatus.Bloqueado;
                 default:
                     return Global.BookStatus.ErrorStateReturn;
             }
