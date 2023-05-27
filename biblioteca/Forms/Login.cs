@@ -29,7 +29,7 @@ namespace biblioteca
         private void EasyLiKeydown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                Enter.PerformClick();
+                EnterButton.PerformClick();
         }
 
         private void EnterClick(object sender, EventArgs e)

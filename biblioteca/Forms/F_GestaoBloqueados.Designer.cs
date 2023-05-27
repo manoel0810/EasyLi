@@ -78,7 +78,7 @@
             this.btn_voltar.TabIndex = 26;
             this.btn_voltar.Text = "Voltar";
             this.btn_voltar.UseVisualStyleBackColor = true;
-            this.btn_voltar.Click += new System.EventHandler(this.btn_voltar_Click);
+            this.btn_voltar.Click += new System.EventHandler(this.ExitClick);
             // 
             // btn_notificar
             // 
@@ -89,7 +89,7 @@
             this.btn_notificar.TabIndex = 25;
             this.btn_notificar.Text = "Notificar";
             this.btn_notificar.UseVisualStyleBackColor = true;
-            this.btn_notificar.Click += new System.EventHandler(this.btn_notificar_Click);
+            this.btn_notificar.Click += new System.EventHandler(this.Notification);
             // 
             // btn_desbloquear
             // 
@@ -100,7 +100,7 @@
             this.btn_desbloquear.TabIndex = 24;
             this.btn_desbloquear.Text = "Desbloquear";
             this.btn_desbloquear.UseVisualStyleBackColor = true;
-            this.btn_desbloquear.Click += new System.EventHandler(this.btn_desbloquear_Click);
+            this.btn_desbloquear.Click += new System.EventHandler(this.UnblockCkick);
             // 
             // mask_data
             // 
@@ -217,7 +217,7 @@
             this.dgv_bloqueados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_bloqueados.Size = new System.Drawing.Size(718, 156);
             this.dgv_bloqueados.TabIndex = 15;
-            this.dgv_bloqueados.SelectionChanged += new System.EventHandler(this.dgv_bloqueados_SelectionChanged);
+            this.dgv_bloqueados.SelectionChanged += new System.EventHandler(this.DGVSelectionChenged);
             // 
             // F_GestaoBloqueados
             // 
@@ -247,7 +247,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestão Bloqueados";
             this.Load += new System.EventHandler(this.F_GestaoBloqueados_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.F_GestaoBloqueados_KeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_bloqueados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

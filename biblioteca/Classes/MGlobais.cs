@@ -168,8 +168,7 @@ namespace biblioteca
                 //OPERAÇÃO
                 foreach (DataRow row in IB.Rows)
                 {
-                    DataTable update = new DataTable();
-                    update = DatabaseController.DQL("select T_STATUS, T_DATA from tb_dadosaluno where N_IDLIVROALUNO = '" + row.Field<Int64>("id") + "'");
+                    DataTable update = DatabaseController.DQL("select T_STATUS, T_DATA from tb_dadosaluno where N_IDLIVROALUNO = '" + row.Field<Int64>("id") + "'");
                     if (update.Rows.Count != 0)
                         DatabaseController.DML(String.Format("update tb_H_Notificacao set t_status = '{0}', dt_dataReg = '{1}' where id = '{2}'", update.Rows[0].Field<string>("T_STATUS"), MGlobais.FormatarDataSQL(update.Rows[0].Field<DateTime>("T_DATA").ToShortDateString()), row.Field<Int64>("id")));
                 }
