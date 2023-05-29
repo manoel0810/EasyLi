@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Windows.Forms;
 
 namespace biblioteca
 {
@@ -39,7 +39,7 @@ namespace biblioteca
     public class Global
     {
         //Constantes do sistema
-        public const string ATIVED_STATE = "Ativo";
+        public const string ACTIVED_STATE = "Ativo";
         public const string DATABASE_NAME = "Base.db";
         public const string VERSION = "1.0 - EasyLi 2023";
 
@@ -47,7 +47,8 @@ namespace biblioteca
         public static string CurrentUsername = string.Empty;
         public static string CurrentUserFullname = string.Empty;
         public static UserPrivilege CurrentUserPrivilege = UserPrivilege.Normal;
-
+        public static EmailSender EmailControl;
+        public static Logger Log = new Logger($"{Application.StartupPath}\\logs\\logteste.txt");
 
         [Flags]
         public enum UserPrivilege : int

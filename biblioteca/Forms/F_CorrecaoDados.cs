@@ -176,6 +176,8 @@ namespace biblioteca
         {
             if (e.KeyCode == Keys.Escape)
                 Close();
+            else if (e.KeyCode == Keys.Delete)
+                Delete.PerformClick();
         }
 
         private void FiltroNome_TextChanged(object sender, EventArgs e)

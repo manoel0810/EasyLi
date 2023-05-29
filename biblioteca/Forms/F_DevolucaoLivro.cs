@@ -66,7 +66,7 @@ namespace biblioteca
             {
                 if (Devolvido.Checked)
                 {
-                    if (string.IsNullOrWhiteSpace(UserEmail) && MGlobais.CheckSMTPConfiguration())
+                    if (!string.IsNullOrWhiteSpace(UserEmail) && MGlobais.CheckSMTPConfiguration())
                         Email.EnviarEmail(String.Format("Olá {0}. Você fez a devolução do livro {1} que foi pego em {2}. A sua devolução já foi registrada e sua pêndencia com o mesmo retirada. Agradecemos sua responsabilidade.", NomeUsuario.Text, Livro.Text, Data.Text), "EasyLi - Devolução de Livro", UserEmail);
 
                     DatabaseController.DML($"UPDATE registry SET T_STATUS='{(int)Global.BookStatus.Devolvido}', T_DATAP = '{MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString())}' WHERE N_REGISTRYCODE = '{ID.Text}'");

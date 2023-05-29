@@ -34,37 +34,37 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.tb_email = new System.Windows.Forms.TextBox();
-            this.tb_host = new System.Windows.Forms.TextBox();
-            this.tb_porta = new System.Windows.Forms.TextBox();
-            this.tb_username = new System.Windows.Forms.TextBox();
-            this.tb_password = new System.Windows.Forms.TextBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Email = new System.Windows.Forms.TextBox();
+            this.Host = new System.Windows.Forms.TextBox();
+            this.Port = new System.Windows.Forms.TextBox();
+            this.Username = new System.Windows.Forms.TextBox();
+            this.Password = new System.Windows.Forms.TextBox();
+            this.Reset = new System.Windows.Forms.LinkLabel();
+            this.SaveSMTP = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 21);
+            this.label1.Location = new System.Drawing.Point(20, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.Size = new System.Drawing.Size(89, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Endereço de Email";
+            this.label1.Text = "Email para SMTP";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(378, 21);
+            this.label2.Location = new System.Drawing.Point(370, 13);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.Size = new System.Drawing.Size(121, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Host";
+            this.label2.Text = "Host de acesso do smtp";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 78);
+            this.label3.Location = new System.Drawing.Point(20, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 2;
@@ -73,7 +73,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(175, 78);
+            this.label4.Location = new System.Drawing.Point(82, 51);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 3;
@@ -82,84 +82,86 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(378, 78);
+            this.label5.Location = new System.Drawing.Point(187, 51);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 13);
+            this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 4;
-            this.label5.Text = "PassWord";
+            this.label5.Text = "Password";
             // 
-            // tb_email
+            // Email
             // 
-            this.tb_email.Location = new System.Drawing.Point(15, 37);
-            this.tb_email.Name = "tb_email";
-            this.tb_email.Size = new System.Drawing.Size(344, 20);
-            this.tb_email.TabIndex = 5;
+            this.Email.Location = new System.Drawing.Point(23, 29);
+            this.Email.Name = "Email";
+            this.Email.Size = new System.Drawing.Size(344, 20);
+            this.Email.TabIndex = 0;
             // 
-            // tb_host
+            // Host
             // 
-            this.tb_host.Location = new System.Drawing.Point(381, 37);
-            this.tb_host.Name = "tb_host";
-            this.tb_host.Size = new System.Drawing.Size(142, 20);
-            this.tb_host.TabIndex = 6;
+            this.Host.Location = new System.Drawing.Point(373, 29);
+            this.Host.Name = "Host";
+            this.Host.Size = new System.Drawing.Size(142, 20);
+            this.Host.TabIndex = 1;
             // 
-            // tb_porta
+            // Port
             // 
-            this.tb_porta.Location = new System.Drawing.Point(15, 94);
-            this.tb_porta.Name = "tb_porta";
-            this.tb_porta.Size = new System.Drawing.Size(100, 20);
-            this.tb_porta.TabIndex = 7;
+            this.Port.Location = new System.Drawing.Point(23, 67);
+            this.Port.Name = "Port";
+            this.Port.Size = new System.Drawing.Size(56, 20);
+            this.Port.TabIndex = 2;
             // 
-            // tb_username
+            // Username
             // 
-            this.tb_username.Location = new System.Drawing.Point(178, 94);
-            this.tb_username.Name = "tb_username";
-            this.tb_username.Size = new System.Drawing.Size(153, 20);
-            this.tb_username.TabIndex = 8;
+            this.Username.Location = new System.Drawing.Point(85, 67);
+            this.Username.Name = "Username";
+            this.Username.Size = new System.Drawing.Size(99, 20);
+            this.Username.TabIndex = 3;
             // 
-            // tb_password
+            // Password
             // 
-            this.tb_password.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_password.Location = new System.Drawing.Point(381, 94);
-            this.tb_password.Name = "tb_password";
-            this.tb_password.PasswordChar = '•';
-            this.tb_password.Size = new System.Drawing.Size(142, 22);
-            this.tb_password.TabIndex = 9;
+            this.Password.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Password.Location = new System.Drawing.Point(190, 65);
+            this.Password.MaxLength = 24;
+            this.Password.Name = "Password";
+            this.Password.PasswordChar = '•';
+            this.Password.Size = new System.Drawing.Size(99, 22);
+            this.Password.TabIndex = 4;
             // 
-            // linkLabel1
+            // Reset
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.LinkColor = System.Drawing.Color.Black;
-            this.linkLabel1.Location = new System.Drawing.Point(12, 146);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(49, 13);
-            this.linkLabel1.TabIndex = 10;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Redefinir";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.Reset.AutoSize = true;
+            this.Reset.LinkColor = System.Drawing.Color.Black;
+            this.Reset.Location = new System.Drawing.Point(20, 90);
+            this.Reset.Name = "Reset";
+            this.Reset.Size = new System.Drawing.Size(49, 13);
+            this.Reset.TabIndex = 6;
+            this.Reset.TabStop = true;
+            this.Reset.Text = "Redefinir";
+            this.Reset.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ResetClick);
             // 
-            // button1
+            // SaveSMTP
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(448, 133);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.SaveSMTP.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SaveSMTP.Location = new System.Drawing.Point(440, 67);
+            this.SaveSMTP.Name = "SaveSMTP";
+            this.SaveSMTP.Size = new System.Drawing.Size(75, 23);
+            this.SaveSMTP.TabIndex = 5;
+            this.SaveSMTP.Text = "OK";
+            this.SaveSMTP.UseVisualStyleBackColor = true;
+            this.SaveSMTP.Click += new System.EventHandler(this.SaveClick);
             // 
             // F_ServidorEmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 168);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.tb_password);
-            this.Controls.Add(this.tb_username);
-            this.Controls.Add(this.tb_porta);
-            this.Controls.Add(this.tb_host);
-            this.Controls.Add(this.tb_email);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(535, 117);
+            this.Controls.Add(this.SaveSMTP);
+            this.Controls.Add(this.Reset);
+            this.Controls.Add(this.Password);
+            this.Controls.Add(this.Username);
+            this.Controls.Add(this.Port);
+            this.Controls.Add(this.Host);
+            this.Controls.Add(this.Email);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -171,8 +173,7 @@
             this.Name = "F_ServidorEmail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configurações do Host";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.F_ServidorEmail_FormClosing);
-            this.Load += new System.EventHandler(this.F_ServidorEmail_Load);
+            this.Load += new System.EventHandler(this.FormLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,12 +186,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tb_email;
-        private System.Windows.Forms.TextBox tb_host;
-        private System.Windows.Forms.TextBox tb_porta;
-        private System.Windows.Forms.TextBox tb_username;
-        private System.Windows.Forms.TextBox tb_password;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox Email;
+        private System.Windows.Forms.TextBox Host;
+        private System.Windows.Forms.TextBox Port;
+        private System.Windows.Forms.TextBox Username;
+        private System.Windows.Forms.TextBox Password;
+        private System.Windows.Forms.LinkLabel Reset;
+        private System.Windows.Forms.Button SaveSMTP;
     }
 }

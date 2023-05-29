@@ -103,6 +103,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\EmailSender.cs" />
+    <Compile Include="Classes\Logger.cs" />
     <Compile Include="Forms\Backup.cs">
       <SubType>Form</SubType>
     </Compile>

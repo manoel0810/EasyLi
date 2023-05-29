@@ -117,7 +117,7 @@ namespace biblioteca
 
             Save.Enabled = false;
             Save.Cursor = Cursors.No;
-            if (string.IsNullOrWhiteSpace(Email.Text) && MGlobais.ValidateEmail(Email.Text) && MGlobais.CheckSMTPConfiguration())
+            if (!string.IsNullOrWhiteSpace(Email.Text) && MGlobais.ValidateEmail(Email.Text) && MGlobais.CheckSMTPConfiguration())
                 biblioteca.Email.EnviarEmail(string.Format("Olá {0}. Notamos que você realizou a retirada do livro '{1}'. Você possue 8(oito) dias para efetuar a devolução.", NomeUsuario.Text, Livro.Text), "EasyLi - Retirada de Livro", Email.Text);
 
             string vquery = @"INSERT INTO registry (T_USER, T_LIVRO, T_STATUS, T_DATA, T_DATAP, T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL) VALUES ('" + MGlobais.ValidarString(NomeUsuario.Text) + "', '" + MGlobais.ValidarString(Livro.Text) + "', '" + (int)InitialBookState + "', '" + MGlobais.FormatarDataSQL(Data.Text) + "', '" + MGlobais.FormatarDataSQL(Data.Text) + "', '" + Turma.Text + "', '" + UserCode + "', '" + Tombo.Text + "', '" + Email.Text + "')";

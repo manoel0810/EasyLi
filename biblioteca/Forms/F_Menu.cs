@@ -83,6 +83,11 @@ namespace biblioteca
                 servidorToolStripMenuItem.Visible = false;
 
             Backup.Visible = false; //Sistema de backups não está funcionando na versão atual (23/05/2023)
+
+            //Iniciar sub rotina para emails
+            if (MGlobais.CheckSMTPConfiguration())
+                if (Global.EmailControl == null)
+                    Global.EmailControl = new EmailSender(Properties.Settings.Default.Host, Properties.Settings.Default.Porta, Properties.Settings.Default.UserEmail, Properties.Settings.Default.SenhaEmail, Properties.Settings.Default.Email);
         }
 
         private void BookIn(object sender, EventArgs e)
@@ -143,6 +148,11 @@ namespace biblioteca
             {
                 sairToolStripMenuItem.PerformClick();
             }
+
+            /*
+            else if (e.Alt && e.KeyCode == Keys.E)
+                Global.EmailControl.SendEmail("manoelvictorzxc15@gmail.com", "subject", "body");
+            */
         }
 
         private void Support(object sender, EventArgs e)
