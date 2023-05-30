@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Media;
 using System.Windows.Forms;
 
 namespace biblioteca
@@ -12,108 +11,105 @@ namespace biblioteca
             InitializeComponent();
         }
 
-        private static int tamanho = 0;
+        private int tamanho = 0;
+        private bool IsSerialValid = false;
+        private ToolTip Tip = null;
+        private Global.UserPrivilege UserSerial = Global.UserPrivilege.Normal;
 
-        private void button3_Click(object sender, EventArgs e)
+        private void ExitClick(object sender, EventArgs e)
         {
-            MessageBox.Show("O serial serve para regrar os privilégios dentro do Softwere. Existem dois seriais, use o respectivo ao seu privilégio no programa.\n\nOs códigos podem ser encontrados na documentação do Biblioteca Fácil.", "Nota de Descrição", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void CreateClick(object sender, EventArgs e)
         {
-            this.Close();
-        }
+            foreach (Control c in Controls)
+                if (c is TextBox Box)
+                    if (string.IsNullOrWhiteSpace(Box.Text))
+                    {
+                        MessageBox.Show("Informe todos os campos corretamente", "Cadastro de usuários", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (tb_nome.Text == "" || tb_senha.Text == "" || tb_Rsenha.Text == "" || tb_username.Text == "" || tb_serial.Text == "")
-            {
-                SystemSound son = SystemSounds.Exclamation;
-                son.Play();
+            if (!IsSerialValid)
                 return;
-            }
 
-            if (tb_senha.Text != tb_Rsenha.Text)
-            {
-                MessageBox.Show("Suas senhas estão difetentes entre si.", "Cadastro", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            int TipoSerial = MGlobais.TipoSerial(tb_serial.Text);
-
-            if (TipoSerial == 3)
-            {
-                MessageBox.Show("O serial fornecido é inválido. Por favor, forneça um válido", "Serial Inválido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            if (MGlobais.AntiSQLInjection(tb_username.Text) == true || MGlobais.AntiSQLInjection(tb_senha.Text) == true)
+            if (MGlobais.AntiSQLInjection(Username.Text) || MGlobais.AntiSQLInjection(Senha.Text))
             {
                 MessageBox.Show("Atenção! Sua senha e/ou username utilizam caracteres especiais do sistema(, ' ; and or, etc). Para efeturar seu cadastro, pedimos que modifique seus campos.", "Sistema de Segurança Integrado - SSI", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (MGlobais.ValidarUser(tb_username.Text))
+            if (MGlobais.ValidarUser(Username.Text))
             {
-                string vquery = String.Format("INSERT INTO tb_login (T_USER, T_SENHA, T_NOMECOMPLETO, N_PRIV) VALUES ('{0}', '{1}', '{2}', '{3}')", MGlobais.SanitizeString(tb_username.Text), tb_Rsenha.Text, MGlobais.SanitizeString(tb_nome.Text), TipoSerial);
-                Banco.DML(vquery);
+                string vquery = String.Format("INSERT INTO tb_login (T_USER, T_TOKEN, T_NOMECOMPLETO, N_PRIV) VALUES ('{0}', '{1}', '{2}', '{3}')", MGlobais.SanitizeString(Username.Text), MGlobais.GenereteUserToken(Username.Text, Senha.Text), MGlobais.SanitizeString(Nome.Text), (int)UserSerial);
+                DatabaseController.DML(vquery);
 
-                MessageBox.Show("Cadastro efetuado com êxito!", "Cadastrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                MessageBox.Show("Cadastro efetuado com êxito!", "Cadastro de usuários", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
             }
             else
             {
-                MessageBox.Show("Já existe um usuário com este Username registrado. Escolha outro para seu login.", "Advertência", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Já existe um usuário com este Username registrado. Escolha outro para seu login.", "Cadastro de usuários", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }
 
-        private void tb_serial_TextChanged(object sender, EventArgs e)
+        private void SerialTextChenged(object sender, EventArgs e)
         {
-            if (tb_serial.Text.Length >= 10)
+            if (Serial.Text.Length >= 10)
             {
-                int tipo = MGlobais.TipoSerial(tb_serial.Text);
-                if (tipo == 0)
+                int tipo = MGlobais.TipoSerial(Serial.Text);
+                if ((int)Global.UserPrivilege.Superuser == tipo)
                 {
                     lb_nível.Visible = true;
                     lb_nível.Text = "Avançado";
                     lb_nível.ForeColor = Color.DarkGreen;
                     lb_nível.Refresh();
+
+                    UserSerial = (Global.UserPrivilege)(tipo);
+                    IsSerialValid = true;
                     return;
                 }
-                else if (tipo == 1)
+                else if ((int)Global.UserPrivilege.Normal == tipo)
                 {
                     lb_nível.Visible = true;
                     lb_nível.Text = "Básico";
                     lb_nível.ForeColor = Color.DarkBlue;
                     lb_nível.Refresh();
+
+                    UserSerial = (Global.UserPrivilege)(tipo);
+                    IsSerialValid = true;
                     return;
                 }
-                else if (tipo == 3)
+                else if ((int)Global.UserPrivilege.NotDefined == tipo)
                 {
                     lb_nível.Visible = true;
                     lb_nível.Text = "Inválido";
                     lb_nível.ForeColor = Color.DarkRed;
                     lb_nível.Refresh();
+                    IsSerialValid = false;
                     return;
                 }
             }
-            if (tb_serial.Text.Length < 10 && lb_nível.Visible == true)
+
+            if (Serial.Text.Length < 10 && lb_nível.Visible)
             {
+                IsSerialValid = false;
                 lb_nível.Visible = false;
             }
         }
 
-        private void tb_senha_TextChanged(object sender, EventArgs e)
+        private void SenhaChenged(object sender, EventArgs e)
         {
-            tamanho = tb_senha.Text.Length;
+            tamanho = Senha.Text.Length;
         }
 
-        private void tb_Rsenha_TextChanged(object sender, EventArgs e)
+        private void RSenhaChenged(object sender, EventArgs e)
         {
-            if (tb_Rsenha.Text.Length >= tamanho)
+            if (RSenha.Text.Length >= tamanho)
             {
-                if (tb_senha.Text != tb_Rsenha.Text)
+                if (Senha.Text != RSenha.Text)
                 {
                     lb_senhas.Visible = true;
                     lb_senhas.Text = "Suas Senhas Estão Diferentes";
@@ -123,12 +119,26 @@ namespace biblioteca
                 }
             }
 
-            if (lb_senhas.Visible == true && tb_Rsenha.Text.Length < tamanho)
+            if (lb_senhas.Visible && RSenha.Text.Length < tamanho)
             {
                 lb_senhas.Visible = false;
                 lb_senhas.Refresh();
                 return;
             }
+        }
+
+        private void Nome_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var KEA = MGlobais.FormatNameCamp(e, (TextBox)sender);
+            Nome = KEA.TXT;
+        }
+
+        private void Serial_MouseHover(object sender, EventArgs e)
+        {
+            Tip?.Dispose();
+            Tip = new ToolTip();
+
+            Tip.SetToolTip((TextBox)sender, "Os seriais podem ser encontrados na documentação do software");
         }
     }
 }

@@ -77,7 +77,7 @@ namespace biblioteca
             }
 
             //Verificar o privilégio do usuário atual
-            try { Global.CurrentUserPrivilege = (Global.UserPrivilege)int.Parse(DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_USER = '{Global.CurrentUsername}'").Rows[0].Field<Int64>("N_PRIV").ToString()); } catch { Global.CurrentUserPrivilege = Global.UserPrivilege.Normal; }
+            try { Global.CurrentUserPrivilege = (Global.UserPrivilege)int.Parse(DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_TOKEN = '{Global.CurrentUserAccessToken}'").Rows[0].Field<Int64>("N_PRIV").ToString()); } catch { Global.CurrentUserPrivilege = Global.UserPrivilege.NotDefined; }
 
             if (Global.CurrentUserPrivilege == Global.UserPrivilege.Normal)
                 servidorToolStripMenuItem.Visible = false;

@@ -46,6 +46,7 @@ namespace biblioteca
         //Variáveis de acesso global
         public static string CurrentUsername = string.Empty;
         public static string CurrentUserFullname = string.Empty;
+        public static string CurrentUserAccessToken = string.Empty;
         public static UserPrivilege CurrentUserPrivilege = UserPrivilege.Normal;
         public static EmailSender EmailControl;
         public static Logger Log = new Logger($"{Application.StartupPath}\\logs\\logteste.txt");
@@ -54,7 +55,8 @@ namespace biblioteca
         public enum UserPrivilege : int
         {
             Normal = 0,
-            Superuser = 1
+            Superuser = 1,
+            NotDefined = 3
         }
 
         public enum BookStatus : int

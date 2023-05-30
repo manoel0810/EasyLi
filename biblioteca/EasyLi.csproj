@@ -137,12 +137,6 @@
     <Compile Include="Forms\F_AlterarDadosTurma.Designer.cs">
       <DependentUpon>F_AlterarDadosTurma.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\F_AlterarLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_AlterarLogin.Designer.cs">
-      <DependentUpon>F_AlterarLogin.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\F_Atrasados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,9 +271,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_AlterarDadosTurma.resx">
       <DependentUpon>F_AlterarDadosTurma.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_AlterarLogin.resx">
-      <DependentUpon>F_AlterarLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_Atrasados.resx">
       <DependentUpon>F_Atrasados.cs</DependentUpon>

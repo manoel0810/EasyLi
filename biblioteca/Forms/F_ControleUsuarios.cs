@@ -7,290 +7,188 @@ namespace biblioteca
 {
     public partial class F_ControleUsuarios : Form
     {
+        private string CurrentUsername = string.Empty;
+        private ToolTip Tip = null;
+
         public F_ControleUsuarios()
         {
             InitializeComponent();
         }
-        DataTable InfoGlobal = new DataTable();
-        private static int idU = 0;
 
         private void F_ControleUsuarios_Load(object sender, EventArgs e)
         {
-            rb_nao.Checked = true;
-            tb_RNovaSenha.Enabled = false;
-            tb_novaSenha.Enabled = false;
-            DataTable infUser = new DataTable();
-            infUser = Banco.DQL("SELECT * FROM tb_login WHERE T_USER = '" + Global.CurrentUsername + "'");
-            InfoGlobal = infUser;
 
-            lb_nomeCompleto.Text = infUser.Rows[0].Field<string>("T_NOMECOMPLETO");
-            lb_usuario.Text = infUser.Rows[0].Field<string>("T_USER");
-            idU = int.Parse(infUser.Rows[0].Field<Int64>("id").ToString());
-            tb_nome.Text = lb_nomeCompleto.Text;
-            tb_user.Text = lb_usuario.Text;
+            DataTable infUser = DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_TOKEN = '{Global.CurrentUserAccessToken}'");
+            Nome.Text = infUser.Rows[0].Field<string>("T_NOMECOMPLETO");
+            Username.Text = infUser.Rows[0].Field<string>("T_USER");
+            CurrentUsername = infUser.Rows[0].Field<string>("T_USER");
 
-            string privlegio = "";
-            int priv = int.Parse(infUser.Rows[0].Field<Int64>("N_PRIV").ToString());
-            if (priv == 1)
+            int Privilegio = int.Parse(infUser.Rows[0].Field<Int64>("N_PRIV").ToString());
+            if ((int)Global.UserPrivilege.Normal == Privilegio)
             {
-                privlegio = "Simples";
+                lb_tipo.Text = "Simples";
                 lb_tipo.ForeColor = Color.DarkBlue;
-                tabControl1.TabPages.Remove(tabPage2);
             }
-            else
+            else if ((int)Global.UserPrivilege.Superuser == Privilegio)
             {
-                privlegio = "Avançado";
+                lb_tipo.Text = "Avançado";
                 lb_tipo.ForeColor = Color.DarkGreen;
             }
 
-            lb_tipo.Text = privlegio;
-            lb_tipo.Refresh();
-
-            if (privlegio == "Avançado")
-            {
-                DataTable dgv = new DataTable();
-                dgv = Banco.DQL("SELECT id AS 'ID', T_USER AS 'Usuário', T_NOMECOMPLETO AS 'Nome' FROM tb_login");
-                dgv_login.DataSource = dgv;
-                dgv_login.Columns[0].Width = 70;
-                dgv_login.Columns[1].Width = 150;
-                dgv_login.Columns[2].Width = 265;
-            }
-
-            this.KeyPreview = true;
+            KeyPreview = true;
         }
 
-        private void btn_voltar_Click(object sender, EventArgs e)
+        private void ExitClick(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        private void btn_voltar2_Click(object sender, EventArgs e)
+        private void SaveClick(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void rb_sim_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rb_sim.Checked)
-            {
-                tb_novaSenha.Enabled = true;
-                tb_RNovaSenha.Enabled = true;
-            }
-            else
-            {
-                tb_novaSenha.Enabled = false;
-                tb_RNovaSenha.Enabled = false;
-            }
-        }
-
-        private void btn_aplicar_Click(object sender, EventArgs e)
-        {
-            string query = "";
-
-            if (MGlobais.AntiSQLInjection(tb_user.Text) == true || MGlobais.AntiSQLInjection(tb_RNovaSenha.Text) == true)
+            if (MGlobais.AntiSQLInjection(Username.Text) || MGlobais.AntiSQLInjection(RepetirNovaSenha.Text))
             {
                 MessageBox.Show("Atenção! Sua senha e/ou username utilizam caracteres especiais do sistema(, ' ; and or, etc). Para efeturar a atualização, pedimos que modifique seus campos.", "Sistema de Segurança Integrado - SSI", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (tb_ConfSenha.Text == "")
+            if (SenhaAtual.Text == "")
             {
                 MessageBox.Show("Para qualquer alteração do usuário, é pedido a senha do mesmo.", "Informe Uma Senha", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
             {
-                if (tb_ConfSenha.Text == InfoGlobal.Rows[0].Field<string>("T_SENHA"))
+                if (Global.CurrentUserAccessToken == MGlobais.GenereteUserToken(CurrentUsername, SenhaAtual.Text))
                 {
-                    if (rb_sim.Checked)
+                    if (AlterarSenha.Checked)
                     {
-                        if (ValidarSaida(tb_user.Text))
+                        if ((NovaSenha.Text != RepetirNovaSenha.Text) && NovaSenha.Text.Trim().Length == 0 && RepetirNovaSenha.Text.Trim().Length == 0)
                         {
-                            query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_SENHA = '{1}', T_NOMECOMPLETO = '{2}' WHERE T_USER = '{3}'", tb_user.Text, tb_RNovaSenha.Text, tb_nome.Text, InfoGlobal.Rows[0].Field<string>("T_USER"));
-                            DatabaseController.DML(query);
-                            Global.CurrentUsername = tb_user.Text;
-                            Global.CurrentUserFullname = tb_nome.Text;
+                            MessageBox.Show("As senhas que você digitou estão diferêntes entre si", "Correção de dados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        else if (NovaSenha.Text.Trim().Length < 0x4)
+                        {
+                            MessageBox.Show("A sua senha deve conter no mínimo quatro caracteres", "Correção de dados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
 
+                        if (VerifyUserAvaible(Username.Text))
+                        {
+                            string NewToken = MGlobais.GenereteUserToken(Username.Text, NovaSenha.Text);
+                            string Query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_TOKEN = '{1}', T_NOMECOMPLETO = '{2}' WHERE T_TOKEN = '{3}'", Username.Text, NewToken, Nome.Text, Global.CurrentUserAccessToken);
+                            DatabaseController.DML(Query);
+
+                            Global.CurrentUsername = Username.Text;
+                            Global.CurrentUserFullname = Nome.Text;
+                            Global.CurrentUserAccessToken = NewToken;
                             MessageBox.Show("Informações atualizadas.", "Salvo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
+                            Close();
                         }
                         else
                         {
-                            MessageBox.Show("Algum usuário já usa este Username. Escolha outro", "Banco de Dados", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Algum usuário já usa este Username. Escolha outro para poder registrar um novo nome de acesso", "Banco de Dados", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
 
                     }
                     else
                     {
-                        if (ValidarSaida(tb_user.Text))
+                        if (VerifyUserAvaible(Username.Text))
                         {
-                            query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_NOMECOMPLETO = '{1}' WHERE T_USER = '{2}'", tb_user.Text, tb_nome.Text, InfoGlobal.Rows[0].Field<string>("T_USER"));
-                            DatabaseController.DML(query);
-                            Global.CurrentUsername = tb_user.Text;
-                            Global.CurrentUserFullname = tb_nome.Text;
+                            string NewToken = MGlobais.GenereteUserToken(Username.Text, SenhaAtual.Text);
+                            string Query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_TOKEN = '{1}', T_NOMECOMPLETO = '{2}' WHERE T_TOKEN = '{3}'", Username.Text, NewToken, Nome.Text, Global.CurrentUserAccessToken);
+                            DatabaseController.DML(Query);
 
+                            Global.CurrentUsername = Username.Text;
+                            Global.CurrentUserFullname = Nome.Text;
+                            Global.CurrentUserAccessToken = NewToken;
                             MessageBox.Show("Informações atualizadas.", "Salvo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
+                            Close();
                         }
                         else
                         {
-                            MessageBox.Show("Algum usuário já usa este Username. Escolha outro", "Banco de Dados", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Algum usuário já usa este Username. Escolha outro para poder registrar um novo nome de acesso", "Banco de Dados", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Senha Incorreta. Forneça a senha deste usuário", "Senha Incorreta", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("A senha atual do usuário informada está incorreta. Confirme a senha para prosseguir com alterações", "Senha Incorreta", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
             }
         }
 
-        private bool ValidarSaida(string user)
+        private bool VerifyUserAvaible(string Username)
         {
-            bool saida;
-            int protocolo = 0;
-            DataTable dt = new DataTable();
-            DataTable consultas = new DataTable();
-            string vquery = String.Format("SELECT * FROM tb_login WHERE id =" + idU);
-            dt = Banco.DQL(vquery);
-
-            if (tb_user.Text == dt.Rows[0].Field<string>("T_USER"))
+            DataTable UserFind = DatabaseController.DQL($"select T_TOKEN from tb_login where T_USER = '{Username}'");
+            if (UserFind.Rows.Count == 0)
             {
-                saida = true;
+                UserFind.Dispose();
+                return true;
             }
             else
             {
-                consultas = Banco.DQL("SELECT * FROM tb_login WHERE T_USER = '" + tb_user.Text + "'");
-                protocolo = consultas.Rows.Count;
-                if (protocolo > 0)
+                if (UserFind.Rows[0].Field<string>("T_TOKEN") == Global.CurrentUserAccessToken)
                 {
-                    saida = false;
+                    UserFind.Dispose();
+                    return true;
                 }
                 else
                 {
-                    saida = true;
-                }
-            }
-
-            return saida;
-        }
-
-        private bool ValidarSaidaAvancado(string user, int id)
-        {
-            bool saida;
-            int protocolo = 0;
-            DataTable dt = new DataTable();
-            DataTable consultas = new DataTable();
-            string vquery = String.Format("SELECT * FROM tb_login WHERE id =" + id);
-            dt = Banco.DQL(vquery);
-
-            if (tb_user2.Text == dt.Rows[0].Field<string>("T_USER"))
-            {
-                saida = true;
-            }
-            else
-            {
-                consultas = Banco.DQL("SELECT * FROM tb_login WHERE T_USER = '" + tb_user2.Text + "'");
-                protocolo = consultas.Rows.Count;
-                if (protocolo > 0)
-                {
-                    saida = false;
-                }
-                else
-                {
-                    saida = true;
-                }
-            }
-
-            return saida;
-        }
-
-        private void dgv_login_SelectionChanged(object sender, EventArgs e)
-        {
-            DataGridView dgv = (DataGridView)sender;
-            int rows = 0;
-            rows = dgv.SelectedRows.Count;
-
-            if (rows > 0)
-            {
-                DataTable dt = new DataTable();
-                string vquery = "SELECT * FROm tb_login WHERE id ='" + dgv.SelectedRows[0].Cells[0].Value + "'";
-                dt = Banco.DQL(vquery);
-
-                tb_nomeCompleto2.Text = dt.Rows[0].Field<string>("T_NOMECOMPLETO");
-                tb_senha2.Text = dt.Rows[0].Field<string>("T_SENHA");
-                tb_user2.Text = dt.Rows[0].Field<string>("T_USER");
-                int tipoPriv = int.Parse(dt.Rows[0].Field<Int64>("N_PRIV").ToString());
-                if (tipoPriv == 0)
-                {
-                    cb_privi.Text = "Avançado";
-                }
-                else if (tipoPriv == 1)
-                {
-                    cb_privi.Text = "Simples";
+                    UserFind.Dispose();
+                    return false;
                 }
             }
         }
 
-        private void btn_apagar_Click(object sender, EventArgs e)
-        {
-            if (dgv_login.SelectedRows.Count <= 0)
-            {
-                return;
-            }
 
-            if (DialogResult.Yes == MessageBox.Show("Você deseja realmente apagar este login?", "Banco de Dados", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-            {
-                string vquery = "DELETE FROM tb_login WHERE T_USER = '" + tb_user2.Text + "'";
-                Banco.DML(vquery);
-                dgv_login.Rows.Remove(dgv_login.CurrentRow);
-            }
-        }
-
-        private void btn_aplicar2_Click(object sender, EventArgs e)
-        {
-            if (dgv_login.SelectedRows.Count <= 0)
-            {
-                return;
-            }
-
-            if (MGlobais.AntiSQLInjection(tb_user2.Text) == true || MGlobais.AntiSQLInjection(tb_senha2.Text) == true)
-            {
-                MessageBox.Show("Atenção! Sua senha e/ou username utilizam caracteres especiais do sistema(, ' ; and or, etc). Para efeturar a atualização, pedimos que modifique seus campos.", "Sistema de Segurança Integrado - SSI", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (ValidarSaidaAvancado(tb_user2.Text, int.Parse(dgv_login.SelectedRows[0].Cells[0].Value.ToString())))
-            {
-                int valorReal = 0;
-                if (cb_privi.Text == "Avançado")
-                {
-                    valorReal = 0;
-                }
-                else
-                {
-                    valorReal = 1;
-                }
-                string vquery = "UPDATE tb_login SET T_USER = '" + tb_user2.Text + "', T_NOMECOMPLETO = '" + tb_nomeCompleto2.Text + "', T_SENHA = '" + tb_senha2.Text + "', N_PRIV = '" + valorReal + "' WHERE id = '" + dgv_login.SelectedRows[0].Cells[0].Value + "'";
-                Banco.DML(vquery);
-                MessageBox.Show("Informações alteradas. Atualize a página para ver mudanças.", "Banco de Dados", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("O Username que você digitou, já é de outro usuário.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-        }
-
-        private void F_ControleUsuarios_KeyDown(object sender, KeyEventArgs e)
+        private void FormKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
+                ExitButton.PerformClick();
+            else if (e.KeyCode == Keys.Delete)
+                DelteButton.PerformClick();
+            else if (e.KeyCode == Keys.Enter)
+                SaveUser.PerformClick();
+
+        }
+
+        private void AlterarSenha_CheckedChanged(object sender, EventArgs e)
+        {
+            PainelSenhas.Enabled = AlterarSenha.Checked;
+        }
+
+        private void DeleteClick(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(SenhaAtual.Text) || MGlobais.GenereteUserToken(CurrentUsername, SenhaAtual.Text) != Global.CurrentUserAccessToken)
             {
-                this.Close();
+                MessageBox.Show("Confirme a senha do usuário para efetuar essa ação", "Apagar usuário", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
+
+            if (DialogResult.Yes == MessageBox.Show("Ao apagar o usuário, você será desconectado do sistema. Deseja continuar?", "Apagar usuário", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            {
+                DatabaseController.DML($"delete from tb_login where T_TOKEN = '{Global.CurrentUserAccessToken}'");
+                MessageBox.Show("O sistema será finalizado...", "Saindo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Application.Exit();
+            }
+        }
+
+        private void SenhaAtual_MouseHover(object sender, EventArgs e)
+        {
+            Tip?.Dispose();
+            Tip = new ToolTip();
+
+            Tip.SetToolTip((TextBox)sender, "Campo para confirmação da senha do usuário");
+        }
+
+        private void Nome_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var KEA = MGlobais.FormatNameCamp(e, (TextBox)sender);
+            Nome = KEA.TXT;
         }
     }
 }

@@ -5,11 +5,14 @@ using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace biblioteca
 {
     public class MGlobais
     {
+        private static readonly EventKeySender RET = new EventKeySender();
+
         /// <summary>
         /// Verifica se uma cadeia de entrada possui ocorrência de aspas simples. Caso haja, substitui todos os casos por aspas duplas
         /// </summary>
@@ -225,16 +228,40 @@ namespace biblioteca
 
         public static bool Login(string Username, string Password)
         {
-            var Data = DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_USER = '{Username}' AND T_SENHA = '{Password}'");
+            string UToken = GenereteUserToken(Username, Password);
+            var Data = DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_TOKEN = '{UToken}'");
+
             if (Data.Rows.Count == 1)
             {
                 Global.CurrentUserFullname = Data.Rows[0].Field<string>("T_NOMECOMPLETO");
                 Global.CurrentUsername = Data.Rows[0].Field<string>("T_USER");
+                Global.CurrentUserAccessToken = UToken;
                 return true;
             }
             else
                 return false;
 
+        }
+
+        /// <summary>
+        /// Calcula um token de acesso para o login do usuário
+        /// </summary>
+        /// <param name="Username">Username de acesso do usuário</param>
+        /// <param name="Password">Senha de acesso do usuário</param>
+        /// <returns>Token <b>SHA256</b> com a chave de acesso para o login e senha informados</returns>
+        /// <exception cref="ArgumentException"></exception>
+
+        public static string GenereteUserToken(string Username, string Password)
+        {
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+                throw new ArgumentException("Argumentos de entrada inválidos ou insuficientes");
+
+            string Sequo = $"{Username}::{Password}";
+            byte[] PhraseBytes = Encoding.UTF8.GetBytes(Sequo);
+            SHA256CryptoServiceProvider Provider = new SHA256CryptoServiceProvider();
+            string Token = BytesToString(Provider.ComputeHash(PhraseBytes)).ToLower();
+
+            return Token;
         }
 
         /// <summary>
@@ -252,11 +279,11 @@ namespace biblioteca
             switch (SHA256)
             {
                 case "2830ba23f77d4d6f159dc05834da509515f3356e3374e7b9f3108c44c0ce7453":
-                    return 0x0;
+                    return (int)Global.UserPrivilege.Superuser;
                 case "c821851a0ee96298136b27a0730eb1399a83c27b8c512b0fe8b4af2559ac80af":
-                    return 0x1;
+                    return (int)Global.UserPrivilege.Normal;
                 default:
-                    return 0x3;
+                    return (int)Global.UserPrivilege.NotDefined;
             }
         }
 
@@ -323,5 +350,48 @@ namespace biblioteca
                 return dataFormatada;
             }
         }
+
+        /// <summary>
+        /// <method name="FormatNameCamp(param[])">
+        ///     <description>Este método captaliza a primeira letra de cada palavra para maiúsculo a nível de escrita</description>
+        /// </method>
+        /// </summary>
+        /// <param name="e">Obtém o <b>KeyPressEventArgs</b> associado ao evento <b>KeyPress</b></param>
+        /// <param name="TextBoxObject">Recebe o <b><i>object</i> TextBox</b> associado ao evento</param>
+        /// <returns>
+        ///     EventKeySender: <b><i>Object</i>::class</b> -> Retorna um <b><i>EventKeySender</i></b> com o texto formatado e o evento redesenhado
+        /// </returns>
+
+        public static EventKeySender FormatNameCamp(KeyPressEventArgs e, TextBox TextBoxObject)
+        {
+            if (TextBoxObject.Text.Length == 0x0)
+            {
+                e.KeyChar = Convert.ToChar(e.KeyChar.ToString().ToUpper());
+                e.Handled = false;
+            }
+            else if (TextBoxObject.Text.Length > 0x1)
+                if (TextBoxObject.Text[TextBoxObject.Text.Length - 0x1] == ' ')
+                {
+                    e.KeyChar = Convert.ToChar(e.KeyChar.ToString().ToUpper());
+                    e.Handled = false;
+                }
+
+
+            RET.KPEA = e;
+            RET.TXT = TextBoxObject;
+            return RET;
+        }
+    }
+
+    /// <summary>
+    /// <class name="EventKeySender">
+    ///     <description>Esta classe armazena os dados do processamento do evento <b>KeyPress</b> para a sua formatação de texto adequada</description>
+    /// </class>
+    /// </summary>
+
+    public class EventKeySender
+    {
+        public KeyPressEventArgs KPEA = null;
+        public TextBox TXT = null;
     }
 }
