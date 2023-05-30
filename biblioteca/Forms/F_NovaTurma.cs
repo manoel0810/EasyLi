@@ -34,7 +34,7 @@ namespace biblioteca
                     tb_turma.Clear();
                     return;
                 }
-                string vquery = "INSERT INTO tb_turmas (N_TURMA) VALUES ('" + MGlobais.ValidarString(tb_turma.Text) + "')";
+                string vquery = "INSERT INTO tb_turmas (N_TURMA) VALUES ('" + MGlobais.SanitizeString(tb_turma.Text) + "')";
                 Banco.DML(vquery);
                 CarregarTurmas();
                 DialogResult Res = MessageBox.Show("A nova turma foi salva! Deseja realizar outra operação? ", "Salvo", MessageBoxButtons.YesNo, MessageBoxIcon.Information);

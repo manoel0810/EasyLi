@@ -34,23 +34,22 @@ namespace biblioteca
             DateTime date = dt.Rows[0].Field<DateTime>("last_backup");
             lb_lastB.Text = date.ToString();
             if (date.Subtract(DateTime.Today).Days >= 8)
-            {
                 lb_lastB.ForeColor = Color.DarkRed;
-            }
             else
-            {
                 lb_lastB.ForeColor = Color.DarkGreen;
-            }
         }
 
         private void Backup_Load(object sender, EventArgs e)
         {
             updateForm();
             pb_animacoes.Image = Properties.Resources.db;
-            if (MGlobais.VerificarServico("eremol.smtp"))
-            {
-                ServicosWin.ServicosWin.StopService("cliente.smtp.EREMOL");
-            }
+            /*
+               if (MGlobais.VerificarServico("eremol.smtp"))
+                {
+                    ServicosWin.ServicosWin.StopService("cliente.smtp.EREMOL");
+                }
+             */
+
         }
 
         private void btn_alterarAuto_Click(object sender, EventArgs e)
@@ -74,7 +73,7 @@ namespace biblioteca
 
         private void efetuarBackupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MGlobais.Internet())
+            if (!MGlobais.Internet())
             {
                 MessageBox.Show("Oops. Parece que você não tem conexão com a internet. Esta função precisa de uma conexão", "Internet Response", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -130,7 +129,7 @@ namespace biblioteca
 
         private void restaurarBackupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MGlobais.Internet())
+            if (!MGlobais.Internet())
             {
                 MessageBox.Show("Oops. Parece que você não tem conexão com a internet. Esta função precisa de uma conexão", "Internet Response", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -211,10 +210,11 @@ namespace biblioteca
 
         private void Backup_FormClosed(object sender, FormClosedEventArgs e)
         {
+            /*
             if (MGlobais.VerificarServico("eremol.smtp") == false)
             {
                 ServicosWin.ServicosWin.StartService("cliente.smtp.EREMOL");
-            }
+            }*/
         }
     }
 }

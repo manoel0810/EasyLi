@@ -159,7 +159,7 @@ namespace biblioteca
 
                 if (DatabaseController.DQL("SELECT * FROM tb_matriculas WHERE T_MATRICULA = '" + lb_matricula.Text + "'").Rows.Count == 0)
                 {
-                    string query = "INSERT INTO tb_matriculas (T_MATRICULA, T_ALUNO, T_ESTADO) VALUES ('" + matricula + "', '" + MGlobais.ValidarString(lb_aluno.Text) + "', '" + estadoM + "')";
+                    string query = "INSERT INTO tb_matriculas (T_MATRICULA, T_ALUNO, T_ESTADO) VALUES ('" + matricula + "', '" + MGlobais.SanitizeString(lb_aluno.Text) + "', '" + estadoM + "')";
                     Banco.DML(query);
                 }
                 else

@@ -32,7 +32,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.Exit = new System.Windows.Forms.Button();
-            this.Enter = new System.Windows.Forms.Button();
+            this.EnterButton = new System.Windows.Forms.Button();
             this.tb_senha = new System.Windows.Forms.TextBox();
             this.tb_usuario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -81,22 +81,22 @@
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.ExitClick);
             // 
-            // Enter
+            // EnterButton
             // 
-            this.Enter.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Enter.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.Enter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.PaleTurquoise;
-            this.Enter.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.Enter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Enter.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Enter.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Enter.Location = new System.Drawing.Point(114, 248);
-            this.Enter.Name = "Enter";
-            this.Enter.Size = new System.Drawing.Size(79, 36);
-            this.Enter.TabIndex = 2;
-            this.Enter.Text = "Entrar";
-            this.Enter.UseVisualStyleBackColor = true;
-            this.Enter.Click += new System.EventHandler(this.EnterClick);
+            this.EnterButton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.EnterButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.EnterButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.PaleTurquoise;
+            this.EnterButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.EnterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EnterButton.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnterButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.EnterButton.Location = new System.Drawing.Point(114, 248);
+            this.EnterButton.Name = "EnterButton";
+            this.EnterButton.Size = new System.Drawing.Size(79, 36);
+            this.EnterButton.TabIndex = 2;
+            this.EnterButton.Text = "Entrar";
+            this.EnterButton.UseVisualStyleBackColor = true;
+            this.EnterButton.Click += new System.EventHandler(this.EnterClick);
             // 
             // tb_senha
             // 
@@ -141,7 +141,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(228, 320);
             this.Controls.Add(this.Exit);
-            this.Controls.Add(this.Enter);
+            this.Controls.Add(this.EnterButton);
             this.Controls.Add(this.tb_senha);
             this.Controls.Add(this.tb_usuario);
             this.Controls.Add(this.label2);
@@ -168,7 +168,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button Exit;
-        private System.Windows.Forms.Button Enter;
+        private System.Windows.Forms.Button EnterButton;
         private System.Windows.Forms.TextBox tb_senha;
         private System.Windows.Forms.TextBox tb_usuario;
         private System.Windows.Forms.Label label2;

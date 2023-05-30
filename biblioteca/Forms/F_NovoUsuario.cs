@@ -55,7 +55,7 @@ namespace biblioteca
 
             if (MGlobais.ValidarUser(tb_username.Text))
             {
-                string vquery = String.Format("INSERT INTO tb_login (T_USER, T_SENHA, T_NOMECOMPLETO, N_PRIV) VALUES ('{0}', '{1}', '{2}', '{3}')", MGlobais.ValidarString(tb_username.Text), tb_Rsenha.Text, MGlobais.ValidarString(tb_nome.Text), TipoSerial);
+                string vquery = String.Format("INSERT INTO tb_login (T_USER, T_SENHA, T_NOMECOMPLETO, N_PRIV) VALUES ('{0}', '{1}', '{2}', '{3}')", MGlobais.SanitizeString(tb_username.Text), tb_Rsenha.Text, MGlobais.SanitizeString(tb_nome.Text), TipoSerial);
                 Banco.DML(vquery);
 
                 MessageBox.Show("Cadastro efetuado com êxito!", "Cadastrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
