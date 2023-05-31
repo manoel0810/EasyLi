@@ -192,15 +192,15 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(18, 13);
             this.label6.TabIndex = 11;
-            this.label6.Text = "ID";
+            this.label6.Text = "Matricula";
             // 
-            // ID
+            // Matricula
             // 
             this.ID.BackColor = System.Drawing.Color.White;
             this.ID.Cursor = System.Windows.Forms.Cursors.No;
             this.ID.Location = new System.Drawing.Point(286, 238);
             this.ID.MaxLength = 10000;
-            this.ID.Name = "ID";
+            this.ID.Name = "Matricula";
             this.ID.ReadOnly = true;
             this.ID.Size = new System.Drawing.Size(64, 20);
             this.ID.TabIndex = 12;

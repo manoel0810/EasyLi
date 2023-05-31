@@ -134,7 +134,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(18, 13);
             this.label2.TabIndex = 10;
-            this.label2.Text = "ID";
+            this.label2.Text = "Matricula";
             // 
             // F_AlterarDadosTurma
             // 

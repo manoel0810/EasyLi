@@ -294,7 +294,7 @@ namespace biblioteca
                 lb_vd_6.Refresh();
                 lb_op_et1.Refresh();
                 Thread.Sleep(1500);
-                StopOperatinon("Autenticador client_id não encontrado. Este arquivo json têm informações do Host Google Api. É necessário sua presença. Entre em contato com o suporte pelo email: suporte.bfacil@gmail.com e solicite o seu.");
+                StopOperatinon("Autenticador client_id não encontrado. Este arquivo json têm informações do Host Google Api. É necessário sua presença. Entre em contato com o suporte pelo UserEmail: suporte.bfacil@gmail.com e solicite o seu.");
                 return;
             }
             Thread.Sleep(1500);

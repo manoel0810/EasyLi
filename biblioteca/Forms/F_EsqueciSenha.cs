@@ -12,156 +12,115 @@ namespace biblioteca
             InitializeComponent();
         }
 
-        private static int controleGeral = 0;
-        private static int tamanhoChar = 0;
+        private static int DadosValidados = 0;
+        private static int PasswordLenght = 0;
 
-        private void button2_Click(object sender, EventArgs e)
+        private void CancelClick(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AcaoClick(object sender, EventArgs e)
         {
-            if (controleGeral == 1)
+            if (DadosValidados == 1)
             {
-                if (tb_senha.Text == "" || tb_Rsenha.Text == "")
+                if (Senha.Text == "" || RepetirSenha.Text == "")
                 {
-                    lb_senhas.Text = "Informe corretamente os campos.";
-                    lb_senhas.Visible = true;
-                    lb_senhas.Refresh();
-                    lb_senhas.ForeColor = Color.DarkRed;
+                    SenhaMSG.Text = "Informe corretamente os campos.";
+                    SenhaMSG.Visible = true;
+                    SenhaMSG.Refresh();
+
+                    SenhaMSG.ForeColor = Color.DarkRed;
                     return;
                 }
                 else
                 {
-                    if (tb_senha.Text != tb_Rsenha.Text)
+                    if (Senha.Text != RepetirSenha.Text)
                     {
-                        lb_senhas.Text = "Suas senhas estão diferentes.";
-                        lb_senhas.Visible = true;
-                        lb_senhas.Refresh();
-                        lb_senhas.ForeColor = Color.DarkRed;
+                        SenhaMSG.Text = "Suas senhas estão diferentes.";
+                        SenhaMSG.Visible = true;
+                        SenhaMSG.Refresh();
+
+                        SenhaMSG.ForeColor = Color.DarkRed;
                         return;
                     }
                     else
                     {
-                        if (MGlobais.AntiSQLInjection(tb_username.Text) == true || MGlobais.AntiSQLInjection(tb_senha.Text) == true)
+                        if (MGlobais.AntiSQLInjection(Username.Text) || MGlobais.AntiSQLInjection(Senha.Text))
                         {
                             MessageBox.Show("Atenção! Sua senha e/ou username utilizam caracteres especiais do sistema(, ' ; and or, etc). Para efeturar a atualização, pedimos que modifique seus campos.", "Sistema de Segurança Integrado - SSI", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
-                        string query = String.Format("UPDATE tb_login SET T_SENHA = '{0}' WHERE T_USER = '{1}'", tb_Rsenha.Text, tb_username.Text);
-                        Banco.DML(query);
+                        DatabaseController.DML(String.Format("UPDATE tb_login SET T_TOKEN = '{0}' WHERE T_USER = '{1}'", MGlobais.GenereteUserToken(Username.Text, RepetirSenha.Text), Username.Text));
                         MessageBox.Show("Seu cadastro foi atualizado", "Banco de Dados", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
-                        return;
+                        Close();
                     }
                 }
             }
 
-            DataTable dt = new DataTable();
-            int controle = 0;
-
-            if (rb_basico.Checked)
+            if (MGlobais.AntiSQLInjection(Username.Text) || MGlobais.AntiSQLInjection(Senha.Text))
             {
-                controle = 1;
-            }
-            if (rb_avancado.Checked)
-            {
-                controle = 0;
-            }
-            if (rb_basico.Checked == false && rb_avancado.Checked == false)
-            {
-                lb_tipo.Text = "Obrigatório";
-                lb_tipo.ForeColor = Color.DarkRed;
-                lb_tipo.Visible = true;
-                lb_tipo.Refresh();
+                MessageBox.Show("Atenção! Sua senha e/ou username utilizam caracteres especiais do sistema(, ' ; and or, etc). Para efeturar a atualização, pedimos que modifique seus campos.", "Sistema de Segurança Integrado - SSI", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string vquery = "SELECT * FROM tb_login WHERE T_USER = '" + tb_username.Text + "' AND N_PRIV = '" + controle + "'";
-            dt = Banco.DQL(vquery);
+            int NivelDeAcesso = NivelBasico.Checked ? (int)Global.UserPrivilege.Normal : (int)Global.UserPrivilege.Superuser;
+            DataTable dt = DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_USER = '{Username.Text}' AND N_PRIV = '{NivelDeAcesso}' and T_NOMECOMPLETO = '{Nome.Text}'");
 
             if (dt.Rows.Count < 1)
             {
-                MessageBox.Show("Não achamos nenhum registro com as informações fornecidas.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Não achamos nenhum registro com as informações fornecidas.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
             {
-                string nome = dt.Rows[0].Field<string>("T_NOMECOMPLETO");
-                string nomeTXTDT = nome.ToUpper();
-                string nomeTXT = tb_nome.Text.ToUpper();
-                if (nomeTXTDT == nomeTXT)
+                Senha.Visible = true;
+                RepetirSenha.Visible = true;
+                lb_senha.Visible = true;
+                lb_Rsenha.Visible = true;
+                Nome.Enabled = false;
+                Username.Enabled = false;
+                NivelAvancado.Enabled = false;
+                NivelBasico.Enabled = false;
+                Acao.Text = "Salvar";
+                DadosValidados = 1;
+            }
+        }
+
+        private void SenhaTextChenged(object sender, EventArgs e)
+        {
+            PasswordLenght = Senha.Text.Length;
+        }
+
+        private void RSenhaTextChenged(object sender, EventArgs e)
+        {
+            if (RepetirSenha.Text.Length < PasswordLenght && SenhaMSG.Visible)
+            {
+                SenhaMSG.Visible = false;
+                SenhaMSG.Refresh();
+            }
+
+            if (RepetirSenha.Text.Length >= PasswordLenght)
+            {
+                if (Senha.Text != RepetirSenha.Text)
                 {
-                    tb_senha.Visible = true;
-                    tb_Rsenha.Visible = true;
-                    lb_senha.Visible = true;
-                    lb_Rsenha.Visible = true;
-                    tb_nome.Enabled = false;
-                    tb_username.Enabled = false;
-                    rb_avancado.Enabled = false;
-                    rb_basico.Enabled = false;
-                    btn_vari.Text = "Salvar";
-                    controleGeral = 1;
-                    return;
+                    SenhaMSG.Text = "Suas senhas estão diferentes.";
+                    SenhaMSG.Visible = true;
+                    SenhaMSG.ForeColor = Color.DarkRed;
+                    SenhaMSG.Refresh();
                 }
-                else
+                else if (Senha.Text == RepetirSenha.Text)
                 {
-                    MessageBox.Show("O nome fornecido está divergente do registrado.", "Divergência", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("O serial é um código que você recebe ao adquirir este produto. A função do serial é evitar fraudes. Caso tenha perdido o seu, entre em contato com o desenvolvedor do programa.");
-        }
-
-        private void rb_basico_CheckedChanged(object sender, EventArgs e)
-        {
-            if (lb_tipo.Visible == true)
-            {
-                lb_tipo.Visible = false;
-            }
-        }
-
-        private void rb_avancado_CheckedChanged(object sender, EventArgs e)
-        {
-            if (lb_tipo.Visible == true)
-            {
-                lb_tipo.Visible = false;
-            }
-        }
-
-        private void tb_senha_TextChanged(object sender, EventArgs e)
-        {
-            tamanhoChar = tb_senha.Text.Length;
-        }
-
-        private void tb_Rsenha_TextChanged(object sender, EventArgs e)
-        {
-            if (tb_Rsenha.Text.Length < tamanhoChar && lb_senhas.Visible == true)
-            {
-                lb_senhas.Visible = false;
-                lb_senhas.Refresh();
-            }
-
-            if (tb_Rsenha.Text.Length >= tamanhoChar)
-            {
-                if (tb_senha.Text != tb_Rsenha.Text)
-                {
-                    lb_senhas.Text = "Suas senhas estão diferentes.";
-                    lb_senhas.Visible = true;
-                    lb_senhas.ForeColor = Color.DarkRed;
-                    lb_senhas.Refresh();
-                }
-                else if (lb_tipo.Visible == true && tb_senha.Text == tb_Rsenha.Text)
-                {
-                    lb_senhas.Visible = false;
+                    SenhaMSG.Visible = false;
                 }
             }
+        }
+
+        private void Nome_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var KEA = MGlobais.FormatNameCamp(e, (TextBox)sender);
+            Nome = KEA.TXT;
         }
     }
 }

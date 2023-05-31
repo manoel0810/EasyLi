@@ -22,7 +22,7 @@ namespace biblioteca
         public static string fileNameCreted = string.Empty;
         //public static string user = string.Empty;
         //public static string userLog = string.Empty;
-        public static int uploading = 0;
+        //public static int uploading = 0;
         //public static int id = 0;
         //public static int priv = 0;
         //public static int notificacao = 0;
@@ -39,7 +39,7 @@ namespace biblioteca
     public class Global
     {
         //Constantes do sistema
-        public const string ACTIVED_STATE = "Ativo";
+        //public const string ACTIVED_STATE = "Ativo";
         public const string DATABASE_NAME = "Base.db";
         public const string VERSION = "1.0 - EasyLi 2023";
 

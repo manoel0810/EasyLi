@@ -69,7 +69,7 @@ namespace biblioteca
                 }
                 else if (TryCount == 2)
                 {
-                    if (DialogResult.Yes == MessageBox.Show("Parece que você esqueceu sua senha de login. Deseja tentar recuperar seu login?", MessageHeader, MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    if (DialogResult.Yes == MessageBox.Show("Parece que você esqueceu sua senha de login. Deseja tentar recuperar o seu acesso?", MessageHeader, MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                     {
                         TryCount = 0;
 
@@ -95,12 +95,14 @@ namespace biblioteca
 
         private void EasyLiClosing(object sender, FormClosingEventArgs e)
         {
+            /*
             if (Globais.uploading == 1)
             {
                 e.Cancel = true;
                 MessageBox.Show("Aguarde o upload do Backup...", MessageHeader, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            */
         }
     }
 }

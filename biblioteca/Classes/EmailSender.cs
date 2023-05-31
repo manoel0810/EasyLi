@@ -26,7 +26,7 @@ public class EmailSender
     /// </summary>
     /// <param name="host">Host para acesso do smtp</param>
     /// <param name="port">Porta de acesso ao host</param>
-    /// <param name="username">Username do email smtp</param>
+    /// <param name="username">Username do UserEmail smtp</param>
     /// <param name="password">Senha do smtp</param>
     /// <param name="email">Email do smtp</param>
 
@@ -42,11 +42,11 @@ public class EmailSender
     }
 
     /// <summary>
-    /// Empilha um email para envio
+    /// Empilha um UserEmail para envio
     /// </summary>
     /// <param name="toEmail">Destinatário</param>
-    /// <param name="subject">Subject do email</param>
-    /// <param name="body">Body do email</param>
+    /// <param name="subject">Subject do UserEmail</param>
+    /// <param name="body">Body do UserEmail</param>
 
     public void SendEmail(string toEmail, string subject, string body)
     {

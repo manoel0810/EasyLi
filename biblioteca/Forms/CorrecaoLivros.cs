@@ -6,6 +6,8 @@ namespace biblioteca
 {
     public partial class CorrecaoLivros : Form
     {
+        private string CurrentBookIdentificarion = string.Empty;
+
         public CorrecaoLivros()
         {
             InitializeComponent();
@@ -13,111 +15,145 @@ namespace biblioteca
 
         private void FormatarDGV()
         {
-            dgv_livros.Columns[0].Width = 70;
-            dgv_livros.Columns[1].Width = 275;
-            dgv_livros.Columns[2].Width = 80;
+            Livros.Columns[0].Width = 70;
+            Livros.Columns[1].Width = 275;
+            Livros.Columns[2].Width = 80;
         }
 
         private void CorrecaoLivros_Load(object sender, EventArgs e)
         {
-            this.KeyPreview = true;
-            dgv_livros.DataSource = Banco.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
+            KeyPreview = true;
+            Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
             FormatarDGV();
+
+            Tombo.KeyPress += (_, Args) =>
+            {
+                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
+                    if (Args.KeyChar != '\b')
+                        Args.KeyChar = '\0';
+
+                Args.Handled = false;
+            };
+
+            FiltroTombo.KeyPress += (_, Args) =>
+            {
+                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
+                    if (Args.KeyChar != '\b')
+                        Args.KeyChar = '\0';
+
+                Args.Handled = false;
+            };
         }
 
-        private void dgv_livros_SelectionChanged(object sender, EventArgs e)
+        private void DGVSelectionChenged(object sender, EventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
             if (dgv.SelectedRows.Count > 0)
             {
-                tb_nome.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
-                mask_data.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
-                tb_codigo.Text = dgv.SelectedRows[0].Cells[0].Value.ToString();
+                DataTable Book = DatabaseController.DQL($"select * from tb_livros where id = '{dgv.SelectedRows[0].Cells[0].Value}'");
+
+                Titulo.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
+                DataRegistro.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
+                Tombo.Text = dgv.SelectedRows[0].Cells[0].Value.ToString();
+                CurrentBookIdentificarion = dgv.SelectedRows[0].Cells[0].Value.ToString();
+
+                ISBN13.Text = Book.Rows[0].Field<string>("isbn13");
+                ISBN10.Text = Book.Rows[0].Field<string>("isbn10");
+                Publicacao.Text = Book.Rows[0].Field<string>("publicacao");
+                Autores.Text = Book.Rows[0].Field<string>("autor");
+
             }
         }
 
         private void CorrecaoLivros_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
+                Close();
+        }
+
+        private void VoltarClick(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void ExcluirClick(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes == MessageBox.Show("Você tem certeza que deseja apagar este registros?", "Apagar livro", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
-                this.Close();
+                DatabaseController.DML(String.Format("delete from tb_livros where id = '{0}'", Livros.SelectedRows[0].Cells[0].Value.ToString()));
+                Livros.Rows.Remove(Livros.CurrentRow);
+
+                MessageBox.Show("O livro foi apagado do sistema", "Apagado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void btn_voltar_Click(object sender, EventArgs e)
+        private void SalvaClick(object sender, EventArgs e)
         {
-            this.Close();
-        }
+            if (Livros.SelectedRows.Count < 1)
+                return;
 
-        private void btn_exluit_Click(object sender, EventArgs e)
-        {
-            if (DialogResult.Yes == MessageBox.Show("Você tem certeza que deseja apagar este registros?", "Apagar livro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) && dgv_livros.SelectedRows.Count > 0)
+            if (string.IsNullOrEmpty(Tombo.Text) || string.IsNullOrEmpty(Titulo.Text))
             {
-                Banco.DML(String.Format("delete from tb_livros where id = '{0}'", dgv_livros.SelectedRows[0].Cells[0].Value.ToString()));
-                dgv_livros.Rows.Remove(dgv_livros.CurrentRow);
-                MessageBox.Show("O livro foi apagado", "Apagado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Informe todos os dados obrigatórios", "Correção de dados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
-        }
 
-        private void btn_salvar_Click(object sender, EventArgs e)
-        {
-            if (tb_codigo.Text != dgv_livros.SelectedRows[0].Cells[0].Value.ToString() && dgv_livros.SelectedRows.Count > 0)
+            bool ChangeBookID = false;
+            if (Tombo.Text != Livros.SelectedRows[0].Cells[0].Value.ToString())
             {
-                MessageBox.Show("Você mudou o código do livro. Será feito uma varredura para verificar sua disponibilidade.", "Unique block", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DataTable count = Banco.DQL(String.Format("select * from tb_livros where id = '{0}'", tb_codigo.Text));
+                DataTable count = DatabaseController.DQL(String.Format("select * from tb_livros where id = '{0}'", Tombo.Text));
                 if (count.Rows.Count > 0)
                 {
                     MessageBox.Show("Este tombo não está disponível. Troque para outro", "Unique block", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
+                else
+                    ChangeBookID = true;
             }
-            else if (dgv_livros.SelectedRows.Count <= 0)
-            {
-                return;
-            }
-            Banco.DML(String.Format("update tb_livros set id = '{0}', t_titulo = '{1}', dt_datain = '{2}' where id = '{3}'", tb_codigo.Text, MGlobais.SanitizeString(tb_nome.Text), MGlobais.FormatarDataSQL(mask_data.Text), dgv_livros.SelectedRows[0].Cells[0].Value.ToString()));
-            dgv_livros.SelectedRows[0].Cells[0].Value = tb_codigo.Text;
-            dgv_livros.SelectedRows[0].Cells[1].Value = tb_nome.Text;
-            dgv_livros.SelectedRows[0].Cells[2].Value = mask_data.Text;
+
+            string query = String.Format("update tb_livros set id = '{0}', t_titulo = '{1}', dt_datain = '{2}', isbn13 = '{3}', isbn10 = '{4}', publicacao = '{5}', autor = '{6}' where id = '{7}'", Tombo.Text, MGlobais.SanitizeString(Titulo.Text, true), MGlobais.FormatarDataSQL(DataRegistro.Text), ISBN13.Text.Replace("-", "").Replace(".", ""), ISBN10.Text.Replace("-", ""), MGlobais.SanitizeString(Publicacao.Text, true), MGlobais.SanitizeString(Autores.Text, true), CurrentBookIdentificarion);
+            DatabaseController.DML(query);
+            if (ChangeBookID)
+                DatabaseController.DML($"update registry set T_TOMBO = '{Tombo.Text}' where T_TOMBO = '{CurrentBookIdentificarion}'");
+
+            Livros.SelectedRows[0].Cells[0].Value = Tombo.Text;
+            Livros.SelectedRows[0].Cells[1].Value = Titulo.Text;
+            Livros.SelectedRows[0].Cells[2].Value = DataRegistro.Text;
             MessageBox.Show("Dados salvos com êxito", "Dados salvos", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void tb_nomef_TextChanged(object sender, EventArgs e)
+        private void FiltroTituloTextChenged(object sender, EventArgs e)
         {
-            if (tb_nomef.Text.Length > 2)
+            if (FiltroTitulo.Text.Length > 2)
             {
-                if (tb_nomef.Text.Contains("\'"))
-                {
-                    tb_nomef.Text.Replace("'", " ");
-                    return;
-                }
-                dgv_livros.DataSource = Banco.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros where t_titulo like '" + tb_nomef.Text + "%'");
+                Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros where t_titulo like '%" + FiltroTitulo.Text + "%'");
                 FormatarDGV();
             }
-            else if (tb_nomef.Text.Length == 0)
+            else if (FiltroTitulo.Text.Length == 0)
             {
-                dgv_livros.DataSource = Banco.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
+                Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
                 FormatarDGV();
             }
         }
 
-        private void tb_codigof_TextChanged(object sender, EventArgs e)
+        private void FiltroTomboTextChenged(object sender, EventArgs e)
         {
-            if (tb_codigof.Text.Length > 2)
+            if (FiltroTombo.Text.Length > 2)
             {
-                if (tb_codigof.Text.Contains("\'"))
-                {
-                    tb_codigof.Text.Replace("'", " ");
-                    return;
-                }
-                dgv_livros.DataSource = Banco.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros where id like '" + tb_codigof.Text + "%'");
+                Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros where id like '%" + FiltroTombo.Text + "%'");
                 FormatarDGV();
             }
-            else if (tb_codigof.Text.Length == 0)
+            else if (FiltroTombo.Text.Length == 0)
             {
-                dgv_livros.DataSource = Banco.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
+                Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
                 FormatarDGV();
             }
+        }
+
+        private void Autores_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var KEA = MGlobais.FormatNameCamp(e, (TextBox)sender);
+            Autores = KEA.TXT;
         }
     }
 }

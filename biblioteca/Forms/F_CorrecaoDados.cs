@@ -153,7 +153,7 @@ namespace biblioteca
             if (!String.IsNullOrWhiteSpace(Email.Text))
                 if (!MGlobais.ValidateEmail(Email.Text))
                 {
-                    MessageBox.Show("O endereço de email informado é inválido. Modifique ou remova o email do registro", "Correção de dados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("O endereço de UserEmail informado é inválido. Modifique ou remova o UserEmail do registro", "Correção de dados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -164,6 +164,18 @@ namespace biblioteca
             DatabaseController.DML(vquery);
 
             ControleLivro(Tombo.Text);
+
+            if (EstadoDoLivro.Text != "PERDIDO" && EstadosDoLivro.Text == "PERDIDO")
+            {
+                DialogResult Block = MessageBox.Show("Você alterou o estado do livro para 'Perdido. Você deseja bloquar a matrícula vinculada a esse registro para impedir novos empréstimos do mesmo usuário?", "Bloqueio de usuários", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (Block == DialogResult.Yes)
+                {
+                    F_Motivo Motivo = new F_Motivo(int.Parse(Identificacao.Text));
+                    Motivo.ShowDialog();
+                    Motivo.Dispose();
+                }
+            }
+
             MessageBox.Show("Dados alterados. Atualize a lista para ver mudanças.", "Alterações Salvas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

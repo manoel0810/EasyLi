@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+//using ISBNQuery;
 
 namespace biblioteca
 {
@@ -17,22 +18,27 @@ namespace biblioteca
         /// Verifica se uma cadeia de entrada possui ocorrência de aspas simples. Caso haja, substitui todos os casos por aspas duplas
         /// </summary>
         /// <param name="String">Cadeia de caracteres para validação</param>
+        /// <param name="IgnoreArgumentError">Quando <b>true</b>, ignora a verificação do argumento de entrada</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
 
-        public static string SanitizeString(string @String)
+        public static string SanitizeString(string @String, bool IgnoreArgumentError = false)
         {
-            if (string.IsNullOrEmpty(@String))
-                throw new ArgumentException("O argumento de entrada era null", "@String");
+            if (IgnoreArgumentError == false)
+                if (string.IsNullOrEmpty(@String))
+                    throw new ArgumentException("O argumento de entrada era null", "@String");
 
-            return @String.Replace("'", "''");
+            if (string.IsNullOrEmpty(@String))
+                return "";
+            else
+                return @String.Replace("'", "''");
         }
 
         /// <summary>
-        /// Verifica se um endereço de email está em um formato válido
+        /// Verifica se um endereço de UserEmail está em um formato válido
         /// </summary>
         /// <param name="Email">Email para validação</param>
-        /// <returns><b>true</b> se o email for válido</returns>
+        /// <returns><b>true</b> se o UserEmail for válido</returns>
 
         public static bool ValidateEmail(string Email)
         {
