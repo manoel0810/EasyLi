@@ -30,21 +30,20 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_AlterarDadosTurma));
-            this.dgv_turmas = new System.Windows.Forms.DataGridView();
-            this.btn_salvar = new System.Windows.Forms.Button();
-            this.btn_excluir = new System.Windows.Forms.Button();
-            this.btn_voltar = new System.Windows.Forms.Button();
-            this.tb_turma = new System.Windows.Forms.TextBox();
-            this.tb_id = new System.Windows.Forms.TextBox();
+            this.Turmas = new System.Windows.Forms.DataGridView();
+            this.Salvar = new System.Windows.Forms.Button();
+            this.Excluir = new System.Windows.Forms.Button();
+            this.Voltar = new System.Windows.Forms.Button();
+            this.Turma = new System.Windows.Forms.TextBox();
+            this.ID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_turmas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Turmas)).BeginInit();
             this.SuspendLayout();
             // 
-            // dgv_turmas
+            // Turmas
             // 
-            this.dgv_turmas.AllowUserToAddRows = false;
-            this.dgv_turmas.AllowUserToDeleteRows = false;
+            this.Turmas.AllowUserToAddRows = false;
+            this.Turmas.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -52,114 +51,104 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_turmas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgv_turmas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_turmas.EnableHeadersVisualStyles = false;
-            this.dgv_turmas.Location = new System.Drawing.Point(12, 12);
-            this.dgv_turmas.MultiSelect = false;
-            this.dgv_turmas.Name = "dgv_turmas";
-            this.dgv_turmas.ReadOnly = true;
-            this.dgv_turmas.RowHeadersVisible = false;
-            this.dgv_turmas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_turmas.Size = new System.Drawing.Size(371, 149);
-            this.dgv_turmas.TabIndex = 3;
-            this.dgv_turmas.TabStop = false;
-            this.dgv_turmas.SelectionChanged += new System.EventHandler(this.dgv_turmas_SelectionChanged);
+            this.Turmas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.Turmas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Turmas.EnableHeadersVisualStyles = false;
+            this.Turmas.Location = new System.Drawing.Point(12, 12);
+            this.Turmas.MultiSelect = false;
+            this.Turmas.Name = "Turmas";
+            this.Turmas.ReadOnly = true;
+            this.Turmas.RowHeadersVisible = false;
+            this.Turmas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.Turmas.Size = new System.Drawing.Size(309, 149);
+            this.Turmas.TabIndex = 3;
+            this.Turmas.TabStop = false;
+            this.Turmas.SelectionChanged += new System.EventHandler(this.TurmasSelectionChenged);
             // 
-            // btn_salvar
+            // Salvar
             // 
-            this.btn_salvar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_salvar.Location = new System.Drawing.Point(327, 258);
-            this.btn_salvar.Name = "btn_salvar";
-            this.btn_salvar.Size = new System.Drawing.Size(56, 22);
-            this.btn_salvar.TabIndex = 4;
-            this.btn_salvar.Text = "Salvar";
-            this.btn_salvar.UseVisualStyleBackColor = true;
-            this.btn_salvar.Click += new System.EventHandler(this.btn_salvar_Click);
+            this.Salvar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Salvar.Location = new System.Drawing.Point(265, 208);
+            this.Salvar.Name = "Salvar";
+            this.Salvar.Size = new System.Drawing.Size(56, 22);
+            this.Salvar.TabIndex = 4;
+            this.Salvar.Text = "Salvar";
+            this.Salvar.UseVisualStyleBackColor = true;
+            this.Salvar.Click += new System.EventHandler(this.SalvarClick);
             // 
-            // btn_excluir
+            // Excluir
             // 
-            this.btn_excluir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_excluir.Location = new System.Drawing.Point(265, 258);
-            this.btn_excluir.Name = "btn_excluir";
-            this.btn_excluir.Size = new System.Drawing.Size(56, 22);
-            this.btn_excluir.TabIndex = 5;
-            this.btn_excluir.Text = "Excluir";
-            this.btn_excluir.UseVisualStyleBackColor = true;
-            this.btn_excluir.Click += new System.EventHandler(this.btn_excluir_Click);
+            this.Excluir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Excluir.Location = new System.Drawing.Point(203, 208);
+            this.Excluir.Name = "Excluir";
+            this.Excluir.Size = new System.Drawing.Size(56, 22);
+            this.Excluir.TabIndex = 5;
+            this.Excluir.Text = "Excluir";
+            this.Excluir.UseVisualStyleBackColor = true;
+            this.Excluir.Click += new System.EventHandler(this.ExcluirClick);
             // 
-            // btn_voltar
+            // Voltar
             // 
-            this.btn_voltar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_voltar.Location = new System.Drawing.Point(203, 258);
-            this.btn_voltar.Name = "btn_voltar";
-            this.btn_voltar.Size = new System.Drawing.Size(56, 22);
-            this.btn_voltar.TabIndex = 6;
-            this.btn_voltar.Text = "Voltar";
-            this.btn_voltar.UseVisualStyleBackColor = true;
-            this.btn_voltar.Click += new System.EventHandler(this.btn_voltar_Click);
+            this.Voltar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Voltar.Location = new System.Drawing.Point(141, 208);
+            this.Voltar.Name = "Voltar";
+            this.Voltar.Size = new System.Drawing.Size(56, 22);
+            this.Voltar.TabIndex = 6;
+            this.Voltar.Text = "Voltar";
+            this.Voltar.UseVisualStyleBackColor = true;
+            this.Voltar.Click += new System.EventHandler(this.VoltarClick);
             // 
-            // tb_turma
+            // Turma
             // 
-            this.tb_turma.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tb_turma.Location = new System.Drawing.Point(12, 195);
-            this.tb_turma.MaxLength = 20;
-            this.tb_turma.Name = "tb_turma";
-            this.tb_turma.Size = new System.Drawing.Size(371, 20);
-            this.tb_turma.TabIndex = 1;
+            this.Turma.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.Turma.Location = new System.Drawing.Point(12, 184);
+            this.Turma.MaxLength = 40;
+            this.Turma.Name = "Turma";
+            this.Turma.Size = new System.Drawing.Size(309, 20);
+            this.Turma.TabIndex = 1;
             // 
-            // tb_id
+            // ID
             // 
-            this.tb_id.Cursor = System.Windows.Forms.Cursors.No;
-            this.tb_id.Location = new System.Drawing.Point(12, 260);
-            this.tb_id.Name = "tb_id";
-            this.tb_id.ReadOnly = true;
-            this.tb_id.Size = new System.Drawing.Size(49, 20);
-            this.tb_id.TabIndex = 8;
-            this.tb_id.TabStop = false;
+            this.ID.Cursor = System.Windows.Forms.Cursors.No;
+            this.ID.Location = new System.Drawing.Point(12, 210);
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Size = new System.Drawing.Size(49, 20);
+            this.ID.TabIndex = 8;
+            this.ID.TabStop = false;
+            this.ID.Visible = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 179);
+            this.label1.Location = new System.Drawing.Point(9, 168);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 9;
             this.label1.Text = "Nome Da Turma";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 244);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(18, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Matricula";
             // 
             // F_AlterarDadosTurma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(395, 290);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(332, 236);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tb_id);
-            this.Controls.Add(this.tb_turma);
-            this.Controls.Add(this.btn_voltar);
-            this.Controls.Add(this.btn_excluir);
-            this.Controls.Add(this.btn_salvar);
-            this.Controls.Add(this.dgv_turmas);
+            this.Controls.Add(this.ID);
+            this.Controls.Add(this.Turma);
+            this.Controls.Add(this.Voltar);
+            this.Controls.Add(this.Excluir);
+            this.Controls.Add(this.Salvar);
+            this.Controls.Add(this.Turmas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "F_AlterarDadosTurma";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Turmas - Alterar Dados";
-            this.Load += new System.EventHandler(this.F_AlterarDadosTurma_Load);
+            this.Text = "Turmas - Correção de dados";
+            this.Load += new System.EventHandler(this.FormLoad);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.F_AlterarDadosTurma_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_turmas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Turmas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,13 +156,12 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgv_turmas;
-        private System.Windows.Forms.Button btn_salvar;
-        private System.Windows.Forms.Button btn_excluir;
-        private System.Windows.Forms.Button btn_voltar;
-        private System.Windows.Forms.TextBox tb_turma;
-        private System.Windows.Forms.TextBox tb_id;
+        private System.Windows.Forms.DataGridView Turmas;
+        private System.Windows.Forms.Button Salvar;
+        private System.Windows.Forms.Button Excluir;
+        private System.Windows.Forms.Button Voltar;
+        private System.Windows.Forms.TextBox Turma;
+        private System.Windows.Forms.TextBox ID;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
     }
 }

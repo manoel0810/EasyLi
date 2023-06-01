@@ -19,7 +19,7 @@ namespace biblioteca
         //public static string data = DateTime.Today.Year.ToString();
         //public static string versao = "1.0 - CM DISTRIBUTION 2021.1";
         //public static string bloqueado = "BLOQUEADO";
-        public static string fileNameCreted = string.Empty;
+        //public static string fileNameCreted = string.Empty;
         //public static string user = string.Empty;
         //public static string userLog = string.Empty;
         //public static int uploading = 0;
@@ -42,6 +42,7 @@ namespace biblioteca
         //public const string ACTIVED_STATE = "Ativo";
         public const string DATABASE_NAME = "Base.db";
         public const string VERSION = "1.0 - EasyLi 2023";
+        public const string SUPORTE_EMAIL = "td.techdevops@gmail.com";
 
         //Variáveis de acesso global
         public static string CurrentUsername = string.Empty;

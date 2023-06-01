@@ -155,7 +155,6 @@
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EasyLi";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EasyLiClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EasyLiKeydown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

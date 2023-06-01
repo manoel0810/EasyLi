@@ -122,12 +122,6 @@
     <Compile Include="Forms\CorrecaoLivros.Designer.cs">
       <DependentUpon>CorrecaoLivros.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Detalhes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Detalhes.Designer.cs">
-      <DependentUpon>Detalhes.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\Email.cs" />
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
@@ -231,21 +225,9 @@
     <Compile Include="Forms\F_Suporte.Designer.cs">
       <DependentUpon>F_Suporte.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\F_Tabela.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\F_Tabela.Designer.cs">
-      <DependentUpon>F_Tabela.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\GerarPDF.cs" />
     <Compile Include="Classes\Globais.cs" />
     <Compile Include="Classes\Google_Drive.cs" />
-    <Compile Include="Forms\Launcher.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Launcher.Designer.cs">
-      <DependentUpon>Launcher.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\MGlobais.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -266,9 +248,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CorrecaoLivros.resx">
       <DependentUpon>CorrecaoLivros.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Detalhes.resx">
-      <DependentUpon>Detalhes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -320,12 +299,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\F_Suporte.resx">
       <DependentUpon>F_Suporte.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\F_Tabela.resx">
-      <DependentUpon>F_Tabela.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Launcher.resx">
-      <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

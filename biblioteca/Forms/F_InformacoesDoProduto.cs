@@ -8,11 +8,5 @@ namespace biblioteca
         {
             InitializeComponent();
         }
-
-        private void lb_detalhes_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Detalhes detalhes = new Detalhes();
-            detalhes.ShowDialog();
-        }
     }
 }

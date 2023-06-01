@@ -92,17 +92,5 @@ namespace biblioteca
             //Exit without erros
             Environment.Exit(0x0);
         }
-
-        private void EasyLiClosing(object sender, FormClosingEventArgs e)
-        {
-            /*
-            if (Globais.uploading == 1)
-            {
-                e.Cancel = true;
-                MessageBox.Show("Aguarde o upload do Backup...", MessageHeader, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            */
-        }
     }
 }

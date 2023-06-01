@@ -134,7 +134,7 @@ namespace biblioteca
         /// Verifica a ocorrência de sequências de SQL Injection
         /// </summary>
         /// <param name="Parametro">Parâmetro que será validado</param>
-        /// <returns></returns>
+        /// <returns><b>true</b> se houver ocorrências</returns>
 
         public static bool AntiSQLInjection(string Parametro)
         {
