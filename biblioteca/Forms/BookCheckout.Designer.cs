@@ -52,18 +52,18 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(108, 97);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.Size = new System.Drawing.Size(90, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Usuário";
+            this.label1.Text = "Usuário (Ctrl + W)";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(113, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.Size = new System.Drawing.Size(74, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Livro";
+            this.label2.Text = "Livro (Ctrl + Q)";
             // 
             // NomeUsuario
             // 

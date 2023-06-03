@@ -50,6 +50,20 @@ namespace biblioteca
                 throw ex;
             }
         }
+
+        public static void InsertData(string query, params object[] values)
+        {
+            using (SQLiteCommand command = new SQLiteCommand(query, OpenConnection()))
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    string parameterName = $"@param{i + 1}";
+                    command.Parameters.AddWithValue(parameterName, values[i]);
+                }
+
+                command.ExecuteNonQuery();
+            }
+        }
     }
 
 

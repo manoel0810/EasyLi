@@ -52,7 +52,7 @@ namespace biblioteca
         /// </summary>
         /// <returns>Código de 8 dígitos</returns>
 
-        public static string GenerateStudentCode()
+        public static string GenerateUserCode()
         {
         StartFunctionCall:;
             Random R = new Random();
@@ -386,6 +386,26 @@ namespace biblioteca
             RET.KPEA = e;
             RET.TXT = TextBoxObject;
             return RET;
+        }
+
+        /// <summary>
+        /// Remove todas as ocorrências informadas no vetor [Ocorrencias]
+        /// </summary>
+        /// <param name="Sequo">Sequência que será avaliada</param>
+        /// <param name="Ocorrencias">Ocorrências para remoção</param>
+        /// <returns>Uma string com todas as ocorrências removidas</returns>
+        /// <exception cref="ArgumentException"></exception>
+
+        public static string RemoveAllCases(string Sequo, string[] Ocorrencias)
+        {
+            string NewSeque = Sequo;
+            if (Sequo == null)
+                throw new ArgumentException("O argumento passado era null", "Seque");
+
+            foreach (var s in Ocorrencias)
+                NewSeque = NewSeque.Replace(s, "");
+
+            return NewSeque;
         }
     }
 

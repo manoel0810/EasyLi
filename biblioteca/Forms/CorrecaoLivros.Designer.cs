@@ -319,7 +319,7 @@ namespace biblioteca
             // ISBN13
             // 
             this.ISBN13.Location = new System.Drawing.Point(13, 107);
-            this.ISBN13.Mask = "999,999999999-9";
+            this.ISBN13.Mask = "999-9999999999";
             this.ISBN13.Name = "ISBN13";
             this.ISBN13.Size = new System.Drawing.Size(95, 20);
             this.ISBN13.TabIndex = 5;

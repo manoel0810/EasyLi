@@ -78,6 +78,9 @@ namespace biblioteca
 
         private void ExcluirClick(object sender, EventArgs e)
         {
+            if (Livros.SelectedRows.Count < 1)
+                return;
+
             if (DialogResult.Yes == MessageBox.Show("Você tem certeza que deseja apagar este registros?", "Apagar livro", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
                 DatabaseController.DML(String.Format("delete from tb_livros where id = '{0}'", Livros.SelectedRows[0].Cells[0].Value.ToString()));

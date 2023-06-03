@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biblioteca.Forms;
+using System;
 using System.Data;
 using System.IO;
 using System.Threading;
@@ -294,6 +295,11 @@ namespace biblioteca
         private void FixBooks(object sender, EventArgs e)
         {
             DisplayForm(new CorrecaoLivros());
+        }
+
+        private void BookReg_Click(object sender, EventArgs e)
+        {
+            DisplayForm(new BookRegister());
         }
     }
 }

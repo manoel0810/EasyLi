@@ -59,6 +59,7 @@
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.nota = new System.Windows.Forms.NotifyIcon(this.components);
+            this.BookReg = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -85,7 +86,8 @@
             this.registrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.registrarRetiradaToolStripMenuItem,
             this.registrarDevoluçãoToolStripMenuItem,
-            this.livrosAtrasadosToolStripMenuItem});
+            this.livrosAtrasadosToolStripMenuItem,
+            this.BookReg});
             this.registrosToolStripMenuItem.Name = "registrosToolStripMenuItem";
             this.registrosToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.registrosToolStripMenuItem.Text = "Registros";
@@ -200,14 +202,14 @@
             // novaTurmaToolStripMenuItem
             // 
             this.novaTurmaToolStripMenuItem.Name = "novaTurmaToolStripMenuItem";
-            this.novaTurmaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.novaTurmaToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.novaTurmaToolStripMenuItem.Text = "Nova Turma";
             this.novaTurmaToolStripMenuItem.Click += new System.EventHandler(this.ClassCreate);
             // 
             // gerenciarTurmasToolStripMenuItem
             // 
             this.gerenciarTurmasToolStripMenuItem.Name = "gerenciarTurmasToolStripMenuItem";
-            this.gerenciarTurmasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gerenciarTurmasToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.gerenciarTurmasToolStripMenuItem.Text = "Excluir e Editar";
             this.gerenciarTurmasToolStripMenuItem.Click += new System.EventHandler(this.ClassEdit);
             // 
@@ -294,6 +296,13 @@
             this.nota.Icon = ((System.Drawing.Icon)(resources.GetObject("nota.Icon")));
             this.nota.Text = "Google API - Upload em andamento...";
             // 
+            // BookReg
+            // 
+            this.BookReg.Name = "BookReg";
+            this.BookReg.Size = new System.Drawing.Size(230, 22);
+            this.BookReg.Text = "Registrar livros";
+            this.BookReg.Click += new System.EventHandler(this.BookReg_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -350,5 +359,6 @@
         private System.Windows.Forms.NotifyIcon nota;
         private System.Windows.Forms.ToolStripMenuItem livrosRegistradosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem corrigirLivrosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem BookReg;
     }
 }

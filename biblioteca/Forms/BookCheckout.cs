@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biblioteca.Forms;
+using System;
 using System.Data;
 using System.Windows.Forms;
 
@@ -105,7 +106,7 @@ namespace biblioteca
             {
                 var Answer = MessageBox.Show("A matrícula não foi informada. É obrigatório um usuário de referência. Se o solicitante atual é novo, você pode atribuir uma nova matrícula manualmente ou permitir que o sistema defina uma automaticamente.\n\nDeseja que a matrícula seja gerada pelo sistema?", "Registros", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (Answer == DialogResult.Yes)
-                    UserCode = MGlobais.GenerateStudentCode();
+                    UserCode = MGlobais.GenerateUserCode();
                 else
                     return;
             }
@@ -141,6 +142,32 @@ namespace biblioteca
                 Exit.PerformClick();
             else if (e.KeyCode == Keys.Enter)
                 Save.PerformClick();
+            else if (e.Control && e.KeyCode == Keys.Q)
+                ShowDialogSearch(GetDatabaseInformation.SearchMode.BookMode);
+            else if (e.Control && e.KeyCode == Keys.W)
+                ShowDialogSearch(GetDatabaseInformation.SearchMode.UserMode);
+        }
+
+        private void ShowDialogSearch(GetDatabaseInformation.SearchMode Mode)
+        {
+            GetDatabaseInformation GetInformation = new GetDatabaseInformation(Mode);
+            GetInformation.ShowDialog();
+            string[] Arguments = GetInformation.Arguments;
+            GetInformation.Dispose();
+
+            if (Arguments != null)
+            {
+                if (Mode == GetDatabaseInformation.SearchMode.BookMode)
+                {
+                    Tombo.Text = Arguments[0];
+                    Livro.Text = Arguments[1];
+                }
+                else if (Mode == GetDatabaseInformation.SearchMode.UserMode)
+                {
+                    Matricula.Text = Arguments[0];
+                    NomeUsuario.Text = Arguments[1];
+                }
+            }
         }
 
         private void MatriculaLeave(object sender, EventArgs e)
