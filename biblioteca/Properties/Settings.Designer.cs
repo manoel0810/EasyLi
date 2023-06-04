@@ -145,13 +145,48 @@ namespace biblioteca.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int Instalador {
             get {
                 return ((int)(this["Instalador"]));
             }
             set {
                 this["Instalador"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GithubToken {
+            get {
+                return ((string)(this["GithubToken"]));
+            }
+            set {
+                this["GithubToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GithubRepos {
+            get {
+                return ((string)(this["GithubRepos"]));
+            }
+            set {
+                this["GithubRepos"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GithubOwner {
+            get {
+                return ((string)(this["GithubOwner"]));
+            }
+            set {
+                this["GithubOwner"] = value;
             }
         }
     }

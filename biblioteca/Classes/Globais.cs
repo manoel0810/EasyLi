@@ -51,6 +51,7 @@ namespace biblioteca
         public static UserPrivilege CurrentUserPrivilege = UserPrivilege.Normal;
         public static EmailSender EmailControl;
         public static Logger Log = new Logger($"{Application.StartupPath}\\logs\\logteste.txt");
+        public static GithubController.GitOperations GitController;
 
         [Flags]
         public enum UserPrivilege : int

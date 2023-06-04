@@ -82,6 +82,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Octokit, Version=6.0.0.0, Culture=neutral, PublicKeyToken=0be8860aee462442, processorArchitecture=MSIL">
+      <HintPath>..\packages\Octokit.6.0.0\lib\netstandard2.0\Octokit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -107,14 +110,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\EmailSender.cs" />
+    <Compile Include="Classes\GitController.cs" />
     <Compile Include="Classes\Logger.cs" />
-    <Compile Include="Forms\Backup.cs">
+    <Compile Include="Classes\Banco.cs" />
+    <Compile Include="Forms\BackupTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Backup.Designer.cs">
-      <DependentUpon>Backup.cs</DependentUpon>
+    <Compile Include="Forms\BackupTool.Designer.cs">
+      <DependentUpon>BackupTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Banco.cs" />
     <Compile Include="Forms\BookRegister.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +137,12 @@
     </Compile>
     <Compile Include="Forms\GetDatabaseInformation.Designer.cs">
       <DependentUpon>GetDatabaseInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GitProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GitProperties.Designer.cs">
+      <DependentUpon>GitProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ISBNSearch.cs">
       <SubType>Form</SubType>
@@ -244,7 +254,6 @@
     </Compile>
     <Compile Include="Classes\GerarPDF.cs" />
     <Compile Include="Classes\Globais.cs" />
-    <Compile Include="Classes\Google_Drive.cs" />
     <Compile Include="Classes\MGlobais.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -259,9 +268,8 @@
     <Compile Include="Scripts\Decrypt.cs" />
     <Compile Include="Scripts\Encrypt.cs" />
     <Compile Include="Scripts\HexToBin.cs" />
-    <Compile Include="Classes\ServicosWin.cs" />
-    <EmbeddedResource Include="Forms\Backup.resx">
-      <DependentUpon>Backup.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BackupTool.resx">
+      <DependentUpon>BackupTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BookRegister.resx">
       <DependentUpon>BookRegister.cs</DependentUpon>
@@ -271,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GetDatabaseInformation.resx">
       <DependentUpon>GetDatabaseInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GitProperties.resx">
+      <DependentUpon>GitProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ISBNSearch.resx">
       <DependentUpon>ISBNSearch.cs</DependentUpon>

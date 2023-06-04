@@ -270,6 +270,17 @@ namespace biblioteca
             return Token;
         }
 
+        public static string GetSHA1(byte[] Bytes)
+        {
+            if (Bytes.Length == 0)
+                throw new ArgumentException("O vetor bytes é inválido");
+
+            SHA1CryptoServiceProvider Provider = new SHA1CryptoServiceProvider();
+            string Token = BytesToString(Provider.ComputeHash(Bytes)).ToLower();
+
+            return Token;
+        }
+
         /// <summary>
         /// Verifica se o serial passado é válido. Caso sim, retorna seu tipo
         /// </summary>

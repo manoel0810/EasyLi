@@ -121,39 +121,12 @@ namespace biblioteca.Properties {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Admin.
-        /// </summary>
-        public static string Nome {
-            get {
-                return ResourceManager.GetString("Nome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap pdfIcon {
             get {
                 object obj = ResourceManager.GetObject("pdfIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a 1234.
-        /// </summary>
-        public static string Senha {
-            get {
-                return ResourceManager.GetString("Senha", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a admin.
-        /// </summary>
-        public static string Usuário {
-            get {
-                return ResourceManager.GetString("Usuário", resourceCulture);
             }
         }
     }

@@ -83,8 +83,6 @@ namespace biblioteca
             if (Global.CurrentUserPrivilege == Global.UserPrivilege.Normal)
                 servidorToolStripMenuItem.Visible = false;
 
-            Backup.Visible = false; //Sistema de backups não está funcionando na versão atual (23/05/2023)
-
             //Iniciar sub rotina para emails
             if (MGlobais.CheckSMTPConfiguration())
                 if (Global.EmailControl == null)
@@ -223,58 +221,7 @@ namespace biblioteca
 
         private void F_Menu_FormClosed(object sender, FormClosedEventArgs e)
         {
-
             Global.CurrentUserPrivilege = Global.UserPrivilege.Normal;
-
-            /*
-            this.Visible = false;
-            this.Refresh();
-
-            DataTable dt = new DataTable();
-            dt = Banco.DQL("select auto_backup from tb_controle");
-            if (dt.Rows[0].Field<Boolean>("auto_backup") && File.Exists(@"C:\Biblioteca Fácil\credential\Google.Apis.Auth.OAuth2.Responses.TokenResponse-user") && MGlobais.Internet() == false)
-            {
-                Globais.uploading = 1;
-                nota.Visible = true;
-                try
-                {
-                    bool espera = true;
-                    while (espera)
-                    {
-                    INICIO:;
-                        try
-                        {
-                            Banco.KillConections();
-                            if (MGlobais.VerificarServico("eremol.smtp"))
-                            {
-                                ServicosWin.ServicosWin.StopService("cliente.smtp.EREMOL");
-                            }
-                            Google_Drive.IniciarProtocolos(false, false, false, true, false, false, "", "", @"C:\Biblioteca Fácil\EREMOL.db", "", "", "");
-                            Banco.DML(String.Format("update tb_controle set last_backup = '{0}'", MGlobais.FormatarDataSQL(DateTime.Now.ToString())));
-                            if (MGlobais.VerificarServico("eremol.smtp") == false)
-                            {
-                                ServicosWin.ServicosWin.StartService("cliente.smtp.EREMOL");
-                            }
-                        }
-                        catch
-                        {
-                            goto INICIO;
-                        }
-                        espera = false;
-                    }
-
-                    Globais.uploading = 0;
-                }
-                catch (Exception Ex)
-                {
-                    ServicosWin.ServicosWin.StartService("cliente.smtp.EREMOL");
-                    MessageBox.Show("Ocorreu um erro ao efetuar o Backup automático. Tente novamente manualmente.\nERRO:" + Ex.Message, "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Globais.uploading = 0;
-                    return;
-                }
-                nota.Text = "Google API - Upload finalizado.";
-            }
-            */
         }
 
         private void OutTimeBooks(object sender, EventArgs e)
@@ -284,7 +231,7 @@ namespace biblioteca
 
         private void Backups(object sender, EventArgs e)
         {
-            DisplayForm(new Backup());
+            DisplayForm(new BackupTool());
         }
 
         private void RegistredBooksList(object sender, EventArgs e)
