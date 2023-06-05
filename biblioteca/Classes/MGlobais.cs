@@ -270,17 +270,6 @@ namespace biblioteca
             return Token;
         }
 
-        public static string GetSHA1(byte[] Bytes)
-        {
-            if (Bytes.Length == 0)
-                throw new ArgumentException("O vetor bytes é inválido");
-
-            SHA1CryptoServiceProvider Provider = new SHA1CryptoServiceProvider();
-            string Token = BytesToString(Provider.ComputeHash(Bytes)).ToLower();
-
-            return Token;
-        }
-
         /// <summary>
         /// Verifica se o serial passado é válido. Caso sim, retorna seu tipo
         /// </summary>
@@ -366,6 +355,18 @@ namespace biblioteca
                 string dataFormatada = String.Format("{0}-{1}-{2}", ano, mes, dia);
                 return dataFormatada;
             }
+        }
+
+        /// <summary>
+        /// Verifica se as configurações do Github estão presentes
+        /// </summary>
+        /// <returns><b>true</b> caso existam</returns>
+
+        public static bool CheckGithubCredentials()
+        {
+            return  !string.IsNullOrEmpty(Properties.Settings.Default.GithubOwner) &&
+                    !string.IsNullOrEmpty(Properties.Settings.Default.GithubRepos) &&
+                    !string.IsNullOrEmpty(Properties.Settings.Default.GithubToken);
         }
 
         /// <summary>

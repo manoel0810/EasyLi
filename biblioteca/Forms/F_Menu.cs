@@ -93,6 +93,9 @@ namespace biblioteca
             if (MGlobais.CheckSMTPConfiguration())
                 if (Global.EmailControl == null)
                     Global.EmailControl = new EmailSender(Properties.Settings.Default.Host, Properties.Settings.Default.Porta, Properties.Settings.Default.UserEmail, Properties.Settings.Default.SenhaEmail, Properties.Settings.Default.Email);
+
+            if (MGlobais.CheckGithubCredentials() && Global.GitController == null)
+                Global.GitController = new GithubController.GitOperations("writeanyvalueanything", Properties.Settings.Default.GithubToken, Properties.Settings.Default.GithubOwner, Properties.Settings.Default.GithubRepos);
         }
 
         private void BookIn(object sender, EventArgs e)

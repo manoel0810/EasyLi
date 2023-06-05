@@ -161,11 +161,13 @@ namespace biblioteca
                 {
                     Tombo.Text = Arguments[0];
                     Livro.Text = Arguments[1];
+                    RegisteredBooks = true;
                 }
                 else if (Mode == GetDatabaseInformation.SearchMode.UserMode)
                 {
                     Matricula.Text = Arguments[0];
                     NomeUsuario.Text = Arguments[1];
+                    RegisteredUser = true;
                 }
             }
         }
