@@ -7,7 +7,7 @@ namespace biblioteca
 {
     class DatabaseController
     {
-        private static SQLiteConnection EasyLiConnection;
+        private static SQLiteConnection EasyLiConnection = null;
 
         private static SQLiteConnection OpenConnection()
         {
@@ -63,6 +63,12 @@ namespace biblioteca
 
                 command.ExecuteNonQuery();
             }
+        }
+
+        public static void KillConnection()
+        {
+            EasyLiConnection?.Dispose();
+            EasyLiConnection = new SQLiteConnection();
         }
     }
 

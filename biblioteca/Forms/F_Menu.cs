@@ -21,11 +21,17 @@ namespace biblioteca
             if (DialogResult.Yes == MessageBox.Show("Deseja sair do aplicativo? Dados não salvos serão perdidos!", "Sair", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
                 ExitFlag = 1;
-                Thread Sair = new Thread(ExitThread);
-                Sair.SetApartmentState(ApartmentState.STA);
-                Sair.Start();
-                Close();
+                Exit();
             }
+        }
+
+        private void Exit()
+        {
+            Thread Sair = new Thread(ExitThread);
+            Sair.SetApartmentState(ApartmentState.STA);
+            Sair.Start();
+
+            Application.ExitThread();
         }
 
         private void ExitThread()
@@ -231,7 +237,17 @@ namespace biblioteca
 
         private void Backups(object sender, EventArgs e)
         {
-            DisplayForm(new BackupTool());
+            BackupTool Backup = new BackupTool();
+            Backup.ShowDialog();
+
+            bool ExitResult = Backup.Logout;
+            Backup.Dispose();
+
+            if (ExitResult)
+            {
+                ExitFlag = 1;
+                Exit();
+            }
         }
 
         private void RegistredBooksList(object sender, EventArgs e)
