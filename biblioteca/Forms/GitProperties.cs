@@ -50,7 +50,7 @@ namespace biblioteca.Forms
         }
 
         private void GitProperties_Load(object sender, EventArgs e)
-        {       
+        {
             Proprietario.Text = Properties.Settings.Default.GithubOwner;
             Repositorio.Text = Properties.Settings.Default.GithubRepos;
             Token.Text = Properties.Settings.Default.GithubToken;

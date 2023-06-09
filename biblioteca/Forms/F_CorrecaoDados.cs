@@ -160,14 +160,36 @@ namespace biblioteca
             if (EstadoDoLivro.Text.ToUpper().Equals(MGlobais.GetDescription(Global.BookStatus.Devolvido)) && EstadosDoLivro.Text.ToUpper().Equals(MGlobais.GetDescription(Global.BookStatus.Emprestado)))
                 DataDevolucao.Text = DataSaida.Text;
 
-            string vquery = $"UPDATE registry SET T_USER='{NomeUsuario.Text.Replace("'", "''")}', T_LIVRO='{Livro.Text.Replace("'", "''")}', T_STATUS='{(int)MGlobais.GetDescription(EstadosDoLivro.Text)}', T_DATA='{MGlobais.FormatarDataSQL(DataSaida.Text)}', T_DATAP = '{MGlobais.FormatarDataSQL(DataDevolucao.Text)}', T_TURMA='{Turmas.Text}', T_MATRICULA='{Matricula.Text}', T_TOMBO='{Tombo.Text}', T_EMAIL='{Email.Text.Replace("'", "''")}', T_NOTAS='{Notas.Text}' WHERE N_REGISTRYCODE='{Identificacao.Text}'";
-            DatabaseController.DML(vquery);
+            string query = "UPDATE registry SET T_USER = @param1, T_LIVRO = @param2, T_STATUS = @param3, T_DATA = @param4, T_DATAP = @param5, T_TURMA = @param6, T_MATRICULA = @param7, T_TOMBO = @param8, T_EMAIL = @param9, T_NOTAS = @param10 WHERE N_REGISTRYCODE = @param11";
+            object[] values = new object[]
+            {
+                NomeUsuario.Text.Replace("'", "''"),
+                Livro.Text.Replace("'", "''"),
+                (int)MGlobais.GetDescription(EstadosDoLivro.Text),
+                MGlobais.FormatarDataSQL(DataSaida.Text),
+                MGlobais.FormatarDataSQL(DataDevolucao.Text),
+                Turmas.Text,
+                Matricula.Text,
+                Tombo.Text,
+                Email.Text.Replace("'", "''"),
+                Notas.Text,
+                Identificacao.Text
+            };
 
+            DatabaseController.InsertData(query, values);
             ControleLivro(Tombo.Text);
 
-            if (EstadoDoLivro.Text != "PERDIDO" && EstadosDoLivro.Text == "PERDIDO")
+            Global.UserState State;
+            DataTable UserInformation = DatabaseController.DQL($"select * from users where code = '{Matricula.Text}'");
+
+            if (Enum.IsDefined(typeof(Global.UserState), (int)UserInformation.Rows[0].Field<Int64>("user_status")))
+                State = (Global.UserState)(int)UserInformation.Rows[0].Field<Int64>("user_status");
+            else
+                State = Global.UserState.NotDefined;
+
+            if (EstadoDoLivro.Text != "PERDIDO" && EstadosDoLivro.Text == "PERDIDO" && State != Global.UserState.Blocked)
             {
-                DialogResult Block = MessageBox.Show("Você alterou o estado do livro para 'Perdido. Você deseja bloquar a matrícula vinculada a esse registro para impedir novos empréstimos do mesmo usuário?", "Bloqueio de usuários", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult Block = MessageBox.Show("Você alterou o estado do livro para 'Perdido. Você deseja bloquar a matrícula vinculada a esse registro para impedir novos empréstimos do mesmo usuário? Essa ação só pode ser desfeita na gestão de usuários", "Bloqueio de usuários", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (Block == DialogResult.Yes)
                 {
                     F_Motivo Motivo = new F_Motivo(int.Parse(Identificacao.Text));

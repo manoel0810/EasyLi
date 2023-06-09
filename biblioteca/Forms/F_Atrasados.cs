@@ -43,7 +43,7 @@ namespace biblioteca
 
             KeyPreview = true;
 
-            if(dgv_atrasados.Rows.Count == 0)
+            if (dgv_atrasados.Rows.Count == 0)
             {
                 ReportList.Enabled = false;
                 RenewRegistry.Enabled = false;

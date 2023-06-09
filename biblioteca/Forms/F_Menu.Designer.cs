@@ -35,6 +35,7 @@
             this.registrarRetiradaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarDevoluçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.livrosAtrasadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BookReg = new System.Windows.Forms.ToolStripMenuItem();
             this.ferramentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bancoDeDadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.corrigirRegistrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,12 +55,12 @@
             this.alterarPladoDeFundoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.servidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestãoBloqueadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.controleDeUsuáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ControlePessoal = new System.Windows.Forms.ToolStripMenuItem();
             this.Backup = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.nota = new System.Windows.Forms.NotifyIcon(this.components);
-            this.BookReg = new System.Windows.Forms.ToolStripMenuItem();
+            this.Usuarios = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +73,7 @@
             this.ferramentasToolStripMenuItem,
             this.servidorToolStripMenuItem,
             this.gestãoBloqueadosToolStripMenuItem,
-            this.controleDeUsuáriosToolStripMenuItem,
+            this.ControlePessoal,
             this.Backup,
             this.sairToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -113,6 +114,13 @@
             this.livrosAtrasadosToolStripMenuItem.Text = "Livros Atrasados";
             this.livrosAtrasadosToolStripMenuItem.Click += new System.EventHandler(this.OutTimeBooks);
             // 
+            // BookReg
+            // 
+            this.BookReg.Name = "BookReg";
+            this.BookReg.Size = new System.Drawing.Size(230, 22);
+            this.BookReg.Text = "Registrar livros";
+            this.BookReg.Click += new System.EventHandler(this.BookReg_Click);
+            // 
             // ferramentasToolStripMenuItem
             // 
             this.ferramentasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -132,7 +140,8 @@
             // 
             this.bancoDeDadosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.corrigirRegistrosToolStripMenuItem,
-            this.corrigirLivrosToolStripMenuItem});
+            this.corrigirLivrosToolStripMenuItem,
+            this.Usuarios});
             this.bancoDeDadosToolStripMenuItem.Name = "bancoDeDadosToolStripMenuItem";
             this.bancoDeDadosToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
             this.bancoDeDadosToolStripMenuItem.Text = "Banco de Dados";
@@ -258,12 +267,12 @@
             this.gestãoBloqueadosToolStripMenuItem.Text = "Gestão Bloqueados";
             this.gestãoBloqueadosToolStripMenuItem.Click += new System.EventHandler(this.BlockedUsers);
             // 
-            // controleDeUsuáriosToolStripMenuItem
+            // ControlePessoal
             // 
-            this.controleDeUsuáriosToolStripMenuItem.Name = "controleDeUsuáriosToolStripMenuItem";
-            this.controleDeUsuáriosToolStripMenuItem.Size = new System.Drawing.Size(129, 20);
-            this.controleDeUsuáriosToolStripMenuItem.Text = "Controle de Usuários";
-            this.controleDeUsuáriosToolStripMenuItem.Click += new System.EventHandler(this.UserControl);
+            this.ControlePessoal.Name = "ControlePessoal";
+            this.ControlePessoal.Size = new System.Drawing.Size(107, 20);
+            this.ControlePessoal.Text = "Controle pessoal";
+            this.ControlePessoal.Click += new System.EventHandler(this.UserControl);
             // 
             // Backup
             // 
@@ -296,12 +305,12 @@
             this.nota.Icon = ((System.Drawing.Icon)(resources.GetObject("nota.Icon")));
             this.nota.Text = "Google API - Upload em andamento...";
             // 
-            // BookReg
+            // Usuarios
             // 
-            this.BookReg.Name = "BookReg";
-            this.BookReg.Size = new System.Drawing.Size(230, 22);
-            this.BookReg.Text = "Registrar livros";
-            this.BookReg.Click += new System.EventHandler(this.BookReg_Click);
+            this.Usuarios.Name = "Usuarios";
+            this.Usuarios.Size = new System.Drawing.Size(215, 22);
+            this.Usuarios.Text = "Gestão de usuários";
+            this.Usuarios.Click += new System.EventHandler(this.Usuarios_Click);
             // 
             // Menu
             // 
@@ -353,12 +362,13 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem alterarPladoDeFundoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestãoBloqueadosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem controleDeUsuáriosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ControlePessoal;
         private System.Windows.Forms.ToolStripMenuItem livrosAtrasadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Backup;
         private System.Windows.Forms.NotifyIcon nota;
         private System.Windows.Forms.ToolStripMenuItem livrosRegistradosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem corrigirLivrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem BookReg;
+        private System.Windows.Forms.ToolStripMenuItem Usuarios;
     }
 }

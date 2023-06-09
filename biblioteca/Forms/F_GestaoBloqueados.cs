@@ -12,10 +12,9 @@ namespace biblioteca
             InitializeComponent();
         }
 
-        private const int MargemDeRecuo = 25;
+        private const int MargemDeRecuo = 15;
         private string UserEmail;
         private DataTable UserInformations;
-        private string Matricula = string.Empty;
 
         private void FormLoad(object sender, EventArgs e)
         {
@@ -76,25 +75,10 @@ namespace biblioteca
                 tb_id.Text = dt.Rows[0].Field<Int64>("N_REGISTRYCODE").ToString();
                 tb_nota.Text = dt.Rows[0].Field<string>("T_NOTAS");
                 mask_data.Text = dt.Rows[0].Field<DateTime>("T_DATA").ToShortDateString();
-                Matricula = dt.Rows[0].Field<string>("T_MATRICULA");
                 UserEmail = dt.Rows[0].Field<string>("T_EMAIL");
                 tb_nome.ForeColor = Color.Red;
 
-                btn_notificar.Enabled = !string.IsNullOrWhiteSpace(UserEmail);
-            }
-        }
-
-        private void UnblockCkick(object sender, EventArgs e)
-        {
-            if (Livros.SelectedRows.Count <= 0)
-                return;
-
-            DialogResult res = MessageBox.Show("Deseja remover o bloqueio desse usuário? Ao fazer isso, ele poderá fazer novos empréstimos no sistema", "Registros", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (DialogResult.Yes == res)
-            {
-                string query = $"UPDATE users SET user_status = '{(int)Global.UserState.Free}' WHERE code = '{Matricula}'";
-                DatabaseController.DML(query);
-                Usuarios.Rows.Remove(Usuarios.CurrentRow);
+                Notificar.Enabled = !string.IsNullOrWhiteSpace(UserEmail);
             }
         }
 

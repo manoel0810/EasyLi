@@ -106,6 +106,14 @@ namespace biblioteca
             }
 
             DatabaseController.DQL($"UPDATE users SET user_status = '{(int)Global.UserState.Blocked}' WHERE code = '{matricula}'");
+            string query = "UPDATE registry SET T_NOTAS = @param1 WHERE N_REGISTRYCODE = @param2";
+            object[] values = new object[]
+            {
+                motivoEscolhido,
+                ID
+            };
+
+            DatabaseController.InsertData(query, values);
             if (EnviarEmail)
             {
                 string subject = "Notificação de bloqueio - EasyLi";
@@ -122,7 +130,6 @@ namespace biblioteca
         {
             if (e.KeyCode == Keys.Escape)
                 Close();
-
         }
     }
 }

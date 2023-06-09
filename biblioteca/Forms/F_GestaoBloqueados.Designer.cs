@@ -37,9 +37,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_GestaoBloqueados));
             this.tb_nota = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.btn_voltar = new System.Windows.Forms.Button();
-            this.btn_notificar = new System.Windows.Forms.Button();
-            this.btn_desbloquear = new System.Windows.Forms.Button();
+            this.Voltar = new System.Windows.Forms.Button();
+            this.Notificar = new System.Windows.Forms.Button();
             this.mask_data = new System.Windows.Forms.MaskedTextBox();
             this.tb_id = new System.Windows.Forms.TextBox();
             this.tb_livro = new System.Windows.Forms.TextBox();
@@ -50,109 +49,106 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Livros = new System.Windows.Forms.DataGridView();
             this.Usuarios = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Livros)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Usuarios)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_nota
             // 
-            this.tb_nota.Cursor = System.Windows.Forms.Cursors.No;
-            this.tb_nota.Location = new System.Drawing.Point(15, 110);
+            this.tb_nota.BackColor = System.Drawing.Color.White;
+            this.tb_nota.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tb_nota.Location = new System.Drawing.Point(13, 109);
             this.tb_nota.Multiline = true;
             this.tb_nota.Name = "tb_nota";
             this.tb_nota.ReadOnly = true;
             this.tb_nota.Size = new System.Drawing.Size(457, 47);
-            this.tb_nota.TabIndex = 28;
+            this.tb_nota.TabIndex = 4;
             this.tb_nota.TabStop = false;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 94);
+            this.label5.Location = new System.Drawing.Point(10, 93);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 27;
             this.label5.Text = "NOTAS:";
             // 
-            // btn_voltar
+            // Voltar
             // 
-            this.btn_voltar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_voltar.Location = new System.Drawing.Point(493, 485);
-            this.btn_voltar.Name = "btn_voltar";
-            this.btn_voltar.Size = new System.Drawing.Size(75, 23);
-            this.btn_voltar.TabIndex = 26;
-            this.btn_voltar.Text = "Voltar";
-            this.btn_voltar.UseVisualStyleBackColor = true;
-            this.btn_voltar.Click += new System.EventHandler(this.ExitClick);
+            this.Voltar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Voltar.Location = new System.Drawing.Point(554, 133);
+            this.Voltar.Name = "Voltar";
+            this.Voltar.Size = new System.Drawing.Size(75, 23);
+            this.Voltar.TabIndex = 6;
+            this.Voltar.Text = "Voltar";
+            this.Voltar.UseVisualStyleBackColor = true;
+            this.Voltar.Click += new System.EventHandler(this.ExitClick);
             // 
-            // btn_notificar
+            // Notificar
             // 
-            this.btn_notificar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_notificar.Location = new System.Drawing.Point(574, 485);
-            this.btn_notificar.Name = "btn_notificar";
-            this.btn_notificar.Size = new System.Drawing.Size(75, 23);
-            this.btn_notificar.TabIndex = 25;
-            this.btn_notificar.Text = "Notificar";
-            this.btn_notificar.UseVisualStyleBackColor = true;
-            this.btn_notificar.Click += new System.EventHandler(this.Notification);
-            // 
-            // btn_desbloquear
-            // 
-            this.btn_desbloquear.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_desbloquear.Location = new System.Drawing.Point(655, 485);
-            this.btn_desbloquear.Name = "btn_desbloquear";
-            this.btn_desbloquear.Size = new System.Drawing.Size(75, 23);
-            this.btn_desbloquear.TabIndex = 24;
-            this.btn_desbloquear.Text = "Desbloquear";
-            this.btn_desbloquear.UseVisualStyleBackColor = true;
-            this.btn_desbloquear.Click += new System.EventHandler(this.UnblockCkick);
+            this.Notificar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Notificar.Location = new System.Drawing.Point(635, 133);
+            this.Notificar.Name = "Notificar";
+            this.Notificar.Size = new System.Drawing.Size(75, 23);
+            this.Notificar.TabIndex = 5;
+            this.Notificar.Text = "Notificar";
+            this.Notificar.UseVisualStyleBackColor = true;
+            this.Notificar.Click += new System.EventHandler(this.Notification);
             // 
             // mask_data
             // 
-            this.mask_data.Cursor = System.Windows.Forms.Cursors.No;
-            this.mask_data.Location = new System.Drawing.Point(637, 33);
+            this.mask_data.BackColor = System.Drawing.Color.White;
+            this.mask_data.Cursor = System.Windows.Forms.Cursors.Default;
+            this.mask_data.Location = new System.Drawing.Point(617, 32);
             this.mask_data.Name = "mask_data";
             this.mask_data.ReadOnly = true;
             this.mask_data.Size = new System.Drawing.Size(93, 20);
-            this.mask_data.TabIndex = 23;
+            this.mask_data.TabIndex = 2;
             // 
             // tb_id
             // 
+            this.tb_id.BackColor = System.Drawing.Color.White;
             this.tb_id.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tb_id.Cursor = System.Windows.Forms.Cursors.No;
-            this.tb_id.Location = new System.Drawing.Point(574, 33);
+            this.tb_id.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tb_id.Location = new System.Drawing.Point(548, 32);
             this.tb_id.Name = "tb_id";
             this.tb_id.ReadOnly = true;
-            this.tb_id.Size = new System.Drawing.Size(57, 20);
-            this.tb_id.TabIndex = 22;
+            this.tb_id.Size = new System.Drawing.Size(63, 20);
+            this.tb_id.TabIndex = 1;
             this.tb_id.TabStop = false;
             // 
             // tb_livro
             // 
+            this.tb_livro.BackColor = System.Drawing.Color.White;
             this.tb_livro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tb_livro.Cursor = System.Windows.Forms.Cursors.No;
-            this.tb_livro.Location = new System.Drawing.Point(15, 71);
+            this.tb_livro.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tb_livro.Location = new System.Drawing.Point(13, 70);
             this.tb_livro.Name = "tb_livro";
             this.tb_livro.ReadOnly = true;
-            this.tb_livro.Size = new System.Drawing.Size(553, 20);
-            this.tb_livro.TabIndex = 21;
+            this.tb_livro.Size = new System.Drawing.Size(528, 20);
+            this.tb_livro.TabIndex = 3;
             this.tb_livro.TabStop = false;
             // 
             // tb_nome
             // 
+            this.tb_nome.BackColor = System.Drawing.Color.White;
             this.tb_nome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tb_nome.Cursor = System.Windows.Forms.Cursors.No;
-            this.tb_nome.Location = new System.Drawing.Point(15, 33);
+            this.tb_nome.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tb_nome.Location = new System.Drawing.Point(13, 32);
             this.tb_nome.Name = "tb_nome";
             this.tb_nome.ReadOnly = true;
-            this.tb_nome.Size = new System.Drawing.Size(553, 20);
-            this.tb_nome.TabIndex = 20;
+            this.tb_nome.Size = new System.Drawing.Size(528, 20);
+            this.tb_nome.TabIndex = 0;
             this.tb_nome.TabStop = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(634, 17);
+            this.label4.Location = new System.Drawing.Point(614, 16);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 13);
             this.label4.TabIndex = 19;
@@ -161,7 +157,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 55);
+            this.label3.Location = new System.Drawing.Point(10, 54);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 13);
             this.label3.TabIndex = 18;
@@ -170,16 +166,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(571, 17);
+            this.label2.Location = new System.Drawing.Point(545, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(18, 13);
+            this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 17;
             this.label2.Text = "Matricula";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 17);
+            this.label1.Location = new System.Drawing.Point(10, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 16;
@@ -206,7 +202,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.Livros.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Livros.Location = new System.Drawing.Point(15, 345);
+            this.Livros.Location = new System.Drawing.Point(10, 303);
             this.Livros.MultiSelect = false;
             this.Livros.Name = "Livros";
             this.Livros.ReadOnly = true;
@@ -220,8 +216,8 @@
             this.Livros.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.Livros.RowHeadersVisible = false;
             this.Livros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Livros.Size = new System.Drawing.Size(718, 133);
-            this.Livros.TabIndex = 15;
+            this.Livros.Size = new System.Drawing.Size(718, 84);
+            this.Livros.TabIndex = 8;
             this.Livros.SelectionChanged += new System.EventHandler(this.DGVSelectionChenged);
             // 
             // Usuarios
@@ -245,7 +241,7 @@
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.Usuarios.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Usuarios.Location = new System.Drawing.Point(15, 186);
+            this.Usuarios.Location = new System.Drawing.Point(10, 183);
             this.Usuarios.MultiSelect = false;
             this.Usuarios.Name = "Usuarios";
             this.Usuarios.ReadOnly = true;
@@ -259,29 +255,47 @@
             this.Usuarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.Usuarios.RowHeadersVisible = false;
             this.Usuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Usuarios.Size = new System.Drawing.Size(718, 133);
-            this.Usuarios.TabIndex = 15;
+            this.Usuarios.Size = new System.Drawing.Size(718, 115);
+            this.Usuarios.TabIndex = 7;
             this.Usuarios.SelectionChanged += new System.EventHandler(this.Usuarios_SelectionChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.tb_nome);
+            this.panel1.Controls.Add(this.tb_nota);
+            this.panel1.Controls.Add(this.Voltar);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.Notificar);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.tb_livro);
+            this.panel1.Controls.Add(this.mask_data);
+            this.panel1.Controls.Add(this.tb_id);
+            this.panel1.Location = new System.Drawing.Point(10, 13);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(718, 164);
+            this.panel1.TabIndex = 29;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(26, 6);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(90, 13);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "Dados do usuário";
             // 
             // F_GestaoBloqueados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(742, 518);
-            this.Controls.Add(this.tb_nota);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.btn_voltar);
-            this.Controls.Add(this.btn_notificar);
-            this.Controls.Add(this.btn_desbloquear);
-            this.Controls.Add(this.mask_data);
-            this.Controls.Add(this.tb_id);
-            this.Controls.Add(this.tb_livro);
-            this.Controls.Add(this.tb_nome);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(738, 393);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.Usuarios);
             this.Controls.Add(this.Livros);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -295,6 +309,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.Livros)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Usuarios)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,9 +320,8 @@
 
         private System.Windows.Forms.TextBox tb_nota;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btn_voltar;
-        private System.Windows.Forms.Button btn_notificar;
-        private System.Windows.Forms.Button btn_desbloquear;
+        private System.Windows.Forms.Button Voltar;
+        private System.Windows.Forms.Button Notificar;
         private System.Windows.Forms.MaskedTextBox mask_data;
         private System.Windows.Forms.TextBox tb_id;
         private System.Windows.Forms.TextBox tb_livro;
@@ -317,5 +332,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView Livros;
         private System.Windows.Forms.DataGridView Usuarios;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label6;
     }
 }

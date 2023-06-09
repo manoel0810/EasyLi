@@ -86,7 +86,7 @@
             // ISBN13
             // 
             this.ISBN13.Location = new System.Drawing.Point(15, 113);
-            this.ISBN13.Mask = "999,999999999-9";
+            this.ISBN13.Mask = "999-9999999999";
             this.ISBN13.Name = "ISBN13";
             this.ISBN13.Size = new System.Drawing.Size(100, 20);
             this.ISBN13.TabIndex = 4;

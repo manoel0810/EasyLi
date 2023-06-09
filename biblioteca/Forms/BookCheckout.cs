@@ -43,7 +43,18 @@ namespace biblioteca
         private void RegistrarUsuario()
         {
             if (!RegisteredUser)
-                DatabaseController.DML($"insert into users values ('{UserCode}', '{MGlobais.SanitizeString(NomeUsuario.Text)}', '0')");
+            {
+                string query = "INSERT INTO users VALUES (@param1, @param2, @param3, @param4)";
+                object[] values = new object[]
+                {
+                    UserCode,
+                    MGlobais.SanitizeString(NomeUsuario.Text),
+                    0,
+                    Email.Text
+                };
+
+                DatabaseController.InsertData(query, values);
+            }
         }
 
         private void FormLoad(object sender, EventArgs e)
@@ -114,7 +125,11 @@ namespace biblioteca
                 UserCode = Matricula.Text;
 
             RegistrarLivro();
-            RegistrarUsuario();
+            if (!RegisteredUser)
+                if (DialogResult.Yes == MessageBox.Show("O usuário não existe no sistema. Deseja fazer o cadastro automático para prosseguir?", "Registros", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    RegistrarUsuario();
+                else
+                    return;
 
             Save.Enabled = false;
             Save.Cursor = Cursors.No;
@@ -167,6 +182,7 @@ namespace biblioteca
                 {
                     Matricula.Text = Arguments[0];
                     NomeUsuario.Text = Arguments[1];
+                    Email.Text = Arguments[2];
                     RegisteredUser = true;
                 }
             }
@@ -186,6 +202,7 @@ namespace biblioteca
             {
                 RegisteredUser = true;
                 NomeUsuario.Text = Student.Rows[0].Field<string>("user_name");
+                Email.Text = Student.Rows[0].Field<string>("user_email");
                 UserState = (int)Student.Rows[0].Field<Int64>("user_status");
                 return;
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace biblioteca.Forms
@@ -57,7 +58,21 @@ namespace biblioteca.Forms
         {
             if (Dados.SelectedRows.Count > 0)
             {
-                Arguments = new string[] { Dados.SelectedRows[0].Cells[0].Value.ToString(), Dados.SelectedRows[0].Cells[1].Value.ToString() };
+                if (Mode == SearchMode.BookMode)
+                    Arguments = new string[] { Dados.SelectedRows[0].Cells[0].Value.ToString(), Dados.SelectedRows[0].Cells[1].Value.ToString() };
+                else if (Mode == SearchMode.UserMode)
+                {
+                    DataTable AllUserInformation = DatabaseController.DQL($"select * from users where code = '{Dados.SelectedRows[0].Cells[0].Value}'");
+                    Arguments = new string[]
+                    {
+                        AllUserInformation.Rows[0].Field<string>("code"),
+                        AllUserInformation.Rows[0].Field<string>("user_name"),
+                        AllUserInformation.Rows[0].Field<string>("user_email")
+                    };
+
+                    AllUserInformation.Dispose();
+                }
+
                 Close();
             }
         }

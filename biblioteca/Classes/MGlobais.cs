@@ -364,7 +364,7 @@ namespace biblioteca
 
         public static bool CheckGithubCredentials()
         {
-            return  !string.IsNullOrEmpty(Properties.Settings.Default.GithubOwner) &&
+            return !string.IsNullOrEmpty(Properties.Settings.Default.GithubOwner) &&
                     !string.IsNullOrEmpty(Properties.Settings.Default.GithubRepos) &&
                     !string.IsNullOrEmpty(Properties.Settings.Default.GithubToken);
         }

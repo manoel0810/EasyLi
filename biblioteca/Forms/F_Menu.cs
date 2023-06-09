@@ -225,7 +225,7 @@ namespace biblioteca
 
         private void UserControl(object sender, EventArgs e)
         {
-            DisplayForm(new F_ControleUsuarios());
+            DisplayForm(new ControlePessoal());
         }
 
         private void F_Menu_FormClosed(object sender, FormClosedEventArgs e)
@@ -266,6 +266,11 @@ namespace biblioteca
         private void BookReg_Click(object sender, EventArgs e)
         {
             DisplayForm(new BookRegister());
+        }
+
+        private void Usuarios_Click(object sender, EventArgs e)
+        {
+            DisplayForm(new Forms.UserControl());
         }
     }
 }

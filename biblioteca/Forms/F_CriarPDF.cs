@@ -46,7 +46,8 @@ namespace biblioteca
             };
 
             bool FileOkay = false;
-            Save.FileOk += (_, args) => {
+            Save.FileOk += (_, args) =>
+            {
                 FileOkay = true;
             };
 

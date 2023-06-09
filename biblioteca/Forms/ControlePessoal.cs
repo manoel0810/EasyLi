@@ -5,12 +5,12 @@ using System.Windows.Forms;
 
 namespace biblioteca
 {
-    public partial class F_ControleUsuarios : Form
+    public partial class ControlePessoal : Form
     {
         private string CurrentUsername = string.Empty;
         private ToolTip Tip = null;
 
-        public F_ControleUsuarios()
+        public ControlePessoal()
         {
             InitializeComponent();
         }
