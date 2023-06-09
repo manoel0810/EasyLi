@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
-[assembly: AssemblyTitle("biblioteca")]
-[assembly: AssemblyDescription("Tem o objetivo de facilitar as atividades na biblioteca. Aplicativo desenvolvido para a EREM Oliveira Lima.\n2021.1 - Manoel Victor Silva Lira\nCopyright ©  2020 - Retardados de Plantão")]
+[assembly: AssemblyTitle("EasyLi")]
+[assembly: AssemblyDescription("Sistema de controle e gestão de bibliotecas")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Retardados de Plantão")]
-[assembly: AssemblyProduct("biblioteca")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyProduct("EasyLi")]
+[assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("Tech Inc.")]
 [assembly: AssemblyCulture("")]
 
@@ -32,6 +32,6 @@ using System.Runtime.InteropServices;
 // É possível especificar todos os valores ou usar como padrão os Números de Build e da Revisão
 // usando o "*" como mostrado abaixo:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: NeutralResourcesLanguage("pt-BR")]
