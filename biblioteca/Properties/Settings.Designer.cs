@@ -25,54 +25,6 @@ namespace biblioteca.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Developer Tech. Retardados da Plantão™")]
-        public string Nome {
-            get {
-                return ((string)(this["Nome"]));
-            }
-            set {
-                this["Nome"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0810")]
-        public string Senha {
-            get {
-                return ((string)(this["Senha"]));
-            }
-            set {
-                this["Senha"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Dev")]
-        public string Username {
-            get {
-                return ((string)(this["Username"]));
-            }
-            set {
-                this["Username"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int First {
-            get {
-                return ((int)(this["First"]));
-            }
-            set {
-                this["First"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Email {
             get {
@@ -140,17 +92,6 @@ namespace biblioteca.Properties {
             }
             set {
                 this["ImageName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public int Instalador {
-            get {
-                return ((int)(this["Instalador"]));
-            }
-            set {
-                this["Instalador"] = value;
             }
         }
         

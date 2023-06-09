@@ -63,49 +63,9 @@ namespace biblioteca.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap backup {
+        public static System.Drawing.Bitmap MainTheme {
             get {
-                object obj = ResourceManager.GetObject("backup", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap db {
-            get {
-                object obj = ResourceManager.GetObject("db", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap gif_carregando {
-            get {
-                object obj = ResourceManager.GetObject("gif_carregando", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap gif_donwloading {
-            get {
-                object obj = ResourceManager.GetObject("gif_donwloading", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap gif_upload {
-            get {
-                object obj = ResourceManager.GetObject("gif_upload", resourceCulture);
+                object obj = ResourceManager.GetObject("MainTheme", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

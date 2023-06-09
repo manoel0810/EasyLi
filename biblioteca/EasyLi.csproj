@@ -8,7 +8,7 @@
     <ProjectGuid>{CFAF5FC3-4C25-44A1-87E9-8393E4E92472}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>biblioteca</RootNamespace>
-    <AssemblyName>biblioteca</AssemblyName>
+    <AssemblyName>EasyLi</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>free_sample_by_wix_U6u_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -362,14 +362,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.ico" />
+    <None Include="Resources\MainTheme.png" />
     <None Include="Resources\no-image.png" />
     <None Include="Resources\Web Interface_Color-03.png" />
-    <None Include="Resources\db.png" />
-    <None Include="Resources\backup.jpg" />
-    <None Include="Resources\gif_donwloading.gif" />
-    <None Include="Resources\gif_carregando.gif" />
-    <None Include="Resources\gif_upload.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="free_sample_by_wix_U6u_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

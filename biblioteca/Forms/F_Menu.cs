@@ -71,16 +71,11 @@ namespace biblioteca
             if (File.Exists($"{Application.StartupPath}\\img\\{Properties.Settings.Default.ImageName}"))
                 pictureBox1.ImageLocation = $"{Application.StartupPath}\\img\\{Properties.Settings.Default.ImageName}";
             else
-                if (File.Exists($"{Application.StartupPath}\\MainTheme.jpg"))
-                pictureBox1.ImageLocation = $"{Application.StartupPath}\\MainTheme.jpg";
-
-            /*
-             * TODO: Remover a dinâmica de funcionamento a baixo
-             */
-            if (Properties.Settings.Default.First == 1)
             {
-                Properties.Settings.Default.First = 2;
-                Properties.Settings.Default.Save();
+                if (File.Exists($"{Application.StartupPath}\\MainTheme.jpg"))
+                    pictureBox1.ImageLocation = $"{Application.StartupPath}\\MainTheme.jpg";
+                else
+                    pictureBox1.Image = Properties.Resources.MainTheme;
             }
 
             //Verificar o privilégio do usuário atual
