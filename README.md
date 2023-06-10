@@ -39,6 +39,12 @@ Este projeto está licenciado sob a [Licença MIT](https://github.com/manoel0810
 
 O EasyLi é um projeto em desenvolvimento e não oferece garantia de qualquer tipo. O uso deste software é de responsabilidade do usuário. A equipe do EasyLi não se responsabiliza por quaisquer danos ou perdas decorrentes do uso deste software.
 
+## Seriais
+
+Serial de alto nível: AF2TR47B1A
+
+Serial de baixo nível: GH65G4H541
+
 ## Contato
 
 Se você tiver alguma dúvida, sugestão ou problema relacionado ao EasyLi, entre em contato conosco através do email [manoelvictorzxc17@hotmail.com](mailto:manoelvictorzxc17@hotmail.com) ou abra uma issue neste repositório.
