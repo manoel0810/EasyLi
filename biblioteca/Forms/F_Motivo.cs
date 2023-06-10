@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace biblioteca
@@ -116,9 +117,12 @@ namespace biblioteca
             DatabaseController.InsertData(query, values);
             if (EnviarEmail)
             {
-                string subject = "Notificação de bloqueio - EasyLi";
-                string body = String.Format("Olá {0}, estamos notificando você a respeito do livro {1} que foi pego em {2}. O livro não foi registrado como devolvido e com isto, este registro ficou como pendência ativa. O motivo relatado foi: ({3}). Seu cadastro está bloquado.\r\n\r\nEasyLi", lb_aluno.Text, lb_livro.Text, lb_data.Text, motivoEscolhido);
-                Email.EnviarEmail(body, subject, email);
+                TextInfo textInfo = new CultureInfo("pt-BR", false).TextInfo;
+                string Livro = $"{textInfo.ToTitleCase(lb_livro.Text.ToLower())}";
+
+                string MSG = string.Format("Estamos notificando você, para informa-lhe que seu cadastro no sistema do EasyLi está bloqueado. Esta ação foi baseada na falta da devolução de um título: {0}, em {1}. Para regularizar sua situação, entre em contato com a sua instituição.", Livro, lb_data.Text);
+                string Body = EmailFormatProvider.FormartString(EmailFormatProvider.EmailFormat.BlockRequest, new string[] { MSG });
+                Email.EnviarEmail(Body, "EasyLi", email);
             }
 
             MessageBox.Show("O usuário foi bloquado no sistema com êxito", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);

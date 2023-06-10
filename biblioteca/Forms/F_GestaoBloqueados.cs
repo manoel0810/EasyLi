@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace biblioteca
@@ -46,12 +47,22 @@ namespace biblioteca
             if (Livros.SelectedRows.Count <= 0)
                 return;
 
-            string body = String.Format("Olá {0}, estamos notificando você via e-mail devido uma pendência ativa do livro {1} que foi pego em {2}, Você se encontra bloqueado no sistema EasyLi pelo mesmo.\n\nPedimos que faça a devolução do mesmo.\n\nNotificado por: {3}\n\nEasyLi", UserInformations.Rows[0].Field<string>("T_USER"), UserInformations.Rows[0].Field<string>("T_LIVRO"), UserInformations.Rows[0].Field<DateTime>("T_DATA").ToShortDateString(), Global.CurrentUserFullname);
-            string subject = "Notificação de Livro";
-
             if (MGlobais.CheckSMTPConfiguration() && MGlobais.Internet())
             {
-                Email.EnviarEmail(body, subject, UserEmail);
+                TextInfo textInfo = new CultureInfo("pt-BR", false).TextInfo;
+                string LivrosPendentes = string.Empty;
+                int POS = 0;
+
+                foreach (var item in Livros.Rows)
+                {
+                    var row = (DataGridViewRow)item;
+                    LivrosPendentes += $"<br>{++POS} - {textInfo.ToTitleCase(row.Cells[1].Value.ToString().ToLower())}, {DateTime.Parse(row.Cells[2].Value.ToString()).ToShortDateString()}";
+                }
+
+                string MSG = string.Format("Estamos notificando você por email, devido um ou mais empréstimos em pendência no nosso sistema. Consta que o(s) livro(s): <br></br>{0}<br></br><br></br> não foram devolvidos. Se acredita que isso é um erro, entre em contato com a coordenação da instituição. Seu cadastro está suspenso até que a situação atual seja regularizada.", LivrosPendentes);
+                string Body = EmailFormatProvider.FormartString(EmailFormatProvider.EmailFormat.BlockRequest, new string[] { MSG });
+                Email.EnviarEmail(Body, "EasyLi", UserEmail);
+
                 MessageBox.Show("O aluno será notificado.", "Serviço SMTP", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }

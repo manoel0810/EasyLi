@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
@@ -367,6 +368,38 @@ namespace biblioteca
             return !string.IsNullOrEmpty(Properties.Settings.Default.GithubOwner) &&
                     !string.IsNullOrEmpty(Properties.Settings.Default.GithubRepos) &&
                     !string.IsNullOrEmpty(Properties.Settings.Default.GithubToken);
+        }
+
+        /// <summary>
+        /// Retorna para a chamada o caminho para a capa do livro pela API da OpenLibrary
+        /// </summary>
+        /// <param name="Tombo">Tombo do livro</param>
+        /// <param name="Validate">se <b>true</b>, verifica se a capa existe localmente antes de montar a string</param>
+        /// <returns></returns>
+
+        public static string GetAPICoverPath(string Tombo, bool Validate = false)
+        {
+            string ISBN = Tombo;
+            DataTable BookInfo = DatabaseController.DQL($"select * from tb_livros where id = '{Tombo}'");
+            if (BookInfo.Rows.Count > 0)
+                ISBN = !string.IsNullOrEmpty(BookInfo.Rows[0].Field<string>("isbn13")) ? BookInfo.Rows[0].Field<string>("isbn13") : Tombo;
+
+            if (Validate)
+            {
+                if (Directory.Exists($"{Application.StartupPath}\\img\\covers"))
+                {
+                    var Files = Directory.GetFiles($"{Application.StartupPath}\\img\\covers");
+                    foreach (var f in Files)
+                        if (f.Contains(ISBN))
+                            return $"https://covers.openlibrary.org/b/isbn/{ISBN}-L.jpg";
+
+                    return null;
+                }
+                else
+                    return null;
+            }
+            else
+                return $"https://covers.openlibrary.org/b/isbn/{ISBN}-L.jpg";
         }
 
         /// <summary>

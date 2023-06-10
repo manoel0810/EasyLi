@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 using System.Windows.Forms;
 namespace biblioteca
 {
     public partial class F_DevolucaoLivro : Form
     {
         private string UserEmail = string.Empty;
+        private string Tombo = string.Empty;
 
         public F_DevolucaoLivro()
         {
@@ -55,6 +57,7 @@ namespace biblioteca
                 Turma.Text = UserInfo.Rows[0].Field<string>("T_TURMA");
                 tb_matricula.Text = UserInfo.Rows[0].Field<string>("T_MATRICULA");
                 UserEmail = UserInfo.Rows[0].Field<string>("T_EMAIL");
+                Tombo = UserInfo.Rows[0].Field<string>("T_TOMBO");
             }
         }
 
@@ -67,10 +70,20 @@ namespace biblioteca
                 if (Devolvido.Checked)
                 {
                     if (!string.IsNullOrWhiteSpace(UserEmail) && MGlobais.CheckSMTPConfiguration())
-                        Email.EnviarEmail(String.Format("Olá {0}. Você fez a devolução do livro {1} que foi pego em {2}. A sua devolução já foi registrada e sua pêndencia com o mesmo retirada. Agradecemos sua responsabilidade.", NomeUsuario.Text, Livro.Text, Data.Text), "EasyLi - Devolução de Livro", UserEmail);
+                    {
+                        TextInfo textInfo = new CultureInfo("pt-BR", false).TextInfo;
+                        string Nome = textInfo.ToTitleCase(NomeUsuario.Text.Split(' ')[0].ToLower());
+                        string LivroFormatado = textInfo.ToTitleCase(Livro.Text.ToLower());
+
+                        string MSG = string.Format("Olá {0}. Você realizou a devolução do livro: {1} em {2}. A devolução já foi registrada e a pendência com o mesmo removida. Agradecemos a sua colaboração", Nome, LivroFormatado, DateTime.Today.ToShortDateString());
+                        string Body = EmailFormatProvider.FormartString(EmailFormatProvider.EmailFormat.InOutRequest, new string[] { "EasyLi", "Devoluções - EasyLi", MGlobais.GetAPICoverPath(Tombo), MSG });
+                        Email.EnviarEmail(Body, "EasyLi", UserEmail);
+                    }
 
                     DatabaseController.DML($"UPDATE registry SET T_STATUS='{(int)Global.BookStatus.Devolvido}', T_DATAP = '{MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString())}' WHERE N_REGISTRYCODE = '{ID.Text}'");
                     dgv_livrosPdevol.Rows.Remove(dgv_livrosPdevol.CurrentRow);
+
+                    MessageBox.Show("Devolução efetuada com sucesso", "Devoluções", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

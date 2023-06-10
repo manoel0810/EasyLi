@@ -1,6 +1,7 @@
 ﻿using biblioteca.Forms;
 using System;
 using System.Data;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace biblioteca
@@ -134,7 +135,14 @@ namespace biblioteca
             Save.Enabled = false;
             Save.Cursor = Cursors.No;
             if (!string.IsNullOrWhiteSpace(Email.Text) && MGlobais.ValidateEmail(Email.Text) && MGlobais.CheckSMTPConfiguration())
-                biblioteca.Email.EnviarEmail(string.Format("Olá {0}. Notamos que você realizou a retirada do livro '{1}'. Você possue 8(oito) dias para efetuar a devolução.", NomeUsuario.Text, Livro.Text), "EasyLi - Retirada de Livro", Email.Text);
+            {
+                TextInfo textInfo = new CultureInfo("pt-BR", false).TextInfo;
+                string Nome = textInfo.ToTitleCase(NomeUsuario.Text.Split(' ')[0].ToLower());
+
+                string MSG = string.Format("Olá {0}. Notamos que você realizou a retirada do livro '{1}'. Você possue 8(oito) dias para efetuar a devolução.", Nome, Livro.Text);
+                string Body = EmailFormatProvider.FormartString(EmailFormatProvider.EmailFormat.InOutRequest, new string[] {"EasyLi", "Empréstimos - EasyLi", MGlobais.GetAPICoverPath(Tombo.Text), MSG });
+                biblioteca.Email.EnviarEmail(Body, "EasyLi", Email.Text);
+            }
 
             string vquery = @"INSERT INTO registry (T_USER, T_LIVRO, T_STATUS, T_DATA, T_DATAP, T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL) VALUES ('" + MGlobais.SanitizeString(NomeUsuario.Text) + "', '" + MGlobais.SanitizeString(Livro.Text) + "', '" + (int)InitialBookState + "', '" + MGlobais.FormatarDataSQL(Data.Text) + "', '" + MGlobais.FormatarDataSQL(Data.Text) + "', '" + Turma.Text + "', '" + UserCode + "', '" + Tombo.Text + "', '" + Email.Text + "')";
             DatabaseController.DML(vquery);

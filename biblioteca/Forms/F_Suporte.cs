@@ -93,8 +93,56 @@ namespace biblioteca
             string returnEmail = $"Email para retorno de informação: {Email.Text}";
             string fullName = $"Name: {Global.CurrentUserFullname}";
 
-            return $"{programInfo};\r\n{osInfo};\r\n{versionInfo};\r\n{is64Bit};\r\n{problemMessage};\r\n{returnEmail};\r\n{fullName}";
+            string html = $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>Problem Information</title>
+    <style>
+        body {{
+            background-color: lightblue;
+            margin: 0;
+            padding: 0;
+        }}
+        
+        .container {{
+            width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+            text-align: left;
+            font-family: Arial, sans-serif;
+        }}
+
+        h1 {{
+            font-size: 24px;
+            margin-bottom: 20px;
+        }}
+
+        p {{
+            font-size: 18px;
+            margin-bottom: 10px;
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <h1>Problem Information</h1>
+        <p>{programInfo}</p>
+        <p>{osInfo}</p>
+        <p>{versionInfo}</p>
+        <p>{is64Bit}</p>
+        <p>{problemMessage}</p>
+        <p>{returnEmail}</p>
+        <p>{fullName}</p>
+    </div>
+</body>
+</html>";
+            return html;
         }
+
 
         private void EmailTextChenged(object sender, EventArgs e)
         {

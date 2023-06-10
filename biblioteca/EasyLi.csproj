@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>free_sample_by_wix_U6u_icon.ico</ApplicationIcon>
+    <ApplicationIcon>easyli.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -352,7 +352,7 @@
     <None Include="Resources\Web Interface_Color-03.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="free_sample_by_wix_U6u_icon.ico" />
+    <Content Include="easyli.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
