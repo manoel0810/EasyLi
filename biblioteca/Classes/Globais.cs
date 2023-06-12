@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biblioteca.Classes;
+using System;
 using System.Windows.Forms;
 
 namespace biblioteca
@@ -16,7 +17,8 @@ namespace biblioteca
         public static string CurrentUserAccessToken = string.Empty;
         public static UserPrivilege CurrentUserPrivilege = UserPrivilege.Normal;
         public static EmailSender EmailControl;
-        public static Logger Log = new Logger($"{Application.StartupPath}\\logs\\logteste.txt");
+        public static Logger Log = new Logger($"{Application.StartupPath}\\logs\\{MGlobais.GenerateRandomFileName()}");
+        public static DatabaseUpdates DatabaseUpdateController = new DatabaseUpdates();
         public static GithubController.GitOperations GitController;
 
         [Flags]

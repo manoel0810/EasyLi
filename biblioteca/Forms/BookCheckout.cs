@@ -140,7 +140,7 @@ namespace biblioteca
                 string Nome = textInfo.ToTitleCase(NomeUsuario.Text.Split(' ')[0].ToLower());
 
                 string MSG = string.Format("Olá {0}. Notamos que você realizou a retirada do livro '{1}'. Você possue 8(oito) dias para efetuar a devolução.", Nome, Livro.Text);
-                string Body = EmailFormatProvider.FormartString(EmailFormatProvider.EmailFormat.InOutRequest, new string[] {"EasyLi", "Empréstimos - EasyLi", MGlobais.GetAPICoverPath(Tombo.Text), MSG });
+                string Body = EmailFormatProvider.FormartString(EmailFormatProvider.EmailFormat.InOutRequest, new string[] { "EasyLi", "Empréstimos - EasyLi", MGlobais.GetAPICoverPath(Tombo.Text), MSG });
                 biblioteca.Email.EnviarEmail(Body, "EasyLi", Email.Text);
             }
 

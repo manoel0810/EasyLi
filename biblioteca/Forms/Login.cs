@@ -92,5 +92,17 @@ namespace biblioteca
             //Exit without erros
             Environment.Exit(0x0);
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            if (Global.DatabaseUpdateController != null)
+                if (Global.DatabaseUpdateController.AlreadyChecked)
+                    return;
+                else
+                {
+                    if (Global.DatabaseUpdateController.IsUpdated() == false)
+                        Global.DatabaseUpdateController.InstallUpdates();
+                }
+        }
     }
 }

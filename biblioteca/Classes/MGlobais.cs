@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-//using ISBNQuery;
 
 namespace biblioteca
 {
@@ -204,7 +203,6 @@ namespace biblioteca
                    !string.IsNullOrEmpty(Properties.Settings.Default.UserEmail) &&
                    !string.IsNullOrEmpty(Properties.Settings.Default.SenhaEmail);
         }
-
 
         /// <summary>
         /// Verifica a conexão com a internet
@@ -451,6 +449,18 @@ namespace biblioteca
                 NewSeque = NewSeque.Replace(s, "");
 
             return NewSeque;
+        }
+
+        /// <summary>
+        /// Gera o nome do log para registro
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateRandomFileName()
+        {
+            string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string randomSuffix = Guid.NewGuid().ToString().Substring(0, 4);
+            string fileName = $"log_{timestamp}_{randomSuffix}.txt";
+            return fileName;
         }
     }
 
