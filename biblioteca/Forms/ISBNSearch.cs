@@ -16,7 +16,7 @@ namespace biblioteca.Forms
             Finished = false;
         }
 
-        private void Buscar_Click(object sender, EventArgs e)
+        private async void Buscar_Click(object sender, EventArgs e)
         {
             Buscar.Enabled = false;
             Cursor = Cursors.WaitCursor;
@@ -30,25 +30,27 @@ namespace biblioteca.Forms
                 Cursor = Cursors.Default;
                 return;
             }
-            else if (!MGlobais.Internet())
+            else if (!await MGlobais.Internet())
             {
                 MessageBox.Show("Não foi possívels e conectar à rede de internet", "ISBN - Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
-
-            Livro = Consultas.ConsultarISBN(ISBNSanitized, false);
-            if (Livro != null)
-            {
-                if (Capa.Checked)
-                    Cover = Consultas.GetCompostImage(Consultas.ImageSize.M, ISBNSanitized);
-
-                Finished = true;
-                Close();
-            }
             else
             {
-                MessageBox.Show("Não foi possível recuperar as informações do ISBN", "ISBN - Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Close();
+                Livro = Consultas.ConsultarISBN(ISBNSanitized, false);
+                if (Livro != null)
+                {
+                    if (Capa.Checked)
+                        Cover = Consultas.GetCompostImage(Consultas.ImageSize.M, ISBNSanitized);
+
+                    Finished = true;
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Não foi possível recuperar as informações do ISBN", "ISBN - Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
+                }
             }
         }
     }

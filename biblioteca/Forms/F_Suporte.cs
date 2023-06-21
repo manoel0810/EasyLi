@@ -28,7 +28,7 @@ namespace biblioteca
             Versao.Text = Global.VERSION;
         }
 
-        private void EnviarClick(object sender, EventArgs e)
+        private async void EnviarClick(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Email.Text) || string.IsNullOrEmpty(Problema.Text))
             {
@@ -41,7 +41,7 @@ namespace biblioteca
                 try
                 {
                     bool SMTPConfiguration = MGlobais.CheckSMTPConfiguration();
-                    bool InternetConnection = MGlobais.Internet();
+                    bool InternetConnection = await MGlobais.Internet();
 
                     if (SMTPConfiguration && InternetConnection)
                     {

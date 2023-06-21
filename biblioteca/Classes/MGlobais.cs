@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace biblioteca
@@ -210,17 +211,24 @@ namespace biblioteca
         /// <param name="timeout">Tempo em milissegundos de aguardo por resposta</param>
         /// <returns>retorna true se houver conexão</returns>
 
-        public static bool Internet(int timeout = 3000)
+        public static async Task<bool> Internet(int timeout = 3000)
         {
             Ping ping = new Ping();
+            bool PingResult = false;
             try
             {
-                PingReply reply = ping.Send("www.google.com", timeout);
-                return (reply.Status == IPStatus.Success);
+
+                await Task.Run(() =>
+                {
+                    PingReply reply = ping.Send("www.google.com", timeout);
+                    PingResult = (reply.Status == IPStatus.Success);
+                });
+
+                return PingResult;
             }
             catch
             {
-                return false;
+                return PingResult;
             }
         }
 
