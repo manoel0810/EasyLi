@@ -19,14 +19,7 @@ namespace biblioteca.Forms
         private void BookRegister_Load(object sender, EventArgs e)
         {
             KeyPreview = true;
-            Tombo.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
-
-                Args.Handled = false;
-            };
+            MGlobais.SetNumericFieldOnly(ref Tombo);
 
             Cover.Image = Properties.Resources.no_image;
         }

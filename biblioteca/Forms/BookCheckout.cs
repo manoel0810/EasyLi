@@ -71,23 +71,8 @@ namespace biblioteca
 
             KeyPreview = true;
 
-            Tombo.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
-
-                Args.Handled = false;
-            };
-
-            Matricula.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
-
-                Args.Handled = false;
-            };
+            MGlobais.SetNumericFieldOnly(ref Tombo);
+            MGlobais.SetNumericFieldOnly(ref Matricula);
         }
 
         private void SaveClick(object sender, EventArgs e)

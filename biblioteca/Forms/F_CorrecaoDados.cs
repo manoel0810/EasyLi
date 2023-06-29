@@ -42,32 +42,10 @@ namespace biblioteca
 
             KeyPreview = true;
 
-            Matricula.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
+            MGlobais.SetNumericFieldOnly(ref Tombo);
+            MGlobais.SetNumericFieldOnly(ref Matricula);
+            MGlobais.SetNumericFieldOnly(ref FiltroMatricula);
 
-                Args.Handled = false;
-            };
-
-            FiltroMatricula.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
-
-                Args.Handled = false;
-            };
-
-            Tombo.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
-
-                Args.Handled = false;
-            };
         }
 
         private void ExitClick(object sender, EventArgs e)

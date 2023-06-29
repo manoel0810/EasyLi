@@ -462,6 +462,25 @@ namespace biblioteca
             string fileName = $"log_{timestamp}_{randomSuffix}.txt";
             return fileName;
         }
+
+        /// <summary>
+        /// Define a entrada de uma TextBox para somente números
+        /// </summary>
+        /// <param name="T">TextBox que deve ser formatada</param>
+
+        public static void SetNumericFieldOnly(ref TextBox T)
+        {
+            T.KeyPress += (_, Args) =>
+            {
+                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
+                    if (Args.KeyChar != '\b')
+                        Args.KeyChar = '\0';
+
+                Args.Handled = false;
+            };
+
+            return;
+        }
     }
 
     /// <summary>

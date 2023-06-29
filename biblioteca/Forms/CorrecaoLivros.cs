@@ -26,23 +26,8 @@ namespace biblioteca
             Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
             FormatarDGV();
 
-            Tombo.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
-
-                Args.Handled = false;
-            };
-
-            FiltroTombo.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
-
-                Args.Handled = false;
-            };
+            MGlobais.SetNumericFieldOnly(ref Tombo);
+            MGlobais.SetNumericFieldOnly(ref FiltroTombo);
         }
 
         private void DGVSelectionChenged(object sender, EventArgs e)

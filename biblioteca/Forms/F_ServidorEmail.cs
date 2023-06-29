@@ -39,14 +39,7 @@ namespace biblioteca
             Password.Text = Properties.Settings.Default.SenhaEmail;
 
             KeyPreview = true;
-            Port.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
-
-                Args.Handled = false;
-            };
+            MGlobais.SetNumericFieldOnly(ref Port);
         }
 
         private void SaveClick(object sender, EventArgs e)

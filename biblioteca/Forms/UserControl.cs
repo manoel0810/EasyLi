@@ -83,15 +83,7 @@ namespace biblioteca.Forms
             Usuarios.Columns[0].Width = 60;
             Usuarios.Columns[1].Width = Usuarios.Width - (Usuarios.Columns[0].Width + DGVMargin);
 
-            FiltroMatricula.KeyPress += (_, Args) =>
-            {
-                if (!(Args.KeyChar >= 48 && Args.KeyChar <= 57))
-                    if (Args.KeyChar != '\b')
-                        Args.KeyChar = '\0';
-
-                Args.Handled = false;
-            };
-
+            MGlobais.SetNumericFieldOnly(ref FiltroMatricula);
             KeyPreview = true;
         }
 
