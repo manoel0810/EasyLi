@@ -42,12 +42,12 @@ namespace biblioteca
             Close();
         }
 
-        private void Notification(object sender, EventArgs e)
+        private async void Notification(object sender, EventArgs e)
         {
             if (Livros.SelectedRows.Count <= 0)
                 return;
 
-            if (MGlobais.CheckSMTPConfiguration() && MGlobais.Internet())
+            if (MGlobais.CheckSMTPConfiguration() && await MGlobais.Internet())
             {
                 TextInfo textInfo = new CultureInfo("pt-BR", false).TextInfo;
                 string LivrosPendentes = string.Empty;

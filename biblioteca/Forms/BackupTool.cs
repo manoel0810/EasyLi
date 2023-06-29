@@ -31,7 +31,7 @@ namespace biblioteca.Forms
                 MessageBox.Show("Não foi possível verificar as credenciais de acesso ao serviço", "Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            else if (!MGlobais.Internet())
+            else if (!await MGlobais.Internet())
             {
                 MessageBox.Show("Não foi possível se conectar com a internet", "Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -69,7 +69,7 @@ namespace biblioteca.Forms
                 MessageBox.Show("Não foi possível verificar as credenciais de acesso ao serviço", "Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            else if (!MGlobais.Internet())
+            else if (!await MGlobais.Internet())
             {
                 MessageBox.Show("Não foi possível se conectar com a internet", "Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
