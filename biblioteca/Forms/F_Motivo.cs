@@ -27,7 +27,7 @@ namespace biblioteca
         private void F_Motivo_Load(object sender, EventArgs e)
         {
 
-            DataTable dt = DatabaseController.DQL($"SELECT * FROM registry WHERE N_REGISTRYCODE='{ID}'");
+            DataTable dt = DatabaseController.DataQueryLanguage($"SELECT * FROM registry WHERE N_REGISTRYCODE='{ID}'");
             matricula = dt.Rows[0].Field<string>("T_MATRICULA");
 
             lb_matricula.Text = matricula;
@@ -106,7 +106,7 @@ namespace biblioteca
                     EnviarEmail = true;
             }
 
-            DatabaseController.DQL($"UPDATE users SET user_status = '{(int)Global.UserState.Blocked}' WHERE code = '{matricula}'");
+            DatabaseController.DataQueryLanguage($"UPDATE users SET user_status = '{(int)Global.UserState.Blocked}' WHERE code = '{matricula}'");
             string query = "UPDATE registry SET T_NOTAS = @param1 WHERE N_REGISTRYCODE = @param2";
             object[] values = new object[]
             {

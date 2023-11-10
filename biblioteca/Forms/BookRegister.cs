@@ -32,7 +32,7 @@ namespace biblioteca.Forms
                 return;
             }
 
-            if (DatabaseController.DQL($"select * from tb_livros where id = '{Tombo.Text}'").Rows.Count > 0)
+            if (DatabaseController.DataQueryLanguage($"select * from tb_livros where id = '{Tombo.Text}'").Rows.Count > 0)
             {
                 MessageBox.Show($"O tombo informado já está em uso. Informe outro para registro do livro", "Registrar livros", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;

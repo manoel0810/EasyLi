@@ -20,7 +20,7 @@ namespace biblioteca
         private void FormLoad(object sender, EventArgs e)
         {
             KeyPreview = true;
-            Usuarios.DataSource = DatabaseController.DQL($"select code as 'Code', user_name as 'Nome completo' from users where user_status = '{(int)Global.UserState.Blocked}'");
+            Usuarios.DataSource = DatabaseController.DataQueryLanguage($"select code as 'Code', user_name as 'Nome completo' from users where user_status = '{(int)Global.UserState.Blocked}'");
             FormatDGVUsers();
         }
 
@@ -78,7 +78,7 @@ namespace biblioteca
             DataGridView dgv = (DataGridView)sender;
             if (dgv.SelectedRows.Count > 0)
             {
-                DataTable dt = DatabaseController.DQL($"SELECT * FROM registry WHERE N_REGISTRYCODE='{Livros.SelectedRows[0].Cells[0].Value}'");
+                DataTable dt = DatabaseController.DataQueryLanguage($"SELECT * FROM registry WHERE N_REGISTRYCODE='{Livros.SelectedRows[0].Cells[0].Value}'");
                 UserInformations = dt;
 
                 tb_nome.Text = dt.Rows[0].Field<string>("T_USER");
@@ -103,7 +103,7 @@ namespace biblioteca
         {
             if (Usuarios.SelectedRows.Count > 0)
             {
-                Livros.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID',  T_LIVRO AS 'Livro', T_DATA AS 'Data' FROM registry WHERE T_MATRICULA = '{Usuarios.SelectedRows[0].Cells[0].Value}' and T_STATUS != '{(int)Global.BookStatus.Devolvido}'");
+                Livros.DataSource = DatabaseController.DataQueryLanguage($"SELECT N_REGISTRYCODE AS 'ID',  T_LIVRO AS 'Livro', T_DATA AS 'Data' FROM registry WHERE T_MATRICULA = '{Usuarios.SelectedRows[0].Cells[0].Value}' and T_STATUS != '{(int)Global.BookStatus.Devolvido}'");
                 FormatDGVBooks();
             }
         }

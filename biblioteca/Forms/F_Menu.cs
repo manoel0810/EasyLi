@@ -50,7 +50,7 @@ namespace biblioteca
         {
             try
             {
-                GerarPDF.CriarPDF(DatabaseController.DQL($"SELECT T_USER AS 'Usuário', T_LIVRO AS 'Livro', T_DATA AS 'Data', T_TURMA AS 'Turma' FROM registry WHERE T_STATUS='{(int)Status}' ORDER BY T_TURMA, T_USER"), Mode);
+                GerarPDF.CriarPDF(DatabaseController.DataQueryLanguage($"SELECT T_USER AS 'Usuário', T_LIVRO AS 'Livro', T_DATA AS 'Data', T_TURMA AS 'Turma' FROM registry WHERE T_STATUS='{(int)Status}' ORDER BY T_TURMA, T_USER"), Mode);
             }
             catch (Exception e)
             {
@@ -79,7 +79,7 @@ namespace biblioteca
             }
 
             //Verificar o privilégio do usuário atual
-            try { Global.CurrentUserPrivilege = (Global.UserPrivilege)int.Parse(DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_TOKEN = '{Global.CurrentUserAccessToken}'").Rows[0].Field<Int64>("N_PRIV").ToString()); } catch { Global.CurrentUserPrivilege = Global.UserPrivilege.NotDefined; }
+            try { Global.CurrentUserPrivilege = (Global.UserPrivilege)int.Parse(DatabaseController.DataQueryLanguage($"SELECT * FROM tb_login WHERE T_TOKEN = '{Global.CurrentUserAccessToken}'").Rows[0].Field<Int64>("N_PRIV").ToString()); } catch { Global.CurrentUserPrivilege = Global.UserPrivilege.NotDefined; }
 
             if (Global.CurrentUserPrivilege == Global.UserPrivilege.Normal)
                 servidorToolStripMenuItem.Visible = false;
@@ -89,8 +89,15 @@ namespace biblioteca
                 if (Global.EmailControl == null)
                     Global.EmailControl = new EmailSender(Properties.Settings.Default.Host, Properties.Settings.Default.Porta, Properties.Settings.Default.UserEmail, Properties.Settings.Default.SenhaEmail, Properties.Settings.Default.Email);
 
-            if (MGlobais.CheckGithubCredentials() && Global.GitController == null)
+            if (CheckGithubCredentials() && Global.GitController == null)
                 Global.GitController = new GithubController.GitOperations("writeanyvalueanything", Properties.Settings.Default.GithubToken, Properties.Settings.Default.GithubOwner, Properties.Settings.Default.GithubRepos);
+        }
+
+        private bool CheckGithubCredentials()
+        {
+            return !string.IsNullOrEmpty(Properties.Settings.Default.GithubOwner) &&
+                    !string.IsNullOrEmpty(Properties.Settings.Default.GithubRepos) &&
+                    !string.IsNullOrEmpty(Properties.Settings.Default.GithubToken);
         }
 
         private void BookIn(object sender, EventArgs e)

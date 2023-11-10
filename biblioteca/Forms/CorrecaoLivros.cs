@@ -23,7 +23,7 @@ namespace biblioteca
         private void CorrecaoLivros_Load(object sender, EventArgs e)
         {
             KeyPreview = true;
-            Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
+            Livros.DataSource = DatabaseController.DataQueryLanguage("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
             FormatarDGV();
 
             MGlobais.SetNumericFieldOnly(ref Tombo);
@@ -35,7 +35,7 @@ namespace biblioteca
             DataGridView dgv = (DataGridView)sender;
             if (dgv.SelectedRows.Count > 0)
             {
-                DataTable Book = DatabaseController.DQL($"select * from tb_livros where id = '{dgv.SelectedRows[0].Cells[0].Value}'");
+                DataTable Book = DatabaseController.DataQueryLanguage($"select * from tb_livros where id = '{dgv.SelectedRows[0].Cells[0].Value}'");
 
                 Titulo.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                 DataRegistro.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
@@ -68,7 +68,7 @@ namespace biblioteca
 
             if (DialogResult.Yes == MessageBox.Show("Você tem certeza que deseja apagar este registros?", "Apagar livro", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
-                DatabaseController.DML(String.Format("delete from tb_livros where id = '{0}'", Livros.SelectedRows[0].Cells[0].Value.ToString()));
+                DatabaseController.DataManipulationLanguage(String.Format("delete from tb_livros where id = '{0}'", Livros.SelectedRows[0].Cells[0].Value.ToString()));
                 Livros.Rows.Remove(Livros.CurrentRow);
 
                 MessageBox.Show("O livro foi apagado do sistema", "Apagado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -89,7 +89,7 @@ namespace biblioteca
             bool ChangeBookID = false;
             if (Tombo.Text != Livros.SelectedRows[0].Cells[0].Value.ToString())
             {
-                DataTable count = DatabaseController.DQL(String.Format("select * from tb_livros where id = '{0}'", Tombo.Text));
+                DataTable count = DatabaseController.DataQueryLanguage(String.Format("select * from tb_livros where id = '{0}'", Tombo.Text));
                 if (count.Rows.Count > 0)
                 {
                     MessageBox.Show("Este tombo não está disponível. Troque para outro", "Unique block", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -100,9 +100,9 @@ namespace biblioteca
             }
 
             string query = String.Format("update tb_livros set id = '{0}', t_titulo = '{1}', dt_datain = '{2}', isbn13 = '{3}', isbn10 = '{4}', publicacao = '{5}', autor = '{6}' where id = '{7}'", Tombo.Text, MGlobais.SanitizeString(Titulo.Text, true), MGlobais.FormatarDataSQL(DataRegistro.Text), ISBN13.Text.Replace("-", "").Replace(".", ""), ISBN10.Text.Replace("-", ""), MGlobais.SanitizeString(Publicacao.Text, true), MGlobais.SanitizeString(Autores.Text, true), CurrentBookIdentificarion);
-            DatabaseController.DML(query);
+            DatabaseController.DataManipulationLanguage(query);
             if (ChangeBookID)
-                DatabaseController.DML($"update registry set T_TOMBO = '{Tombo.Text}' where T_TOMBO = '{CurrentBookIdentificarion}'");
+                DatabaseController.DataManipulationLanguage($"update registry set T_TOMBO = '{Tombo.Text}' where T_TOMBO = '{CurrentBookIdentificarion}'");
 
             Livros.SelectedRows[0].Cells[0].Value = Tombo.Text;
             Livros.SelectedRows[0].Cells[1].Value = Titulo.Text;
@@ -114,12 +114,12 @@ namespace biblioteca
         {
             if (FiltroTitulo.Text.Length > 2)
             {
-                Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros where t_titulo like '%" + FiltroTitulo.Text + "%'");
+                Livros.DataSource = DatabaseController.DataQueryLanguage("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros where t_titulo like '%" + FiltroTitulo.Text + "%'");
                 FormatarDGV();
             }
             else if (FiltroTitulo.Text.Length == 0)
             {
-                Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
+                Livros.DataSource = DatabaseController.DataQueryLanguage("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
                 FormatarDGV();
             }
         }
@@ -128,12 +128,12 @@ namespace biblioteca
         {
             if (FiltroTombo.Text.Length > 2)
             {
-                Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros where id like '%" + FiltroTombo.Text + "%'");
+                Livros.DataSource = DatabaseController.DataQueryLanguage("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros where id like '%" + FiltroTombo.Text + "%'");
                 FormatarDGV();
             }
             else if (FiltroTombo.Text.Length == 0)
             {
-                Livros.DataSource = DatabaseController.DQL("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
+                Livros.DataSource = DatabaseController.DataQueryLanguage("select id as 'ID', t_titulo as 'Titulo', dt_datain as 'Data' from tb_livros order by dt_datain");
                 FormatarDGV();
             }
         }

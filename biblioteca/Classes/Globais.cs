@@ -17,9 +17,11 @@ namespace biblioteca
         public static string CurrentUserAccessToken = string.Empty;
         public static UserPrivilege CurrentUserPrivilege = UserPrivilege.Normal;
         public static EmailSender EmailControl;
-        public static Logger Log = new Logger($"{Application.StartupPath}\\logs\\{MGlobais.GenerateRandomFileName()}");
+        public static Logger Log = new Logger($"{Application.StartupPath}\\logs\\");
         public static DatabaseUpdates DatabaseUpdateController = new DatabaseUpdates();
         public static GithubController.GitOperations GitController;
+
+        #region FLAGS
 
         [Flags]
         public enum UserPrivilege : int
@@ -29,6 +31,7 @@ namespace biblioteca
             NotDefined = 3
         }
 
+        [Flags]
         public enum BookStatus : int
         {
             Emprestado = 1,
@@ -38,11 +41,14 @@ namespace biblioteca
             ErrorStateReturn = -1
         }
 
+        [Flags]
         public enum UserState : int
         {
             Blocked = 1,
             Free = 0,
             NotDefined = -1
         }
+
+        #endregion
     }
 }

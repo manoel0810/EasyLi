@@ -16,7 +16,7 @@ namespace biblioteca
             return EasyLiConnection;
         }
 
-        public static DataTable DQL(string CommandLine)
+        public static DataTable DataQueryLanguage(string CommandLine)
         {
             using (SQLiteConnection connection = OpenConnection())
             {
@@ -32,7 +32,7 @@ namespace biblioteca
             }
         }
 
-        public static void DML(string CommandLine)
+        public static void DataManipulationLanguage(string CommandLine)
         {
             try
             {

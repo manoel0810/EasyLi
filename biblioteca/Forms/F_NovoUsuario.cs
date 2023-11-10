@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -40,10 +41,10 @@ namespace biblioteca
                 return;
             }
 
-            if (MGlobais.ValidarUser(Username.Text))
+            if (ValidarUser(Username.Text))
             {
                 string vquery = String.Format("INSERT INTO tb_login (T_USER, T_TOKEN, T_NOMECOMPLETO, N_PRIV) VALUES ('{0}', '{1}', '{2}', '{3}')", MGlobais.SanitizeString(Username.Text), MGlobais.GenereteUserToken(Username.Text, Senha.Text), MGlobais.SanitizeString(Nome.Text), (int)UserSerial);
-                DatabaseController.DML(vquery);
+                DatabaseController.DataManipulationLanguage(vquery);
 
                 MessageBox.Show("Cadastro efetuado com êxito!", "Cadastro de usuários", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
@@ -53,6 +54,12 @@ namespace biblioteca
                 MessageBox.Show("Já existe um usuário com este Username registrado. Escolha outro para seu login.", "Cadastro de usuários", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+        }
+
+        private bool ValidarUser(string Username)
+        {
+            DataTable dt = DatabaseController.DataQueryLanguage($"SELECT * FROM tb_login WHERE T_USER = '{Username}'");
+            return !(dt.Rows.Count > 0);
         }
 
         private void SerialTextChenged(object sender, EventArgs e)

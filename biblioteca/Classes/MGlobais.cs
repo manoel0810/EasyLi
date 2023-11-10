@@ -59,7 +59,7 @@ namespace biblioteca
             Random R = new Random();
             string CODE = R.Next(10000000, 99999999).ToString();
 
-            int Count = DatabaseController.DQL($"select * from students where code = '{CODE}' limit 1").Rows.Count;
+            int Count = DatabaseController.DataQueryLanguage($"select * from students where code = '{CODE}' limit 1").Rows.Count;
             if (Count > 0)
                 goto StartFunctionCall;
             else
@@ -167,31 +167,6 @@ namespace biblioteca
         }
 
         /// <summary>
-        /// Efetua a sincronização de registro para notificação autônoma
-        /// </summary>
-
-        public static void SincronizarRegistros()
-        {
-            DataTable IB = DatabaseController.DQL("select id from tb_H_Notificacao");
-            if (IB.Rows.Count >= 0)
-            {
-                //OPERAÇÃO
-                foreach (DataRow row in IB.Rows)
-                {
-                    DataTable update = DatabaseController.DQL("select T_STATUS, T_DATA from tb_dadosaluno where N_IDLIVROALUNO = '" + row.Field<Int64>("id") + "'");
-                    if (update.Rows.Count != 0)
-                        DatabaseController.DML(String.Format("update tb_H_Notificacao set t_status = '{0}', dt_dataReg = '{1}' where id = '{2}'", update.Rows[0].Field<string>("T_STATUS"), MGlobais.FormatarDataSQL(update.Rows[0].Field<DateTime>("T_DATA").ToShortDateString()), row.Field<Int64>("id")));
-                }
-
-                DatabaseController.DML("insert into tb_H_Notificacao (id, dt_dataReg, t_status) select A.N_IDLIVROALUNO, A.T_DATA, A.T_STATUS from tb_dadosaluno A where A.T_EMAIL != '' and A.T_STATUS = 'Emprestado'");
-                DatabaseController.DML("delete from tb_H_Notificacao where t_status != 'Emprestado'");
-                return;
-            }
-            else
-                return;
-        }
-
-        /// <summary>
         /// Verifica se as configurações do serviço SMTP estão todas preenchidas
         /// </summary>
         /// <returns><b>true</b> se as configurações estão definidas</returns>
@@ -242,7 +217,7 @@ namespace biblioteca
         public static bool Login(string Username, string Password)
         {
             string UToken = GenereteUserToken(Username, Password);
-            var Data = DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_TOKEN = '{UToken}'");
+            var Data = DatabaseController.DataQueryLanguage($"SELECT * FROM tb_login WHERE T_TOKEN = '{UToken}'");
 
             if (Data.Rows.Count == 1)
             {
@@ -306,41 +281,13 @@ namespace biblioteca
         /// <param name="Bytes">Array com os bytes codificados</param>
         /// <returns>Uma string com a correspondência do byte array</returns>
 
-        public static string BytesToString(byte[] Bytes)
+        internal static string BytesToString(byte[] Bytes)
         {
             string Partial = "";
             foreach (byte b in Bytes)
                 Partial += b.ToString("X2");
 
             return Partial;
-        }
-
-        /// <summary>
-        /// Verifica se um username já existe no sistema
-        /// </summary>
-        /// <param name="Username">Username para teste</param>
-        /// <returns><b>false</b> se o username ainda não está em uso</returns>
-
-        public static bool ValidarUser(string Username)
-        {
-            DataTable dt = DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_USER = '{Username}'");
-            return !(dt.Rows.Count > 0);
-        }
-
-        /// <summary>
-        /// Formata uma data no padrão YYYY-MM-DD para DD-MM-YYYY
-        /// </summary>
-        /// <param name="data">Data para formatação</param>
-        /// <returns></returns>
-
-        public static string FormatarData(string data)
-        {
-            //Formato YYYY-MM-DD Para DD-MM-YYYY
-            string ano = data.Substring(0, 4);
-            string mes = data.Substring(5, 2);
-            string dia = data.Substring(8, 2);
-            string dataFormatada = String.Format("{0}-{1}-{2}", dia, mes, ano);
-            return dataFormatada;
         }
 
         /// <summary>
@@ -365,18 +312,6 @@ namespace biblioteca
         }
 
         /// <summary>
-        /// Verifica se as configurações do Github estão presentes
-        /// </summary>
-        /// <returns><b>true</b> caso existam</returns>
-
-        public static bool CheckGithubCredentials()
-        {
-            return !string.IsNullOrEmpty(Properties.Settings.Default.GithubOwner) &&
-                    !string.IsNullOrEmpty(Properties.Settings.Default.GithubRepos) &&
-                    !string.IsNullOrEmpty(Properties.Settings.Default.GithubToken);
-        }
-
-        /// <summary>
         /// Retorna para a chamada o caminho para a capa do livro pela API da OpenLibrary
         /// </summary>
         /// <param name="Tombo">Tombo do livro</param>
@@ -386,7 +321,7 @@ namespace biblioteca
         public static string GetAPICoverPath(string Tombo, bool Validate = false)
         {
             string ISBN = Tombo;
-            DataTable BookInfo = DatabaseController.DQL($"select * from tb_livros where id = '{Tombo}'");
+            DataTable BookInfo = DatabaseController.DataQueryLanguage($"select * from tb_livros where id = '{Tombo}'");
             if (BookInfo.Rows.Count > 0)
                 ISBN = !string.IsNullOrEmpty(BookInfo.Rows[0].Field<string>("isbn13")) ? BookInfo.Rows[0].Field<string>("isbn13") : Tombo;
 
@@ -457,18 +392,6 @@ namespace biblioteca
                 NewSeque = NewSeque.Replace(s, "");
 
             return NewSeque;
-        }
-
-        /// <summary>
-        /// Gera o nome do log para registro
-        /// </summary>
-        /// <returns></returns>
-        public static string GenerateRandomFileName()
-        {
-            string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-            string randomSuffix = Guid.NewGuid().ToString().Substring(0, 4);
-            string fileName = $"log_{timestamp}_{randomSuffix}.txt";
-            return fileName;
         }
 
         /// <summary>

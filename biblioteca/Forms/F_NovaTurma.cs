@@ -31,7 +31,7 @@ namespace biblioteca
             }
             else
             {
-                DataTable dt = DatabaseController.DQL($"SELECT * FROM tb_turmas WHERE N_TURMA = '{Turma.Text}'");
+                DataTable dt = DatabaseController.DataQueryLanguage($"SELECT * FROM tb_turmas WHERE N_TURMA = '{Turma.Text}'");
                 if (dt.Rows.Count > 0)
                 {
                     MessageBox.Show("Já existe uma turma com este nome", "Nova turma", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -40,7 +40,7 @@ namespace biblioteca
                 }
                 else
                 {
-                    DatabaseController.DML($"INSERT INTO tb_turmas (N_TURMA) VALUES ('{MGlobais.SanitizeString(Turma.Text)}')");
+                    DatabaseController.DataManipulationLanguage($"INSERT INTO tb_turmas (N_TURMA) VALUES ('{MGlobais.SanitizeString(Turma.Text)}')");
                     CarregarTurmas();
 
                     if (DialogResult.Yes == MessageBox.Show("A nova turma foi salva! Deseja realizar outra operação? ", "Salvo", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
@@ -56,7 +56,7 @@ namespace biblioteca
 
         private void CarregarTurmas()
         {
-            Turmas.DataSource = DatabaseController.DQL("SELECT N_IDTURMA AS 'ID', N_TURMA AS 'Nome da Turma' FROM tb_turmas ORDER BY N_TURMA");
+            Turmas.DataSource = DatabaseController.DataQueryLanguage("SELECT N_IDTURMA AS 'ID', N_TURMA AS 'Nome da Turma' FROM tb_turmas ORDER BY N_TURMA");
             Turmas.Columns[0].Width = 50;
             Turmas.Columns[1].Width = 190;
         }

@@ -21,7 +21,7 @@ namespace biblioteca
 
         private void FormLoad(object sender, EventArgs e)
         {
-            Turmas.DataSource = DatabaseController.DQL("SELECT * FROM tb_turmas ORDER BY N_TURMA");
+            Turmas.DataSource = DatabaseController.DataQueryLanguage("SELECT * FROM tb_turmas ORDER BY N_TURMA");
             Turmas.DisplayMember = "N_TURMA";
             Turmas.ValueMember = "N_IDTURMA";
         }
@@ -128,7 +128,7 @@ namespace biblioteca
                     tabela.AddCell(C0);
                 }
 
-                DataTable dt = DatabaseController.DQL(Query);
+                DataTable dt = DatabaseController.DataQueryLanguage(Query);
                 Progress.Maximum = dt.Rows.Count;
 
                 int controleLinha = 1;

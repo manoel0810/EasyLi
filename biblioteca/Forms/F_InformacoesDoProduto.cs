@@ -8,5 +8,11 @@ namespace biblioteca
         {
             InitializeComponent();
         }
+
+        private void F_InformacoesDoProduto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
+        }
     }
 }

@@ -67,8 +67,8 @@ namespace biblioteca.Forms
 
             if (DialogResult.Yes == MessageBox.Show("Ao apagar um usuário do sistema, todo e qualquer registro associado ao mesmo também será apagado. Deseja continuar?", "Apagar usuário", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
-                DatabaseController.DML($"delete from registry where T_MATRICULA = '{Matricula.Text}'");
-                DatabaseController.DML($"delete from users where code = '{Matricula.Text}'");
+                DatabaseController.DataManipulationLanguage($"delete from registry where T_MATRICULA = '{Matricula.Text}'");
+                DatabaseController.DataManipulationLanguage($"delete from users where code = '{Matricula.Text}'");
 
                 Usuarios.Rows.Remove(Usuarios.CurrentRow);
                 MessageBox.Show("Todos os dados do usuário foram apagados com êxito", "Controle de usuários", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -78,7 +78,7 @@ namespace biblioteca.Forms
 
         private void UserControl_Load(object sender, EventArgs e)
         {
-            Usuarios.DataSource = DatabaseController.DQL("select code as 'Matricula', user_name as 'Nome completo' from users");
+            Usuarios.DataSource = DatabaseController.DataQueryLanguage("select code as 'Matricula', user_name as 'Nome completo' from users");
 
             Usuarios.Columns[0].Width = 60;
             Usuarios.Columns[1].Width = Usuarios.Width - (Usuarios.Columns[0].Width + DGVMargin);
@@ -91,7 +91,7 @@ namespace biblioteca.Forms
         {
             if (Usuarios.SelectedRows.Count > 0)
             {
-                DataTable UserInformation = DatabaseController.DQL($"select * from users where code = '{Usuarios.SelectedRows[0].Cells[0].Value}'");
+                DataTable UserInformation = DatabaseController.DataQueryLanguage($"select * from users where code = '{Usuarios.SelectedRows[0].Cells[0].Value}'");
                 Nome.Text = UserInformation.Rows[0].Field<string>("user_name");
                 Email.Text = UserInformation.Rows[0].Field<string>("user_email");
                 Matricula.Text = UserInformation.Rows[0].Field<string>("code");
@@ -108,7 +108,7 @@ namespace biblioteca.Forms
 
         private void ChengeUserStatus(Global.UserState Status)
         {
-            DatabaseController.DML($"update users set user_status = '{(int)Status}' where code = '{Matricula.Text}'");
+            DatabaseController.DataManipulationLanguage($"update users set user_status = '{(int)Status}' where code = '{Matricula.Text}'");
             CurrentUserState = Status;
 
             StatusChenge.Checked = false;
@@ -151,9 +151,9 @@ namespace biblioteca.Forms
                 return;
 
             if (FiltroNome.Text.Trim().Length == 0)
-                Usuarios.DataSource = DatabaseController.DQL("select code as 'Matricula', user_name as 'Nome completo' from users");
+                Usuarios.DataSource = DatabaseController.DataQueryLanguage("select code as 'Matricula', user_name as 'Nome completo' from users");
             else if (FiltroNome.Text.Trim().Length >= 3)
-                Usuarios.DataSource = DatabaseController.DQL($"select code as 'Matricula', user_name as 'Nome completo' from users where user_name like '%{FiltroNome.Text.Replace("'", "''")}%'");
+                Usuarios.DataSource = DatabaseController.DataQueryLanguage($"select code as 'Matricula', user_name as 'Nome completo' from users where user_name like '%{FiltroNome.Text.Replace("'", "''")}%'");
         }
 
         private void FiltroMatricula_TextChanged(object sender, EventArgs e)
@@ -162,9 +162,9 @@ namespace biblioteca.Forms
                 return;
 
             if (FiltroMatricula.Text.Trim().Length == 0)
-                Usuarios.DataSource = DatabaseController.DQL("select code as 'Matricula', user_name as 'Nome completo' from users");
+                Usuarios.DataSource = DatabaseController.DataQueryLanguage("select code as 'Matricula', user_name as 'Nome completo' from users");
             else if (FiltroMatricula.Text.Trim().Length >= 3)
-                Usuarios.DataSource = DatabaseController.DQL($"select code as 'Matricula', user_name as 'Nome completo' from users where code like '%{FiltroMatricula.Text}%'");
+                Usuarios.DataSource = DatabaseController.DataQueryLanguage($"select code as 'Matricula', user_name as 'Nome completo' from users where code like '%{FiltroMatricula.Text}%'");
         }
     }
 }

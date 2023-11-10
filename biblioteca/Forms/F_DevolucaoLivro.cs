@@ -23,7 +23,7 @@ namespace biblioteca
 
         private void F_DevolucaoLivro_Load(object sender, EventArgs e)
         {
-            dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER");
+            dgv_livrosPdevol.DataSource = DatabaseController.DataQueryLanguage($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER");
             FormatarDGV();
 
             KeyPreview = true;
@@ -48,7 +48,7 @@ namespace biblioteca
             if (dgv.SelectedRows.Count > 0)
             {
                 DataTable UserInfo;
-                UserInfo = DatabaseController.DQL($"select * from registry where N_REGISTRYCODE = '{dgv_livrosPdevol.SelectedRows[0].Cells[0].Value}'");
+                UserInfo = DatabaseController.DataQueryLanguage($"select * from registry where N_REGISTRYCODE = '{dgv_livrosPdevol.SelectedRows[0].Cells[0].Value}'");
 
                 ID.Text = UserInfo.Rows[0].Field<Int64>("N_REGISTRYCODE").ToString();
                 NomeUsuario.Text = UserInfo.Rows[0].Field<string>("T_USER");
@@ -80,7 +80,7 @@ namespace biblioteca
                         Email.EnviarEmail(Body, "EasyLi", UserEmail);
                     }
 
-                    DatabaseController.DML($"UPDATE registry SET T_STATUS='{(int)Global.BookStatus.Devolvido}', T_DATAP = '{MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString())}' WHERE N_REGISTRYCODE = '{ID.Text}'");
+                    DatabaseController.DataManipulationLanguage($"UPDATE registry SET T_STATUS='{(int)Global.BookStatus.Devolvido}', T_DATAP = '{MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString())}' WHERE N_REGISTRYCODE = '{ID.Text}'");
                     dgv_livrosPdevol.Rows.Remove(dgv_livrosPdevol.CurrentRow);
 
                     MessageBox.Show("Devolução efetuada com sucesso", "Devoluções", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -97,13 +97,13 @@ namespace biblioteca
         {
             if (string.IsNullOrWhiteSpace(FiltroNome.Text))
             {
-                dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER");
+                dgv_livrosPdevol.DataSource = DatabaseController.DataQueryLanguage($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER");
                 FormatarDGV();
                 return;
             }
             else if (FiltroNome.Text.Trim().Length >= 0x2)
             {
-                dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_USER LIKE '%{FiltroNome.Text.Replace("'", "''")}%' or T_LIVRO LIKE '%{FiltroNome.Text.Replace("'", "''")}%' AND T_STATUS = '{(int)Global.BookStatus.Emprestado}'");
+                dgv_livrosPdevol.DataSource = DatabaseController.DataQueryLanguage($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_USER LIKE '%{FiltroNome.Text.Replace("'", "''")}%' or T_LIVRO LIKE '%{FiltroNome.Text.Replace("'", "''")}%' AND T_STATUS = '{(int)Global.BookStatus.Emprestado}'");
                 FormatarDGV();
                 return;
             }
@@ -113,13 +113,13 @@ namespace biblioteca
         {
             if (string.IsNullOrWhiteSpace(FiltroMatricula.Text))
             {
-                dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER");
+                dgv_livrosPdevol.DataSource = DatabaseController.DataQueryLanguage($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER");
                 FormatarDGV();
                 return;
             }
             else if (FiltroMatricula.Text.Trim().Length >= 0x2)
             {
-                dgv_livrosPdevol.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_MATRICULA LIKE '%{FiltroMatricula.Text}%' or T_TOMBO LIKE '%{FiltroMatricula.Text}%' AND T_STATUS = '{(int)Global.BookStatus.Emprestado}'");
+                dgv_livrosPdevol.DataSource = DatabaseController.DataQueryLanguage($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Aluno', T_LIVRO AS 'Livro' FROM registry WHERE T_MATRICULA LIKE '%{FiltroMatricula.Text}%' or T_TOMBO LIKE '%{FiltroMatricula.Text}%' AND T_STATUS = '{(int)Global.BookStatus.Emprestado}'");
                 FormatarDGV();
                 return;
             }

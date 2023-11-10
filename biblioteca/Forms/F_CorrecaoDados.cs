@@ -26,16 +26,16 @@ namespace biblioteca
         private void ControleLivro(string tombo)
         {
             if (tombo != tomboOriginal)
-                if (DatabaseController.DQL(String.Format("select * from tb_livros where id = '{0}'", tomboOriginal)).Rows.Count > 0)
-                    DatabaseController.DQL(String.Format("updata tb_livros set id = '{0}', t_titulo = '{1}' where id = '{2}'", tombo, MGlobais.SanitizeString(Livro.Text), tomboOriginal));
+                if (DatabaseController.DataQueryLanguage(String.Format("select * from tb_livros where id = '{0}'", tomboOriginal)).Rows.Count > 0)
+                    DatabaseController.DataQueryLanguage(String.Format("updata tb_livros set id = '{0}', t_titulo = '{1}' where id = '{2}'", tombo, MGlobais.SanitizeString(Livro.Text), tomboOriginal));
         }
 
         private void FormLoad(object sender, EventArgs e)
         {
-            dgv_dadosCorrecao.DataSource = DatabaseController.DQL("SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
+            dgv_dadosCorrecao.DataSource = DatabaseController.DataQueryLanguage("SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
             FormatarDGV();
 
-            Turmas.DataSource = DatabaseController.DQL(@"SELECT * FROM tb_turmas ORDER BY N_TURMA");
+            Turmas.DataSource = DatabaseController.DataQueryLanguage(@"SELECT * FROM tb_turmas ORDER BY N_TURMA");
             Turmas.DisplayMember = "N_TURMA";
             Turmas.ValueMember = "N_IDTURMA";
             //cb_turma.Text = tb_turma.Text;
@@ -59,7 +59,7 @@ namespace biblioteca
             if (dgv.SelectedRows.Count > 0)
             {
                 string ID = dgv_dadosCorrecao.SelectedRows[0].Cells[0].Value.ToString();
-                DataTable dt = DatabaseController.DQL($"select * from registry where N_REGISTRYCODE = '{ID}'");
+                DataTable dt = DatabaseController.DataQueryLanguage($"select * from registry where N_REGISTRYCODE = '{ID}'");
 
                 Identificacao.Text = dt.Rows[0].Field<Int64>("N_REGISTRYCODE").ToString();
                 NomeUsuario.Text = dt.Rows[0].Field<string>("T_USER").ToString();
@@ -93,7 +93,7 @@ namespace biblioteca
                 Notas.Text = dt.Rows[0].Field<string>("T_NOTAS");
 
                 //Verificar estado atual de cadastro do usuário associado à matrícula do registro selecionado
-                DataTable UserInformations = DatabaseController.DQL($"select * from users where code = '{dt.Rows[0].Field<string>("T_MATRICULA")}'");
+                DataTable UserInformations = DatabaseController.DataQueryLanguage($"select * from users where code = '{dt.Rows[0].Field<string>("T_MATRICULA")}'");
                 if (UserInformations.Rows.Count == 0)
                 {
                     MessageBox.Show("Ocorre um erro ao recuperar as informações do usuário associado à este registro. O usuário pode ter sido excluído e a referência ao registro não alterada", "Correção de dados", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -158,7 +158,7 @@ namespace biblioteca
             ControleLivro(Tombo.Text);
 
             Global.UserState State;
-            DataTable UserInformation = DatabaseController.DQL($"select * from users where code = '{Matricula.Text}'");
+            DataTable UserInformation = DatabaseController.DataQueryLanguage($"select * from users where code = '{Matricula.Text}'");
 
             if (Enum.IsDefined(typeof(Global.UserState), (int)UserInformation.Rows[0].Field<Int64>("user_status")))
                 State = (Global.UserState)(int)UserInformation.Rows[0].Field<Int64>("user_status");
@@ -196,12 +196,12 @@ namespace biblioteca
         {
             if (FiltroNome.Text.Trim().Length >= 2)
             {
-                dgv_dadosCorrecao.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry where T_USER like '%{FiltroNome.Text.Replace("'", "''")}%' or T_LIVRO like '%{FiltroNome.Text.Replace("'", "''")}%' ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
+                dgv_dadosCorrecao.DataSource = DatabaseController.DataQueryLanguage($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry where T_USER like '%{FiltroNome.Text.Replace("'", "''")}%' or T_LIVRO like '%{FiltroNome.Text.Replace("'", "''")}%' ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
                 FormatarDGV();
             }
             else if (FiltroNome.Text.Trim().Length == 0)
             {
-                dgv_dadosCorrecao.DataSource = DatabaseController.DQL("SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
+                dgv_dadosCorrecao.DataSource = DatabaseController.DataQueryLanguage("SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
                 FormatarDGV();
             }
         }
@@ -210,12 +210,12 @@ namespace biblioteca
         {
             if (FiltroMatricula.Text.Length >= 2)
             {
-                dgv_dadosCorrecao.DataSource = DatabaseController.DQL($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry where T_MATRICULA like '%{FiltroMatricula.Text}%' or T_TOMBO like '%{FiltroMatricula.Text}%' ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
+                dgv_dadosCorrecao.DataSource = DatabaseController.DataQueryLanguage($"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry where T_MATRICULA like '%{FiltroMatricula.Text}%' or T_TOMBO like '%{FiltroMatricula.Text}%' ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
                 FormatarDGV();
             }
             else if (FiltroMatricula.Text.Length == 0)
             {
-                dgv_dadosCorrecao.DataSource = DatabaseController.DQL("SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
+                dgv_dadosCorrecao.DataSource = DatabaseController.DataQueryLanguage("SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_LIVRO AS 'Livro' FROM registry ORDER BY N_REGISTRYCODE DESC LIMIT 1200");
                 FormatarDGV();
             }
         }
@@ -240,7 +240,7 @@ namespace biblioteca
 
             if (DialogResult.Yes == MessageBox.Show("Deseja realmente apagar esse registro de movimentação? Essa ação não é reversível", "Correção de dados", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
-                DatabaseController.DML($"delete from registry where N_REGISTRYCODE = '{dgv_dadosCorrecao.SelectedRows[0x0].Cells[0x0].Value}'");
+                DatabaseController.DataManipulationLanguage($"delete from registry where N_REGISTRYCODE = '{dgv_dadosCorrecao.SelectedRows[0x0].Cells[0x0].Value}'");
                 dgv_dadosCorrecao.Rows.Remove(dgv_dadosCorrecao.SelectedRows[0]);
             }
         }

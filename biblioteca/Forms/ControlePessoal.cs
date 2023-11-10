@@ -18,7 +18,7 @@ namespace biblioteca
         private void F_ControleUsuarios_Load(object sender, EventArgs e)
         {
 
-            DataTable infUser = DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_TOKEN = '{Global.CurrentUserAccessToken}'");
+            DataTable infUser = DatabaseController.DataQueryLanguage($"SELECT * FROM tb_login WHERE T_TOKEN = '{Global.CurrentUserAccessToken}'");
             Nome.Text = infUser.Rows[0].Field<string>("T_NOMECOMPLETO");
             Username.Text = infUser.Rows[0].Field<string>("T_USER");
             CurrentUsername = infUser.Rows[0].Field<string>("T_USER");
@@ -77,7 +77,7 @@ namespace biblioteca
                         {
                             string NewToken = MGlobais.GenereteUserToken(Username.Text, NovaSenha.Text);
                             string Query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_TOKEN = '{1}', T_NOMECOMPLETO = '{2}' WHERE T_TOKEN = '{3}'", Username.Text, NewToken, Nome.Text, Global.CurrentUserAccessToken);
-                            DatabaseController.DML(Query);
+                            DatabaseController.DataManipulationLanguage(Query);
 
                             Global.CurrentUsername = Username.Text;
                             Global.CurrentUserFullname = Nome.Text;
@@ -98,7 +98,7 @@ namespace biblioteca
                         {
                             string NewToken = MGlobais.GenereteUserToken(Username.Text, SenhaAtual.Text);
                             string Query = String.Format("UPDATE tb_login SET T_USER = '{0}', T_TOKEN = '{1}', T_NOMECOMPLETO = '{2}' WHERE T_TOKEN = '{3}'", Username.Text, NewToken, Nome.Text, Global.CurrentUserAccessToken);
-                            DatabaseController.DML(Query);
+                            DatabaseController.DataManipulationLanguage(Query);
 
                             Global.CurrentUsername = Username.Text;
                             Global.CurrentUserFullname = Nome.Text;
@@ -123,7 +123,7 @@ namespace biblioteca
 
         private bool VerifyUserAvaible(string Username)
         {
-            DataTable UserFind = DatabaseController.DQL($"select T_TOKEN from tb_login where T_USER = '{Username}'");
+            DataTable UserFind = DatabaseController.DataQueryLanguage($"select T_TOKEN from tb_login where T_USER = '{Username}'");
             if (UserFind.Rows.Count == 0)
             {
                 UserFind.Dispose();
@@ -171,7 +171,7 @@ namespace biblioteca
 
             if (DialogResult.Yes == MessageBox.Show("Ao apagar o usuário, você será desconectado do sistema. Deseja continuar?", "Apagar usuário", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
-                DatabaseController.DML($"delete from tb_login where T_TOKEN = '{Global.CurrentUserAccessToken}'");
+                DatabaseController.DataManipulationLanguage($"delete from tb_login where T_TOKEN = '{Global.CurrentUserAccessToken}'");
                 MessageBox.Show("O sistema será finalizado...", "Saindo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Application.Exit();
             }

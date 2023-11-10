@@ -52,7 +52,7 @@ namespace biblioteca
                             return;
                         }
 
-                        DatabaseController.DML(String.Format("UPDATE tb_login SET T_TOKEN = '{0}' WHERE T_USER = '{1}'", MGlobais.GenereteUserToken(Username.Text, RepetirSenha.Text), Username.Text));
+                        DatabaseController.DataManipulationLanguage(String.Format("UPDATE tb_login SET T_TOKEN = '{0}' WHERE T_USER = '{1}'", MGlobais.GenereteUserToken(Username.Text, RepetirSenha.Text), Username.Text));
                         MessageBox.Show("Seu cadastro foi atualizado", "Banco de Dados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Close();
                     }
@@ -66,7 +66,7 @@ namespace biblioteca
             }
 
             int NivelDeAcesso = NivelBasico.Checked ? (int)Global.UserPrivilege.Normal : (int)Global.UserPrivilege.Superuser;
-            DataTable dt = DatabaseController.DQL($"SELECT * FROM tb_login WHERE T_USER = '{Username.Text}' AND N_PRIV = '{NivelDeAcesso}' and T_NOMECOMPLETO = '{Nome.Text}'");
+            DataTable dt = DatabaseController.DataQueryLanguage($"SELECT * FROM tb_login WHERE T_USER = '{Username.Text}' AND N_PRIV = '{NivelDeAcesso}' and T_NOMECOMPLETO = '{Nome.Text}'");
 
             if (dt.Rows.Count < 1)
             {

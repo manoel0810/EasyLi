@@ -40,8 +40,10 @@ namespace biblioteca.Forms
                 Livro = Consultas.ConsultarISBN(ISBNSanitized, false);
                 if (Livro != null)
                 {
-                    if (Capa.Checked)
-                        Cover = Consultas.GetCompostImage(Consultas.ImageSize.M, ISBNSanitized);
+                    if (Capa.Checked && Livro.HasCover)
+                    {
+                        Cover = Consultas.GetCompostImage(Consultas.ImageSize.M, Livro);
+                    }
 
                     Finished = true;
                     Close();

@@ -14,7 +14,7 @@ namespace biblioteca
 
         private void FormLoad(object sender, EventArgs e)
         {
-            Turmas.DataSource = DatabaseController.DQL("SELECT N_IDTURMA AS 'ID', N_TURMA AS 'Turma' FROM tb_turmas");
+            Turmas.DataSource = DatabaseController.DataQueryLanguage("SELECT N_IDTURMA AS 'ID', N_TURMA AS 'Turma' FROM tb_turmas");
             Turmas.Columns[0].Width = 50; //ID
             Turmas.Columns[1].Width = Turmas.Width - (Turmas.Columns[0].Width + MargemDGV); //Turma
 
@@ -41,7 +41,7 @@ namespace biblioteca
             if (Turmas.SelectedRows.Count == 0)
                 return;
 
-            DatabaseController.DML($"UPDATE tb_turmas SET N_TURMA='{Turma.Text}' WHERE N_IDTURMA='{ID.Text}'");
+            DatabaseController.DataManipulationLanguage($"UPDATE tb_turmas SET N_TURMA='{Turma.Text}' WHERE N_IDTURMA='{ID.Text}'");
             Turmas.SelectedRows[0].Cells[1].Value = Turma.Text;
         }
 
@@ -52,7 +52,7 @@ namespace biblioteca
 
             if (DialogResult.Yes == MessageBox.Show("Deseja realmente excluir este item?", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
-                DatabaseController.DML($"DELETE FROM tb_turmas WHERE N_IDTURMA='{ID.Text}'");
+                DatabaseController.DataManipulationLanguage($"DELETE FROM tb_turmas WHERE N_IDTURMA='{ID.Text}'");
                 Turmas.Rows.Remove(Turmas.CurrentRow);
             }
         }

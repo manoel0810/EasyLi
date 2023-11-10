@@ -54,7 +54,7 @@
             // 
             this.Download.FlatAppearance.BorderSize = 0;
             this.Download.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Download.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.Download.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Download.Location = new System.Drawing.Point(56, 207);
             this.Download.Name = "Download";
             this.Download.Size = new System.Drawing.Size(83, 27);
@@ -67,7 +67,7 @@
             // 
             this.Upload.FlatAppearance.BorderSize = 0;
             this.Upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Upload.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.Upload.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Upload.Location = new System.Drawing.Point(160, 207);
             this.Upload.Name = "Upload";
             this.Upload.Size = new System.Drawing.Size(83, 27);

@@ -37,18 +37,18 @@ namespace biblioteca.Forms
             {
                 string SearchArg = MGlobais.SanitizeString(Filtro.Text);
                 if (Mode == SearchMode.UserMode)
-                    Dados.DataSource = DatabaseController.DQL($"select code as 'Matricula', user_name as 'Nome completo' from users where user_status != '{(int)Global.UserState.Blocked}' and user_name like '%{SearchArg}%' order by user_name limit 100");
+                    Dados.DataSource = DatabaseController.DataQueryLanguage($"select code as 'Matricula', user_name as 'Nome completo' from users where user_status != '{(int)Global.UserState.Blocked}' and user_name like '%{SearchArg}%' order by user_name limit 100");
                 else if (Mode == SearchMode.BookMode)
-                    Dados.DataSource = DatabaseController.DQL($"select id as 'Tombo', t_titulo as 'Nome do exemplar' from tb_livros where t_titulo like '%{SearchArg}%' order by t_titulo limit 100");
+                    Dados.DataSource = DatabaseController.DataQueryLanguage($"select id as 'Tombo', t_titulo as 'Nome do exemplar' from tb_livros where t_titulo like '%{SearchArg}%' order by t_titulo limit 100");
             }
         }
 
         private void InitialAction()
         {
             if (Mode == SearchMode.UserMode)
-                Dados.DataSource = DatabaseController.DQL($"select code as 'Matricula', user_name as 'Nome completo' from users where user_status != '{(int)Global.UserState.Blocked}' order by user_name limit 100");
+                Dados.DataSource = DatabaseController.DataQueryLanguage($"select code as 'Matricula', user_name as 'Nome completo' from users where user_status != '{(int)Global.UserState.Blocked}' order by user_name limit 100");
             else if (Mode == SearchMode.BookMode)
-                Dados.DataSource = DatabaseController.DQL($"select id as 'Tombo', t_titulo as 'Nome do exemplar' from tb_livros order by t_titulo limit 100");
+                Dados.DataSource = DatabaseController.DataQueryLanguage($"select id as 'Tombo', t_titulo as 'Nome do exemplar' from tb_livros order by t_titulo limit 100");
 
             Dados.Columns[0].Width = 60;
             Dados.Columns[1].Width = Dados.Width - (Dados.Columns[0].Width + DGVMargin);
@@ -62,7 +62,7 @@ namespace biblioteca.Forms
                     Arguments = new string[] { Dados.SelectedRows[0].Cells[0].Value.ToString(), Dados.SelectedRows[0].Cells[1].Value.ToString() };
                 else if (Mode == SearchMode.UserMode)
                 {
-                    DataTable AllUserInformation = DatabaseController.DQL($"select * from users where code = '{Dados.SelectedRows[0].Cells[0].Value}'");
+                    DataTable AllUserInformation = DatabaseController.DataQueryLanguage($"select * from users where code = '{Dados.SelectedRows[0].Cells[0].Value}'");
                     Arguments = new string[]
                     {
                         AllUserInformation.Rows[0].Field<string>("code"),

@@ -34,7 +34,7 @@ namespace biblioteca
 
             DateTime dataS8 = Hoje.AddDays(-8);
             string vquery = $"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_MATRICULA AS 'Matricula', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_DATA AS 'Data' FROM registry WHERE T_DATA < '{MGlobais.FormatarDataSQL(dataS8.ToShortDateString())}' AND T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_DATA";
-            dgv_atrasados.DataSource = DatabaseController.DQL(vquery);
+            dgv_atrasados.DataSource = DatabaseController.DataQueryLanguage(vquery);
             FormatarDGV();
 
             lb_modo.Text = "Modo: Mais de 8(oito) dias";
@@ -72,7 +72,7 @@ namespace biblioteca
                 DateTime TempoPassado = Index == 0 ? Hoje.AddDays(-8) : Hoje.AddDays(-15);
 
                 string vquery = $"SELECT N_REGISTRYCODE AS 'ID', T_USER AS 'Usuário', T_MATRICULA AS 'Matricula', T_TURMA AS 'Turma', T_LIVRO AS 'Livro', T_DATA AS 'Data' FROM registry WHERE T_DATA < '{MGlobais.FormatarDataSQL(TempoPassado.ToShortDateString())}' AND T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_DATA";
-                dgv_atrasados.DataSource = DatabaseController.DQL(vquery);
+                dgv_atrasados.DataSource = DatabaseController.DataQueryLanguage(vquery);
                 FormatarDGV();
 
                 lb_modo.Text = Index == 0 ? "Modo: Mais de 8(oito) dias" : "Modo: Mais de 15(quinze) dias";
@@ -95,7 +95,7 @@ namespace biblioteca
             DateTime TempoPassado = Index == 0 ? Hoje.AddDays(-8) : Hoje.AddDays(-15);
 
             string Query = $"SELECT T_USER AS 'Usuário', T_LIVRO AS 'Livro', T_TURMA AS 'Turma', T_DATA AS 'Data' FROM registry WHERE T_DATA < '{MGlobais.FormatarDataSQL(TempoPassado.ToShortDateString())}' AND T_STATUS = '{(int)Global.BookStatus.Emprestado}' ORDER BY T_USER, T_TURMA";
-            GerarPDF.CriarPDF(DatabaseController.DQL(Query), Index == 0 ? "Atrasados (8 >= Dias)" : "Atrasados (15 >= Dias)");
+            GerarPDF.CriarPDF(DatabaseController.DataQueryLanguage(Query), Index == 0 ? "Atrasados (8 >= Dias)" : "Atrasados (15 >= Dias)");
             return;
 
         }
@@ -115,7 +115,7 @@ namespace biblioteca
             if (DialogResult.Yes == MessageBox.Show(mensagem, "Renovação de Livro", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
                 string Query = $"update registry set T_DATA = '{MGlobais.FormatarDataSQL(Hoje.ToShortDateString())}' where N_REGISTRYCODE = '" + id + "'";
-                DatabaseController.DML(Query);
+                DatabaseController.DataManipulationLanguage(Query);
 
                 dgv_atrasados.Rows.Remove(dgv_atrasados.CurrentRow);
                 MessageBox.Show("O livro foi renovado até a data fornecida pelo Back-End", "Banco de Dados", MessageBoxButtons.OK, MessageBoxIcon.Information);

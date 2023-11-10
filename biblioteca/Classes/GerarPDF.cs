@@ -9,6 +9,8 @@ namespace biblioteca
 {
     public class GerarPDF
     {
+        //TODO: Refactory all the class
+
         public static void CriarPDF(DataTable dataTable, string Modo)
         {
             SaveFileDialog Save = new SaveFileDialog
@@ -204,7 +206,7 @@ namespace biblioteca
                 }
 
                 int controleL = 0;
-                DataTable info = DatabaseController.DQL("select * from tb_livros order by t_titulo");
+                DataTable info = DatabaseController.DataQueryLanguage("select * from tb_livros order by t_titulo");
                 for (int i = 0; i < info.Rows.Count; i++)
                 {
                     PdfPCell D1 = new PdfPCell(new Phrase((i + 1).ToString(), new Font(Font.NORMAL, 8f, Font.NORMAL, preto)));

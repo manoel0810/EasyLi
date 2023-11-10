@@ -29,7 +29,7 @@ namespace biblioteca.Classes
         {
             try
             {
-                DatabaseController.DQL("select * from db_updates");
+                DatabaseController.DataQueryLanguage("select * from db_updates");
                 Global.Log.Log($"[DatabaseUpdates] method request CheckPrimaryTable() :: {true}");
                 return true;
             }
@@ -59,7 +59,7 @@ namespace biblioteca.Classes
         private List<string> GetDatabaseInstalledUpdates()
         {
             Global.Log.Log($"[DatabaseUpdates] method request GetDatabaseInstalledUpdates()");
-            DataTable UpdatesDatabase = DatabaseController.DQL("select UPID from db_updates");
+            DataTable UpdatesDatabase = DatabaseController.DataQueryLanguage("select UPID from db_updates");
             List<string> UpdatesOnDatabase = new List<string>();
 
             foreach (var row in UpdatesDatabase.Rows)
@@ -146,7 +146,7 @@ namespace biblioteca.Classes
 
                 try
                 {
-                    DatabaseController.DML(update.Value);
+                    DatabaseController.DataManipulationLanguage(update.Value);
                     Global.Log.Log($"[DatabaseUpdates] method request InstallUpdates() > installing :: $success? = {true}");
                 }
                 catch
@@ -208,7 +208,7 @@ namespace biblioteca.Classes
 
         public virtual void CreatePrimaryTable()
         {
-            DatabaseController.DQL(PRIMARY_TABLE);
+            DatabaseController.DataQueryLanguage(PRIMARY_TABLE);
             PrimaryOk = true;
         }
     }

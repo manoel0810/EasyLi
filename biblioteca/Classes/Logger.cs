@@ -7,12 +7,12 @@ public class Logger
     private readonly string logFilePath;
     private string logBuffer = "";
 
-    public Logger(string filePath)
+    public Logger(string path)
     {
         if (!Directory.Exists($"{Application.StartupPath}\\logs"))
             Directory.CreateDirectory($"{Application.StartupPath}\\logs");
 
-        logFilePath = filePath;
+        logFilePath = Path.Combine(path, GenerateRandomFileName());
         AppDomain.CurrentDomain.ProcessExit += SaveLogToFile;
 
         DeleteOldLogFiles($"{Application.StartupPath}\\logs");
@@ -42,5 +42,13 @@ public class Logger
                 Log($"[Logger] Arquivo log: {file.Name}, apagado");
             }
         }
+    }
+
+    private string GenerateRandomFileName()
+    {
+        string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+        string randomSuffix = Guid.NewGuid().ToString().Substring(0, 4);
+        string fileName = $"log_{timestamp}_{randomSuffix}.txt";
+        return fileName;
     }
 }

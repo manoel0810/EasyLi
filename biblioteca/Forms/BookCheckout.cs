@@ -38,7 +38,7 @@ namespace biblioteca
         private void RegistrarLivro()
         {
             if (!RegisteredBooks)
-                DatabaseController.DML(String.Format("insert into tb_livros values ('{0}', '{1}', '{2}')", Tombo.Text, MGlobais.SanitizeString(Livro.Text), MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString())));
+                DatabaseController.DataManipulationLanguage(String.Format("insert into tb_livros values ('{0}', '{1}', '{2}')", Tombo.Text, MGlobais.SanitizeString(Livro.Text), MGlobais.FormatarDataSQL(DateTime.Today.ToShortDateString())));
         }
 
         private void RegistrarUsuario()
@@ -61,7 +61,7 @@ namespace biblioteca
         private void FormLoad(object sender, EventArgs e)
         {
             //Popular ComboBox Turmas
-            Turma.DataSource = DatabaseController.DQL(@"SELECT * FROM tb_turmas ORDER BY N_TURMA");
+            Turma.DataSource = DatabaseController.DataQueryLanguage(@"SELECT * FROM tb_turmas ORDER BY N_TURMA");
             Turma.DisplayMember = "N_TURMA";
             Turma.ValueMember = "N_IDTURMA";
 
@@ -130,7 +130,7 @@ namespace biblioteca
             }
 
             string vquery = @"INSERT INTO registry (T_USER, T_LIVRO, T_STATUS, T_DATA, T_DATAP, T_TURMA, T_MATRICULA, T_TOMBO, T_EMAIL) VALUES ('" + MGlobais.SanitizeString(NomeUsuario.Text) + "', '" + MGlobais.SanitizeString(Livro.Text) + "', '" + (int)InitialBookState + "', '" + MGlobais.FormatarDataSQL(Data.Text) + "', '" + MGlobais.FormatarDataSQL(Data.Text) + "', '" + Turma.Text + "', '" + UserCode + "', '" + Tombo.Text + "', '" + Email.Text + "')";
-            DatabaseController.DML(vquery);
+            DatabaseController.DataManipulationLanguage(vquery);
 
             if (DialogResult.Yes == MessageBox.Show("Salvo com êxito! Novo Cadastro?", "Banco de Dados", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                 ClearForm();
@@ -190,7 +190,7 @@ namespace biblioteca
             }
 
             DataTable Student;
-            Student = DatabaseController.DQL($"select user_name, user_status from users where code = '{Matricula.Text}'");
+            Student = DatabaseController.DataQueryLanguage($"select user_name, user_status from users where code = '{Matricula.Text}'");
             if (Student.Rows.Count > 0)
             {
                 RegisteredUser = true;
@@ -215,7 +215,7 @@ namespace biblioteca
             }
 
             DataTable Book;
-            Book = DatabaseController.DQL($"select t_titulo from tb_livros where id = '{Tombo.Text}'");
+            Book = DatabaseController.DataQueryLanguage($"select t_titulo from tb_livros where id = '{Tombo.Text}'");
             if (Book.Rows.Count > 0)
             {
                 Livro.Text = Book.Rows[0].Field<string>("t_titulo");
