@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyLi", "biblioteca\EasyLi.csproj", "{CFAF5FC3-4C25-44A1-87E9-8393E4E92472}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyLiTwo", "EasyLiTwo\EasyLiTwo.csproj", "{12C1D5EA-6ACF-452A-BC39-12B9A42B87B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CFAF5FC3-4C25-44A1-87E9-8393E4E92472}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFAF5FC3-4C25-44A1-87E9-8393E4E92472}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFAF5FC3-4C25-44A1-87E9-8393E4E92472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C1D5EA-6ACF-452A-BC39-12B9A42B87B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C1D5EA-6ACF-452A-BC39-12B9A42B87B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C1D5EA-6ACF-452A-BC39-12B9A42B87B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C1D5EA-6ACF-452A-BC39-12B9A42B87B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
