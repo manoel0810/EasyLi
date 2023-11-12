@@ -1,3 +1,6 @@
+# DESCONTINUADO
+## A nova versão está sendo desenvolvida no novo repositório [EasyLi Two](https://github.com/manoel0810/EasyLiTwo)
+
 # EasyLi - Organizador de Bibliotecas
 
 O EasyLi é um software de organização de bibliotecas escrito em C#. Este repositório contém o código fonte original do EasyLi, que foi desenvolvido há vários anos e está descontinuado. No entanto, estamos tornando o repositório público para permitir que outros contribuam e façam melhorias no código.
